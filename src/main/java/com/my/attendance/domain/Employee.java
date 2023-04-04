@@ -19,5 +19,5 @@ public class Employee {
 	private String empPosition;
 	private String empPino;
 	private String profileName;
-	private String comId;
+	private String companyId;
 }
