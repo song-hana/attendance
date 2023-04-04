@@ -39,7 +39,7 @@ public class EmployeeController {
 			session.setAttribute("empPosition", emp.getEmpPosition());
 			session.setAttribute("empPino", emp.getEmpPino());
 			session.setAttribute("profileName", emp.getProfileName());
-			session.setAttribute("comId", emp.getComId());
+			session.setAttribute("comId", emp.getCompanyId());
 			result = "main";
 		} else {
 			result = "";
