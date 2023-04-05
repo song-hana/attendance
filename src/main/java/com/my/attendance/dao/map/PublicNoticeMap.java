@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.my.attendance.domain.PublicNotice;
 
-public interface PublicNoticeMap {	
+public interface PublicNoticeMap {	 
 	List<PublicNotice> selectPublicNoticeLists();
 	PublicNotice detailPublicNotice(@Param("publicNoticeNo") int publicNoticeNo);
 	int insertPublicNotice(@Param("publicNoticeTitle") String publicNoticeTitle,

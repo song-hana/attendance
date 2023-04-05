@@ -11,7 +11,7 @@ import com.my.attendance.dao.map.PublicNoticeMap;
 import com.my.attendance.domain.PublicNotice;
 
 @Repository
-public class PublicNoticeDaoImpl implements PublicNoticeDao {
+public class PublicNoticeDaoImpl implements PublicNoticeDao { 
 	@Autowired private PublicNoticeMap publicNoticeMap;
 	
 	@Override

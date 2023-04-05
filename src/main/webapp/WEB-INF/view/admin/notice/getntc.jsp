@@ -27,6 +27,7 @@
             $('#modal').modal('show')
         })
     })
+    
 </script>
 <style>
 

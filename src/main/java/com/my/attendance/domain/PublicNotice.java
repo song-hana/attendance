@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 @Data
-public class PublicNotice {
+public class PublicNotice { 
 	private int publicNoticeNo; 
 	private String publicNoticeTitle; 
 	private String publicNoticeContent; 

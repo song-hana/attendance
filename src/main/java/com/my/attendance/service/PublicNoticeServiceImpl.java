@@ -10,7 +10,7 @@ import com.my.attendance.dao.PublicNoticeDao;
 import com.my.attendance.domain.PublicNotice;
 
 @Service
-public class PublicNoticeServiceImpl implements PublicNoticeService {
+public class PublicNoticeServiceImpl implements PublicNoticeService { 
 	@Autowired private PublicNoticeDao publicNoticeDao;
 	
 	@Override

@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.my.attendance.domain.PublicNotice;
 
-public interface PublicNoticeService {
+public interface PublicNoticeService { 
 	List<PublicNotice> getPublicNoticeLists();
 	PublicNotice getDetailPublicNotice(int publicNoticeNo);
 	void addPublicNotice(String publicNoticeTitle, String publicNoticeContent, LocalDate publicNoticeDate);

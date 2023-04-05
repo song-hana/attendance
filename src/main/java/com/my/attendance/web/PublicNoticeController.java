@@ -12,7 +12,7 @@ import com.my.attendance.service.PublicNoticeService;
 
 @Controller
 @RequestMapping("admin/notice")
-public class PublicNoticeController {
+public class PublicNoticeController { 
 	@Autowired private PublicNoticeService publicNoticeService;
 	
 	//전체 공지 리스트 조회
@@ -35,4 +35,6 @@ public class PublicNoticeController {
 	public String addPublicNotice() {
 		return "admin/notice/addntc";
 	}
+	
+	
 }
