@@ -80,7 +80,6 @@ public class EmployeeController {
 	public String getEmployeePw(@RequestParam("empId") String employeeId,
 			@RequestParam("empPino") String employeePino) {
 		String pw = employeeService.findPw(employeeId, employeePino);
-		System.out.println(pw);
 		return pw;
 	}
 }
