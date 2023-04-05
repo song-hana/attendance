@@ -3,7 +3,6 @@ package com.my.attendance.dao;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -20,24 +19,28 @@ public class PublicNoticeDaoImpl implements PublicNoticeDao {
 	}
 	
 	@Override
-	public PublicNotice detailPublicNotice(int publicNoticeNo) {
-		return publicNoticeMap.detailPublicNotice(publicNoticeNo);
+	public List<PublicNotice> selectPublicNotice(int publicNoticeNo){
+		return publicNoticeMap.selectPublicNotice(publicNoticeNo);
 	}
 	
 	@Override
-	public void insertPublicNotice(String publicNoticeTitle, String publicNoticeContent, 
+	public PublicNotice selectPublicNoticeDetail(int publicNoticeNo) {
+		return publicNoticeMap.selectPublicNoticeDetail(publicNoticeNo);
+	}
+	
+	@Override
+	public int insertPublicNotice(String publicNoticeTitle, String publicNoticeContent, 
 														LocalDate publicNoticeDate) {
-		publicNoticeMap.insertPublicNotice(publicNoticeTitle, publicNoticeContent,
-																publicNoticeDate);
+		return publicNoticeMap.insertPublicNotice(publicNoticeTitle, publicNoticeContent, publicNoticeDate);
 	}
 	
 	@Override
-	public void updatePublicNotice(PublicNotice publicNotice) {
-		publicNoticeMap.updatePublicNotice(publicNotice);
+	public int updatePublicNotice(PublicNotice publicNotice) {
+		return publicNoticeMap.updatePublicNotice(publicNotice);
 	}
 	
 	@Override
-	public void deletePublicNotice(int publicNoticeNo) {
-		publicNoticeMap.deletePublicNotice(publicNoticeNo);
+	public int deletePublicNotice(int publicNoticeNo) {
+		return publicNoticeMap.deletePublicNotice(publicNoticeNo);
 	}
 }

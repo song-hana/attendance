@@ -21,42 +21,41 @@
         input_admin_sidebar()
         input_footer()
 
-        $('#addNOBtn').click(() => {
+        $('#addNOBtn').click(( => {
             $('#modalMsg').empty()
             $('#modalMsg').text('이 페이지를 벗어나면 기존 작성된 글이 삭제됩니다.')
             $('#modal').modal('show')
         })
     })
-    
-    function init() {
-    	$('$addNoticeBtn').click(() => {
-    		if(isVal($('publicNoticeTitle')) && isVal($('publicNoticeContent'))) {
+   
+	function init() {
+    	$('#addPublicNoticeBtn').click(( => {
+    		if(isVal($('#publicNoticeTitle')) && isVal($('#publicNoticeContent'))) {
     			let publicNotice = {
-    					publicNoticeTitle : $('#publicNoticeTitle').val(),
-    					publicNoticeContent : $('#publicNoticeContent').val()
+    					publicNoticeTitle: $('#publicNoticeTitle').val(),
+    					publicNoticeContent: $('#publicNoticeContent').val()
     			}
-    			$.ajax ({
-    				url:'admin/notice/addntc',
-    				type:'post',
-    				data:publicNotice,
-    				success:publicNoticeLists
-    			})
     			
+    			$.ajax({
+    				url: "<%=request.getContextPath()%>/admin/notice/addntc",
+    				method: 'post',
+    				data: publicNotices
+    			})
     		}
-    	})
+    	}))
     }
     
-    
+   
 </script>
 <style>
-    #noticeTitle {
+    #publicNoticeTitle {
         width: 100%;
         padding: 5px;
         border: .1rem solid;
         border-radius: .2rem;
     }
 
-    textarea {
+    #publicNoticeContent {
         width: 100%;
         height: 15rem;
         padding: 10px;
@@ -87,14 +86,14 @@
             <div class='row pt-2'>
                 <div class='col'>
                     <h4>제목</h4>
-                    <input type='text' id='noticeTitle' placeholder='제목을 입력하세요.'>
+                    <input type='text' id='publicNoticeTitle' name='publicNoticeTitle' placeholder='제목을 입력하세요.'>
                     <h4 class='pt-3'>내용</h4>
-                    <textarea id="textarea" placeholder="내용을 입력하세요."></textarea>
+                    <textarea id="publicNoticeContent" name='publicNoticeContent' placeholder="내용을 입력하세요."></textarea>
                 </div>
             </div>
             <div class='row'>
                 <div class='col d-flex justify-content-end'>
-                    <button type='button' class='btn me-3 btn-blue' id='addNoticeBtn' onclick="window.location.href='ntclist'">작성</button>
+                    <button type='button' class='btn me-3 btn-blue' id='addPublicNoticeBtn' onclick="window.location.href='ntclist'">작성</button>
                     <button type='button' class='btn btn-secondary' id='addNOBtn'>취소</button>
                 </div>
             </div>

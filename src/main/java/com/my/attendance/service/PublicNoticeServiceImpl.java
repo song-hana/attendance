@@ -19,22 +19,28 @@ public class PublicNoticeServiceImpl implements PublicNoticeService {
 	}
 	
 	@Override
-	public PublicNotice getDetailPublicNotice(int publicNoticeNo) {
-		return publicNoticeDao.detailPublicNotice(publicNoticeNo);
+	public List<PublicNotice> getPublicNotice(int publicNoticeNo){
+		return publicNoticeDao.selectPublicNotice(publicNoticeNo);
 	}
 	
 	@Override
-	public void addPublicNotice(String publicNoticeTitle, String publicNoticeContent, LocalDate publicNoticeDate) {
-		publicNoticeDao.insertPublicNotice(publicNoticeTitle, publicNoticeContent, publicNoticeDate);
+	public PublicNotice getPublicNoticeDetail(int publicNoticeNo) {
+		return publicNoticeDao.selectPublicNoticeDetail(publicNoticeNo);
 	}
 	
 	@Override
-	public void fixPublicNotice(PublicNotice publicNotice) {
-		publicNoticeDao.updatePublicNotice(publicNotice);
+	public int addPublicNotice(String publicNoticeTitle, String publicNoticeContent, 
+													LocalDate publicNoticeDate) {
+		return publicNoticeDao.insertPublicNotice(publicNoticeTitle, publicNoticeContent, publicNoticeDate);
 	}
 	
 	@Override
-	public void delPublicNotice(int publicNoticeNo) {
-		publicNoticeDao.deletePublicNotice(publicNoticeNo);
+	public int fixPublicNotice(PublicNotice publicNotice) {
+		return publicNoticeDao.updatePublicNotice(publicNotice);
+	}
+	
+	@Override
+	public int delPublicNotice(int publicNoticeNo) {
+		return publicNoticeDao.deletePublicNotice(publicNoticeNo);
 	}
 }

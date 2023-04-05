@@ -22,38 +22,40 @@
         input_footer()
     })
     
-	function publicNoticeList() {
-    	$('#publicNoticeLists').empty()
+	function ntclists() {
+    	$('#publicNotices').empty();
     	
     	$.ajax({
-    		url:'ntclist',
-    		dataType:'json',
-    		success:publicNoticeLists => {
-    			if(publicNoticeLists.length) {
-    				const publicNoticeArr = []
-    				
-    				$.each(publicNoticeLists, (i, publicNotice) => {
-    					publicNoticeArr.unshift(
-    						`<tr>
-    							<td>\${publicNotice.publicNoticeTitle}</td>
-    							<td>\${publicNotice.publicNoticeContent}</td>
-    							<td>\${publicNotice.publicNoticeDate}</td>
-    						</tr>`
-    					)
-    				})
-    				$('#publicNoticeLists').append(publicNoticeArr.join(''))
-    			} else $('publicNoticeLists').append(
-    					'<tr><td colspan=4 class=text-center>공지사항이 없습니다.</td></tr>')
+    		method:'post',
+    		url:"<%=request.getContextPath()%>/admin/notice/getntc"
+    	}).done(publicNotices => {
+    		if(publicNotices.length) {
+    			const publicNoticeArr = []
+    			
+    			$.each(publicNotices, (i,publicNotice) => {
+    				publicNoticeArr.unshift(
+    					`<tr>
+    						<td><input type='checkbox' name='publicNoticeNo' id='publicNoticeNo'
+    								value='\${publicNotice.publicNoticeNo}'/></td>
+    						<td>\${publicNotice.publicNoticeNo}</td>
+    						<td><a href='getntc?publicNoticeNo=\${publicNotice.publicNoticeNo}'>\
+    								\${publicNotice.publicNoticeTitle}</td>
+    						<td>\${publicNotice.publicNoticeDate}</td>
+    					</tr>`
+    				);
+    			})
+    			$('#publicNotices').append(publicNoticeArr.join(''))
+    		} else {
+    			$('#publicNotices').append('<tr><td colspan=5 class=text-center>공지사항이 없습니다.</td></tr>')
     		}
     	})
     }
-    
+
     function init() {
-    	$(publicNoticeList)
+    	$(ntclists)
     }
     
     $(init)
-     
 </script>
 <style>
     .table {
@@ -112,7 +114,7 @@
                                 <th>등록일</th>
                             </tr>
                         </thead>
-                        <tbody id=publicNoticeList>
+                        <tbody id='publicNotices'>
                          	
                         </tbody>
                     </table>

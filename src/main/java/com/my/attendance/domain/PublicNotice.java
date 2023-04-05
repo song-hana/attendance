@@ -10,10 +10,8 @@ import lombok.Data;
 
 @Data
 public class PublicNotice { 
-	private int publicNoticeNo; 
+	private int publicNoticeNo;
 	private String publicNoticeTitle; 
 	private String publicNoticeContent; 
-	@DateTimeFormat(pattern="yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/seoul")
 	private LocalDate publicNoticeDate; 
 }
