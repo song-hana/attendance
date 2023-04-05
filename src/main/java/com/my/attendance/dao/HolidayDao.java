@@ -11,8 +11,8 @@ import com.my.attendance.domain.Holiday;
 public interface HolidayDao {
 	List<Holiday> selectHolidays(@Param("yearMonth")YearMonth yearMonth);
 	List<Holiday> selectUserHoliday();
-	void insertHoliday(@Param("holDate") LocalDate holidayDate,
-						@Param("holContent") String holidayContent);
+	void insertHoliday(@Param("holDate") LocalDate holDate,
+						@Param("holContent") String holContent);
 	void updateHoliday(Holiday holiday);
 	void deleteHoliday(int holidayNo);
 }

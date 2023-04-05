@@ -12,7 +12,7 @@
 	</select>
 	
 	<select id='selectUserHoliday' resultType='holiday'>
-		select e.emp_name, h.hol_no, h.hol_date
+		select e.emp_name, e.hire_date, h.hol_no, h.hol_date
 		from attendance.employees e
 		join attendance.holidays h
 		on e.emp_no = h.emp_no
@@ -22,7 +22,7 @@
 	
 	<insert id='insertHoliday'>
 		insert into holidays (hol_no, hol_date, hol_content, emp_no) 
-		values (attendance.holiday_holidayno_seq.nextval, #{holDate} ,#{holContent}, 1)
+		values (attendance.hol_holno_seq.nextval, #{holDate}, #{holContent}, 1)
 	</insert>
 	
 	<update id='updateHoliday'>

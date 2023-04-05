@@ -11,8 +11,8 @@ import com.my.attendance.domain.Holiday;
 public interface HolidayMap {
 	List<Holiday> selectHolidays(@Param("yearMonth")YearMonth yearMonth);
 	List<Holiday> selectUserHoliday();
-	int insertHoliday(@Param("holDate") LocalDate holidayDate,
-						@Param("holContent") String holidayContent);
+	int insertHoliday(@Param("holDate") LocalDate holDate,
+						@Param("holContent") String holContent);
 	int updateHoliday(Holiday holiday);
 	int deleteHoliday(int holidayNo);
 }
