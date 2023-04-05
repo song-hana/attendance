@@ -36,11 +36,18 @@
     				move()
     			}
     		}
-    	})
+    	}).done(() => $('.msgBox').removeClass('show'))
+		.fail(() => error())
     }
     
     function move() {
     	window.location.href = '../main'
+    }
+    
+    function error() {
+    	$('#msg').css('color', 'red')
+    	$('#msg').text('ID 혹은 비밀번호가 잘못되었습니다.')
+    	$('.msgBox').addClass('show')
     }
     
     function isVal(field) {

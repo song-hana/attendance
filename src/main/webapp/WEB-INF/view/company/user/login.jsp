@@ -77,6 +77,9 @@
                     <form class='form_box'>
                         <input type='text' id='comId' class='form-control' placeholder='아이디'/><br>
                         <input type='password' id='comPw' class='form-control' placeholder='비밀번호'/><br>
+                        <div class='msgBox collapse'>
+			                <span id='msg'></span><br><br>
+		                </div>
                         <input type='submit' id='login' class='form-control btn btn-blue' value='로그인'/><br>
                     </form>
                 </div>

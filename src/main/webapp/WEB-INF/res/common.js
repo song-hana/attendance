@@ -63,9 +63,9 @@ function input_company_header() {
     header_txt += `             <div class="logo_img text-center" onclick="location.href='company/main.html'">로고이미지</div>`
     header_txt += '          </div>'
     header_txt += '          <div class="col btns mt-1 text-end">'
-    header_txt += '             <a href="user/login" class="collapse show">로그인</a>'
-    header_txt += '             <a href="user/member" class="collapse show">회원가입</a>'
-    header_txt += '             <a href="logout" class="collapse" id="logout">로그아웃</a>'
+    header_txt += '             <a href="company/user/login" class="collapse show">로그인</a>'
+    header_txt += '             <a href="company/user/member" class="collapse show">회원가입</a>'
+    header_txt += '             <a href="compnay/logout" class="collapse" id="logout">로그아웃</a>'
     header_txt += '             <a href="notice/comntclist" class="collapse">마이페이지</a>'
     header_txt += '          </div>'
     header_txt += '     </div>'

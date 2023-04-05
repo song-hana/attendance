@@ -61,7 +61,7 @@ public class CompanyController {
 	@GetMapping("company/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:main";
+		return "redirect:company/main";
 	}
 	
 	@ResponseBody
