@@ -88,7 +88,6 @@
                 $('#modal').modal('show')
             })
         });
-
         // 연차 삭제
         $('#holidays').on('click', '.delHolidayBtn', function() {
             const holNo = $(this).closest('tr').attr('holNo');
