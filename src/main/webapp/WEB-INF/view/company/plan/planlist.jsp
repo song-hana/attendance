@@ -1,4 +1,5 @@
 <%@ page language='java' contentType='text/html; charset=utf-8' pageEncoding='utf-8'%>
+<%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <html>
 <head>
 <meta charset='utf-8'>
@@ -12,8 +13,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js'></script>
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
-<script src='../../res/common.js'></script>
-<link rel="stylesheet" href="../../res/common.css">
+<script src='<c:url value="res/common.js"/>'></script>
+<link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title>일정 조회</title>
 <script>
     $(() => {
@@ -37,7 +38,10 @@
 	                    id: plan.planNo,
 	                    title: plan.planTitle,
 	                    description: plan.planContent,
-	                    start: plan.planDate
+	                    start: plan.planDate,
+	                    extendedProps: {
+	                    	type: 'plan'
+	                    }
 	                };
 	                events.push(event);
 	            }
@@ -46,6 +50,32 @@
 	        },
 	    });
 	}
+    
+    function listHolidays(successCallback) {
+        $.ajax({
+            url: 'planlist/getHoliday',
+            method: 'get',
+            dataType: 'json',
+            success: function(response) {
+                let events = [];
+                for (let i = 0; i < response.length; i++) {
+                    let holiday = response[i];
+                    let event = {
+                        id: holiday.holNo,
+                        title: holiday.empName + ' 연차',
+                        description: holiday.holContent,
+                        start: holiday.holDate,
+                        extendedProps: {
+	                    	type: 'holiday'
+	                    }
+                    };
+                    events.push(event);
+                }
+                calendar.events = events;
+                successCallback(events);
+            },
+        });
+    }
     
     let currentEvent;
     
@@ -73,7 +103,6 @@
             },
             
             initialView: 'dayGridMonth',
-            initialDate: '2023-03-31',
             navLinks: false,
             titleFormat : function(date) { 
                 return date.date.year +". "+(date.date.month +1); 
@@ -96,21 +125,21 @@
                     const planDescription = $('#planDescription').val()
                     const planDate = moment(arg.start).format('YYYY-MM-DD');
 
-
                     $.ajax({
-                    	url: 'planlist/add',
-                    	type: 'post',
+                        url: 'planlist/add',
+                        type: 'post',
                         data: {
                           planTitle: planTitle,
                           planDate: planDate,
                           planContent: planDescription
                         },
                         success: function() {
-                            listPlans(function(events) {
-                                calendar.removeAllEvents();
-                                calendar.addEventSource(events);
-                            });
-                        },
+                        	listPlans(function(events) {
+			                    calendar.getEventSources().forEach(function(eventSource) {
+			                            eventSource.refetch();
+			                    });
+			                });
+			            }
                     });
 
                     $('#modalMsg').empty()
@@ -121,18 +150,18 @@
 
                     calendar.unselect()
                 })
-            },
+              },
             
             eventClick: function(arg) {
             	currentEvent = null;
             	currentEvent = arg.event;
                 $('#modalMsg').empty()
                 $('#modalBtn1').empty()
-                const eventId = arg.event.id
-				// holiday에서 추가한 연차와 plan에서 추가한 연차를 구분해야한다.
-                if(eventId == 'holiday') {
-                    $('#modalMsg').append(`<p>제목: ${currentEvent.title} </p>`)
-                                .append(`<p>사유: ${currentEvent.extendedProps.description} </p>`)
+                const eventType = arg.event.extendedProps.type
+				// holiday에서 추가한 연차와 plan에서 추가한 연차를 구분
+                if(eventType == 'holiday') {
+                    $('#modalMsg').append(`<p>제목: \${currentEvent.title} </p>`)
+                                .append(`<p>사유: \${currentEvent.extendedProps.description} </p>`)
                     $('#modalBtn').hide()
                 } else {
                     $('#modalMsg').append(`<p>제목: <input type='text' value='\${currentEvent.title}' id='planTitle'/> </p>`)
@@ -163,10 +192,11 @@
 			            data: JSON.stringify(plan),
 			            success: function() {
 			                listPlans(function(events) {
-			                    calendar.removeAllEvents();
-			                    calendar.addEventSource(events);
+			                    calendar.getEventSources().forEach(function(eventSource) {
+			                            eventSource.refetch();
+			                    });
 			                });
-			            },
+			            }
 			        });
 			
 			        $('#modalMsg').empty();
@@ -181,12 +211,13 @@
                     $.ajax({
                         url: 'planlist/del/' + planNo,
                         method: 'delete',
-                        success: function(response) {
-                            listPlans(function(events) {
-                                calendar.removeAllEvents();
-                                calendar.addEventSource(events);
-                            });
-                        }
+                        success: function() {
+                        	listPlans(function(events) {
+			                    calendar.getEventSources().forEach(function(eventSource) {
+			                            eventSource.refetch();
+			                    });
+			                });
+			            }
                     });
 
                     $('#modalMsg').empty();
@@ -196,7 +227,7 @@
                 });
             },
             editable: false,
-            dayMaxEvents: false, // allow "more" link when too many events
+            dayMaxEvents: false,
             events: function(info, successCallback) {
                 $.ajax({
                     url: 'planlist/get',
@@ -210,14 +241,21 @@
                                 id: plan.planNo,
                                 title: plan.planTitle,
                                 description: plan.planContent,
-                                start: plan.planDate
+                                start: plan.planDate,
+                                extendedProps: {
+        	                    	type: 'plan'
+        	                    }
                             };
                             events.push(event);
                         }
-                        successCallback(events);
+                        
+                        listHolidays(function(holidayEvents) {
+                            events = events.concat(holidayEvents);
+                            successCallback(events);
+                        });
                     },
                 });
-            }
+            },
         });
     calendar.render();
 });

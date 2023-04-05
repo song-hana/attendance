@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.my.attendance.dao.PlanDao;
+import com.my.attendance.domain.Holiday;
 import com.my.attendance.domain.Plan;
 
 @Service
@@ -16,6 +17,11 @@ public class PlanServiceImpl implements PlanService {
 	@Override
 	public List<Plan> getPlans() {
 		return planDao.selectPlans();
+	}
+	
+	@Override
+	public List<Holiday> getHolidays() {
+		return planDao.selectHolidays();
 	}
 	
 	@Override

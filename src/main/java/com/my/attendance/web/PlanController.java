@@ -18,40 +18,46 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.my.attendance.domain.Holiday;
 import com.my.attendance.domain.Plan;
 import com.my.attendance.service.PlanService;
 
 @Controller("planController")
-@RequestMapping("planlist")
 public class PlanController {
 	@Autowired private PlanService planService;
 	
-	@GetMapping
+	@RequestMapping("planlist")
 	public ModelAndView main(ModelAndView mv) {
 		mv.setViewName("company/plan/planlist");
 		return mv;
 	}
 	
-	@GetMapping("get")
+	@GetMapping("planlist/get")
 	@ResponseBody
 	public List<Plan> getPlans() {
 	    return planService.getPlans();
 	}
 	
-	@PostMapping("add")
+	@GetMapping("planlist/getHoliday")
+	@ResponseBody
+	public List<Holiday> getHolidays() {
+	    return planService.getHolidays();
+	}
+	
+	@PostMapping("planlist/add")
 	public ResponseEntity<String> addPlan(String planTitle,
 	    @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate planDate, String planContent) {
 	    planService.addPlan(planTitle, planDate, planContent);
 	    return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
-	@PutMapping("fix")
+	@PutMapping("planlist/fix")
 	public ResponseEntity<String> fixPlan(@RequestBody Plan plan) {
 	    planService.fixPlan(plan);
 	    return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@DeleteMapping("del/{planNo}")
+	@DeleteMapping("planlist/del/{planNo}")
 	public ResponseEntity<String> delPlan(@PathVariable int planNo) {
 	    planService.delPlan(planNo);
 	    return new ResponseEntity<>(HttpStatus.OK);
