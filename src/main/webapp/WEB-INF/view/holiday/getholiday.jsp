@@ -17,7 +17,6 @@
 <script>
 	function listHolidays() {
 	    $('#holidays').empty();
-	    let usedHoliday = 0;
 	
 	    $.ajax({
 	        url: 'getholiday/get',
@@ -41,9 +40,12 @@
 	                    
 	                    // 부여연차, 잔여연차, 소진연차 입력.
 	                    let grantHoliday = moment().diff(moment(`\${holiday.hireDate}`), 'months')
-	                    const remainHoliday = grantHoliday - usedHoliday
-	                    usedHoliday = \$('#holidays tr').length;
+	                    if(grantHoliday > 12) {
+	                    	grantHoliday = 15
+	                    }
 	                    
+	                    const usedHoliday = holidays.length
+	                    const remainHoliday = grantHoliday - usedHoliday
 	                    
 	                    $('#grantHoliday').text(`\${grantHoliday}`); // 부여연차
 	                    $('#usedHoliday').text(`\${usedHoliday}`); // 소진연차
@@ -133,7 +135,7 @@
             $('#modalBtn').show()
             $('#modal').modal('show')
 
-            $('#modalOKBtn').click(() => {
+            $('#modalOKBtn').off('click').on('click', function() {
                 $.ajax({
                     url: 'getholiday/add',
                     type: 'post',
