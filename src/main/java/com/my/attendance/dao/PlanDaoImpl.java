@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.my.attendance.dao.map.PlanMap;
+import com.my.attendance.domain.Holiday;
 import com.my.attendance.domain.Plan;
 
 @Repository("planDao")
@@ -16,6 +17,11 @@ public class PlanDaoImpl implements PlanDao {
 	@Override
 	public List<Plan> selectPlans() {
 		return planMap.selectPlans();
+	}
+	
+	@Override
+	public List<Holiday> selectHolidays() {
+		return planMap.selectHolidays();
 	}
 	
 	@Override
