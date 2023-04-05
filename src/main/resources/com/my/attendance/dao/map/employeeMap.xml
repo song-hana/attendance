@@ -8,4 +8,18 @@
 		where emp_id = '${employeeId}'
 		and emp_pw = '${employeePw}'
 	</select>
+	
+	<select id='selectEmployeeId' resultType='String'>
+		select emp_id
+		from employees
+		where emp_name = '${employeeName}'
+		and emp_ph = '${employeePh}'
+	</select>
+	
+	<select id='selectEmployeePw' resultType='String'>
+		select emp_pw
+		from employees
+		where emp_id = '${employeeId}'
+		and emp_pino = '${employeePino}'
+	</select>
 </mapper>

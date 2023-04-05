@@ -148,7 +148,7 @@ function input_form_header() {
     let header_txt = ''
 
     header_txt += ' <div class="col">'
-    header_txt += '     <div class="center_logo text-center" onclick="history.go(-1)">로고이미지</div>'
+    header_txt += `     <div class="center_logo text-center" onclick='location.href="../main"'>로고이미지</div>`
     header_txt += ' </div>'
 
     $('.title').append(header_txt)
