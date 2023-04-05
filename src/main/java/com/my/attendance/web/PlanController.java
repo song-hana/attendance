@@ -26,9 +26,17 @@ import com.my.attendance.service.PlanService;
 public class PlanController {
 	@Autowired private PlanService planService;
 	
+	@GetMapping
 	@RequestMapping("planlist")
-	public ModelAndView main(ModelAndView mv) {
+	public ModelAndView planlist(ModelAndView mv) {
 		mv.setViewName("company/plan/planlist");
+		return mv;
+	}
+	
+	@GetMapping
+	@RequestMapping("getplan")
+	public ModelAndView getplan(ModelAndView mv) {
+		mv.setViewName("plan/getplan");
 		return mv;
 	}
 	

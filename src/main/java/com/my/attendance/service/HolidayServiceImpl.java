@@ -20,6 +20,11 @@ public class HolidayServiceImpl implements HolidayService {
 	}
 	
 	@Override
+	public List<Holiday> getUserHoliday() {
+		return holidayDao.selectUserHoliday();
+	}
+	
+	@Override
 	public void addHoliday(LocalDate holDate, String holContent) {
 		holidayDao.insertHoliday(holDate, holContent);
 	}

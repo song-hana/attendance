@@ -11,6 +11,15 @@
 		order by h.hol_date
 	</select>
 	
+	<select id='selectUserHoliday' resultType='holiday'>
+		select e.emp_name, h.hol_no, h.hol_date
+		from attendance.employees e
+		join attendance.holidays h
+		on e.emp_no = h.emp_no
+		where e.emp_no = 1
+		order by h.hol_date
+	</select>
+	
 	<insert id='insertHoliday'>
 		insert into holidays (hol_no, hol_date, hol_content, emp_no) 
 		values (attendance.holiday_holidayno_seq.nextval, #{holDate} ,#{holContent}, 1)

@@ -24,36 +24,50 @@ import com.my.attendance.domain.Holiday;
 import com.my.attendance.service.HolidayService;
 
 @Controller("holidayController")
-@RequestMapping("holidaylist")
 public class HolidayController {
 	@Autowired private HolidayService holidayService;
 	
 	@GetMapping
-	public ModelAndView main(ModelAndView mv) {
+	@RequestMapping("holidaylist")
+	public ModelAndView holidaylist(ModelAndView mv) {
 		mv.setViewName("company/holiday/holidaylist");
 		return mv;
 	}
 	
-	@GetMapping("get")
+	@GetMapping
+	@RequestMapping("getholiday")
+	public ModelAndView getholiday(ModelAndView mv) {
+		mv.setViewName("holiday/getholiday");
+		return mv;
+	}
+	
+	@GetMapping("getholiday/get")
+	@ResponseBody
+	public List<Holiday> getUserHoliday() {
+	    return holidayService.getUserHoliday();
+	}
+	
+	
+	@GetMapping("holidaylist/get")
 	@ResponseBody
 	public List<Holiday> getHolidays(@RequestParam("yearMonth") @DateTimeFormat(pattern = "yyyy-MM") YearMonth yearMonth) {
 	    return holidayService.getHolidays(yearMonth);
 	}
 
 	
-	@PostMapping("add")
+	@PostMapping("getholiday/add")
 	public ResponseEntity<String> addHoliday(@DateTimeFormat(pattern="yyyy-MM-dd") LocalDate holDate, String holContent) {
 		holidayService.addHoliday(holDate, holContent);
 	    return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
-	@PutMapping("fix")
+	@PutMapping("holidaylist/fix")
 	public ResponseEntity<String> fixHoliday(@RequestBody Holiday holiday) {
 		holidayService.fixHoliday(holiday);
 	    return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@DeleteMapping("del/{holNo}")
+	@DeleteMapping("holidaylist/del/{holNo}")
 	public ResponseEntity<String> delHoliday(@PathVariable int holNo) {
 		holidayService.delHoliday(holNo);
 	    return new ResponseEntity<>(HttpStatus.OK);

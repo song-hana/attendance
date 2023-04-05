@@ -8,6 +8,7 @@ import com.my.attendance.domain.Holiday;
 
 public interface HolidayService {
 	List<Holiday> getHolidays(YearMonth yearMonth);
+	List<Holiday> getUserHoliday();
 	void addHoliday(LocalDate holDate, String holContent);
 	void fixHoliday(Holiday holiday);
 	void delHoliday(int holNo);

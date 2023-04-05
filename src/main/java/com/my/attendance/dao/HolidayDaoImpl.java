@@ -21,6 +21,11 @@ public class HolidayDaoImpl implements HolidayDao {
 	}
 	
 	@Override
+	public List<Holiday> selectUserHoliday() {
+		return holidayMap.selectUserHoliday();
+	}
+	
+	@Override
 	public void insertHoliday(LocalDate holDate, String holContent) {
 		holidayMap.insertHoliday(holDate, holContent);
 	}
