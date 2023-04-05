@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.my.attendance.domain.Employee;
 import com.my.attendance.service.EmployeeService;
@@ -18,6 +19,19 @@ public class EmployeeController {
 	public String login() {
 		return "user/login";
 	}
+	
+	@RequestMapping("user/findid")
+	@GetMapping
+	public String findid() {
+		return "user/findid";
+	}
+	
+	@RequestMapping("user/findpw")
+	@GetMapping
+	public String findpw() {
+		return "user/findpw";
+	}
+	
 	
 	@Autowired private EmployeeService employeeService;
 	
@@ -50,6 +64,23 @@ public class EmployeeController {
 	@GetMapping("logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "main";
+		return "redirect:main";
+	}
+	
+	@ResponseBody
+	@RequestMapping("user/findId")
+	public String getEmployeeId(@RequestParam("empName") String employeeName,
+			@RequestParam("empPh") String employeePh) {
+		String id = employeeService.findId(employeeName, employeePh);
+		return id;
+	}
+	
+	@ResponseBody
+	@RequestMapping("user/findPw")
+	public String getEmployeePw(@RequestParam("empId") String employeeId,
+			@RequestParam("empPino") String employeePino) {
+		String pw = employeeService.findPw(employeeId, employeePino);
+		System.out.println(pw);
+		return pw;
 	}
 }

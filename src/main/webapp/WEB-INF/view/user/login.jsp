@@ -82,11 +82,11 @@
         </div>
         <div class='row mt-5'>
             <div class='col text-center'>
-                <a href='02.html'>아이디 찾기</a>
+                <a href='findid'>아이디 찾기</a>
             </div>
             |
             <div class='col text-center'>
-                <a href='03.html'>비밀번호 찾기</a>
+                <a href='findpw'>비밀번호 찾기</a>
             </div>
         </div>
     </div>
