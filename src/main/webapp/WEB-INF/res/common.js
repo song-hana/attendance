@@ -34,7 +34,7 @@ function input_user_header() {
     navigation += '         <a href="../notice/03.html"><i class="fa-solid fa-list"></i></a>'
     navigation += '     </div>'
     navigation += '     <div class="col text-center">'
-    navigation += '         <a href="../work/02.html"><i class="fa-solid fa-check-to-slot"></i></a>'
+    navigation += '         <a href="work/record"><i class="fa-solid fa-check-to-slot"></i></a>'
     navigation += '     </div>'
     navigation += '     <div class="col text-center">'
     navigation += '         <a href="../plan/01.html"><i class="fa-regular fa-calendar"></i></a>'
@@ -90,7 +90,7 @@ function show_login() {
     $('.btns a').eq(3).removeClass('show')
     $('.lnb_btn>a').eq(0).addClass('show')
     $('.lnb_btn>a').eq(1).removeClass('show')
-    $('.navigation a').attr('href', 'employee/login')
+    $('.navigation a').attr('href', 'user/login')
 }
 
 // admin용 헤더

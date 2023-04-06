@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org/DTD Mapper 3.0//EN'
+	'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+<mapper namespace='com.my.attendance.dao.map.WorkMap'>
+	<insert id='insertStartTime' >
+		insert into works(work_no, start_time, employee_no)
+		values(attendance.work_workno_seq.nextval, sysdate, ${employeeNo})
+	</insert>
+	<select id='selectInsertStart' resultType='WorkDto'>
+		select * 
+		from works 
+		where work_no = (select max(work_no) 
+		from works where employee_no = ${employeeNo})
+	</select>
+	<update id='updateEndTime'>
+		update works
+		set end_time = sysdate
+		where work_no = ${workNo}
+	</update>
+	<select id='selectInsertEnd' resultType='Work'>
+		select end_time
+		from works
+		where work_no = ${workNo}
+	</select>
+</mapper>
