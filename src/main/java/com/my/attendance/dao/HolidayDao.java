@@ -10,10 +10,10 @@ import com.my.attendance.domain.Holiday;
 
 public interface HolidayDao {
 	List<Holiday> selectHolidays(@Param("yearMonth")YearMonth yearMonth);
-	List<Holiday> selectUserHoliday(@Param("empNo") int empNo);
+	List<Holiday> selectUserHoliday(@Param("employeeNo") int employeeNo);
 	void insertHoliday(@Param("holDate") LocalDate holDate,
 						@Param("holContent") String holContent,
-						@Param("empNo") int empNo);
+						@Param("employeeNo") int employeeNo);
 	void updateHoliday(Holiday holiday);
 	void deleteHoliday(int holidayNo);
 }

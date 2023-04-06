@@ -20,13 +20,13 @@ public class HolidayServiceImpl implements HolidayService {
 	}
 	
 	@Override
-	public List<Holiday> getUserHoliday(int empNo) {
-		return holidayDao.selectUserHoliday(empNo);
+	public List<Holiday> getUserHoliday(int employeeNo) {
+		return holidayDao.selectUserHoliday(employeeNo);
 	}
 	
 	@Override
-	public void addHoliday(LocalDate holDate, String holContent, int empNo) {
-		holidayDao.insertHoliday(holDate, holContent, empNo);
+	public void addHoliday(LocalDate holDate, String holContent, int employeeNo) {
+		holidayDao.insertHoliday(holDate, holContent, employeeNo);
 	}
 	
 	@Override
@@ -35,7 +35,7 @@ public class HolidayServiceImpl implements HolidayService {
 	}
 	
 	@Override
-	public void delHoliday(int holNo) {
-		holidayDao.deleteHoliday(holNo);
+	public void delHoliday(int holidayNo) {
+		holidayDao.deleteHoliday(holidayNo);
 	}
 }

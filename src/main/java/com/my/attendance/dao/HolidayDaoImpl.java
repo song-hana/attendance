@@ -21,13 +21,13 @@ public class HolidayDaoImpl implements HolidayDao {
 	}
 	
 	@Override
-	public List<Holiday> selectUserHoliday(int empNo) {
-		return holidayMap.selectUserHoliday(empNo);
+	public List<Holiday> selectUserHoliday(int employeeNo) {
+		return holidayMap.selectUserHoliday(employeeNo);
 	}
 	
 	@Override
-	public void insertHoliday(LocalDate holDate, String holContent, int empNo) {
-		holidayMap.insertHoliday(holDate, holContent, empNo);
+	public void insertHoliday(LocalDate holDate, String holContent, int employeeNo) {
+		holidayMap.insertHoliday(holDate, holContent, employeeNo);
 	}
 	
 	@Override
@@ -36,7 +36,7 @@ public class HolidayDaoImpl implements HolidayDao {
 	}
 	
 	@Override
-	public void deleteHoliday(int holNo) {
-		holidayMap.deleteHoliday(holNo);
+	public void deleteHoliday(int holidayNo) {
+		holidayMap.deleteHoliday(holidayNo);
 	}
 }

@@ -3,6 +3,7 @@ package com.my.attendance.dao;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -15,13 +16,13 @@ public class PlanDaoImpl implements PlanDao {
 	@Autowired private PlanMap planMap;
 	
 	@Override
-	public List<Plan> selectPlans() {
-		return planMap.selectPlans();
+	public List<Plan> selectPlans(String companyId) {
+		return planMap.selectPlans(companyId);
 	}
 	
 	@Override
-	public List<Holiday> selectHolidays() {
-		return planMap.selectHolidays();
+	public List<Holiday> selectHolidays(String companyId) {
+		return planMap.selectHolidays(companyId);
 	}
 	
 	@Override

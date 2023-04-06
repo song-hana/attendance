@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -42,14 +43,14 @@ public class PlanController {
 	
 	@GetMapping("planlist/get")
 	@ResponseBody
-	public List<Plan> getPlans() {
-	    return planService.getPlans();
+	public List<Plan> getPlans(@RequestParam String companyId) {
+	    return planService.getPlans(companyId);
 	}
 	
 	@GetMapping("planlist/getHoliday")
 	@ResponseBody
-	public List<Holiday> getHolidays() {
-	    return planService.getHolidays();
+	public List<Holiday> getHolidays(String companyId) {
+	    return planService.getHolidays(companyId);
 	}
 	
 	@PostMapping("planlist/add")

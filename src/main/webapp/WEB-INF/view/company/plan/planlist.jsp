@@ -23,13 +23,21 @@
         btn_click()
         input_footer()
         show_logout()
+        console.log(companyId)
     })
 
+
+	let companyId = "${sessionScope.comId}"
+   // company_id 를 이용하여 검색
    function listPlans(successCallback) {
 	    $.ajax({
 	        url: 'planlist/get',
 	        method: 'get',
 	        dataType: 'json',
+	        contentType: 'application/json',
+	        data: {
+	            companyId: companyId
+	        },
 	        success: function(response) {
 	            let events = [];
 	            for (let i = 0; i < response.length; i++) {
@@ -51,17 +59,22 @@
 	    });
 	}
     
+    // 회사 company_id 의 소속된 직원들의 employee_no 로 검색?
     function listHolidays(successCallback) {
         $.ajax({
             url: 'planlist/getHoliday',
             method: 'get',
             dataType: 'json',
+            contentType: 'application/json',
+            data: {
+            	companyId: companyId
+            },
             success: function(response) {
                 let events = [];
                 for (let i = 0; i < response.length; i++) {
                     let holiday = response[i];
                     let event = {
-                        id: holiday.holNo,
+                        id: holiday.holidayNo,
                         title: holiday.empName + ' 연차',
                         description: holiday.holContent,
                         start: holiday.holDate,

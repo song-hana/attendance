@@ -13,4 +13,11 @@ public class MainController {
 		mv.setViewName("main");
 		return mv;
 	}
+	
+	@RequestMapping("company/main")
+	@GetMapping
+	public ModelAndView comMain(ModelAndView mv) {
+		mv.setViewName("company/main");
+		return mv;
+	}
 }

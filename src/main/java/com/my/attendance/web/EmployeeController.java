@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.my.attendance.domain.Employee;
 import com.my.attendance.service.EmployeeService;
@@ -19,6 +20,19 @@ public class EmployeeController {
 		return "user/login";
 	}
 	
+	@RequestMapping("user/findid")
+	@GetMapping
+	public String findid() {
+		return "user/findid";
+	}
+	
+	@RequestMapping("user/findpw")
+	@GetMapping
+	public String findpw() {
+		return "user/findpw";
+	}
+	
+	
 	@Autowired private EmployeeService employeeService;
 	
 	@RequestMapping("user/loginEmp")
@@ -29,6 +43,7 @@ public class EmployeeController {
 		if(emp != null) {
 			session.setAttribute("empNo", emp.getEmployeeNo());
 			session.setAttribute("empId", emp.getEmpId());
+			session.setAttribute("empName", emp.getEmpName());
 			session.setAttribute("empPw", emp.getEmpPw());
 			session.setAttribute("empAddr", emp.getEmpAddr());
 			session.setAttribute("empDetailAddr", emp.getEmpDetailAddr());
@@ -41,6 +56,7 @@ public class EmployeeController {
 			session.setAttribute("profileName", emp.getProfileName());
 			session.setAttribute("comId", emp.getCompanyId());
 			result = "main";
+			System.out.println(emp);
 		} else {
 			result = "";
 		}
@@ -50,6 +66,22 @@ public class EmployeeController {
 	@GetMapping("logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "main";
+		return "redirect:main";
+	}
+	
+	@ResponseBody
+	@RequestMapping("user/findId")
+	public String getEmployeeId(@RequestParam("empName") String employeeName,
+			@RequestParam("empPh") String employeePh) {
+		String id = employeeService.findId(employeeName, employeePh);
+		return id;
+	}
+	
+	@ResponseBody
+	@RequestMapping("user/findPw")
+	public String getEmployeePw(@RequestParam("empId") String employeeId,
+			@RequestParam("empPino") String employeePino) {
+		String pw = employeeService.findPw(employeeId, employeePino);
+		return pw;
 	}
 }

@@ -7,8 +7,8 @@ import com.my.attendance.domain.Holiday;
 import com.my.attendance.domain.Plan;
 
 public interface PlanService {
-	List<Plan> getPlans();
-	List<Holiday> getHolidays();
+	List<Plan> getPlans(String companyId);
+	List<Holiday> getHolidays(String companyId);
 	void addPlan(String planTitle, LocalDate planDate, String planContent);
 	void fixPlan(Plan plan);
 	void delPlan(int planNo);

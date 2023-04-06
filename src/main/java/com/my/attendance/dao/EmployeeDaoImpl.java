@@ -14,4 +14,14 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public Employee selectEmployee(String employeeId, String employeePw) {
 		return employeeMap.selectEmployee(employeeId, employeePw);
 	}
+	
+	@Override
+	public String selectEmployeeId(String employeeName, String employeePh) {
+		return employeeMap.selectEmployeeId(employeeName, employeePh);
+	}
+	
+	@Override
+	public String selectEmployeePw(String employeeId, String employeePino) {
+		return employeeMap.selectEmployeePw(employeeId, employeePino);
+	}
 }

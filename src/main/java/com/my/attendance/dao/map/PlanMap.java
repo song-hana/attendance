@@ -9,8 +9,8 @@ import com.my.attendance.domain.Holiday;
 import com.my.attendance.domain.Plan;
 
 public interface PlanMap {
-	List<Plan> selectPlans();
-	List<Holiday> selectHolidays();
+	List<Plan> selectPlans(@Param("companyId") String companyId);
+	List<Holiday> selectHolidays(@Param("companyId") String companyId);
 	int insertPlan(@Param("planTitle") String planTitle,
 					@Param("planDate") LocalDate planDate,
 					@Param("planContent") String planContent);

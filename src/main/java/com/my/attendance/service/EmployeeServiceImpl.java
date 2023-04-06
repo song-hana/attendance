@@ -14,4 +14,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public Employee loginCheck(String employeeId, String employeePw) {
 		return employeeDao.selectEmployee(employeeId, employeePw);
 	}
+	
+	@Override
+	public String findId(String employeeName, String employeePh) {
+		return employeeDao.selectEmployeeId(employeeName, employeePh);
+	}
+	
+	@Override
+	public String findPw(String employeeId, String employeePino) {
+		return employeeDao.selectEmployeePw(employeeId, employeePino);
+	}
 }

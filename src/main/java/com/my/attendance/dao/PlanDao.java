@@ -9,8 +9,8 @@ import com.my.attendance.domain.Holiday;
 import com.my.attendance.domain.Plan;
 
 public interface PlanDao {
-	List<Plan> selectPlans();
-	List<Holiday> selectHolidays();
+	List<Plan> selectPlans(@Param("companyId") String companyId);
+	List<Holiday> selectHolidays(@Param("companyId") String companyId);
 	void insertPlan(@Param("planTitle") String planTitle,
 					@Param("planDate") LocalDate planDate,
 					@Param("planContent") String planContent);

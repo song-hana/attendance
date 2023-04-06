@@ -92,7 +92,7 @@
             buttonText: {
                 today: '오늘'
             },
-            height: 500,
+            height: 550,
             selectable: false,
             selectMirror: true,
             select: function(arg) {
