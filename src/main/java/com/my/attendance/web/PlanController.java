@@ -55,8 +55,8 @@ public class PlanController {
 	
 	@PostMapping("planlist/add")
 	public ResponseEntity<String> addPlan(String planTitle,
-	    @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate planDate, String planContent) {
-	    planService.addPlan(planTitle, planDate, planContent);
+	    @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate planDate, String planContent,  String companyId) {
+	    planService.addPlan(planTitle, planDate, planContent, companyId);
 	    return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	

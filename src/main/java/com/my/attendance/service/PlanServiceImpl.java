@@ -25,8 +25,8 @@ public class PlanServiceImpl implements PlanService {
 	}
 	
 	@Override
-	public void addPlan(String planTitle, LocalDate planDate, String planContent) {
-		planDao.insertPlan(planTitle, planDate, planContent);
+	public void addPlan(String planTitle, LocalDate planDate, String planContent, String companyId) {
+		planDao.insertPlan(planTitle, planDate, planContent, companyId);
 	}
 	
 	@Override

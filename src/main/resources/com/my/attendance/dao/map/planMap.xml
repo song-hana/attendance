@@ -20,7 +20,7 @@
 	
 	<insert id='insertPlan'>
 		insert into plans (plan_no, plan_title, plan_date, plan_content, company_id) 
-		values (attendance.plan_planno_seq.nextval, #{planTitle}, #{planDate} ,#{planContent}, 'company')
+		values (attendance.plan_planno_seq.nextval, #{planTitle}, #{planDate} ,#{planContent}, #{companyId})
 	</insert>
 	
 	<update id='updatePlan'>

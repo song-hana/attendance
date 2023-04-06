@@ -13,7 +13,8 @@ public interface PlanDao {
 	List<Holiday> selectHolidays(@Param("companyId") String companyId);
 	void insertPlan(@Param("planTitle") String planTitle,
 					@Param("planDate") LocalDate planDate,
-					@Param("planContent") String planContent);
+					@Param("planContent") String planContent,
+					@Param("companyId") String companyId);
 	void updatePlan(Plan plan);
 	void deletePlan(int planId);
 }

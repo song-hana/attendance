@@ -143,7 +143,8 @@
                         data: {
                           planTitle: planTitle,
                           planDate: planDate,
-                          planContent: planDescription
+                          planContent: planDescription,
+                          companyId: companyId
                         },
                         success: function() {
                         	listPlans(function(events) {

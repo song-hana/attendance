@@ -121,7 +121,6 @@
         // 연차 수정
         $('#holidays').on('click', '.fixHolidayBtn', function() {
             const holidayNo = $(this).closest('tr').attr('holidayNo');
-            console.log(holidayNo) //0
             
             $('#modalMsg').empty()
             $('#modalMsg').append(`<p>날짜: <input type='date' id='fixHolidayDate'/> </p>`)
@@ -152,7 +151,6 @@
         // 연차 삭제
         $('#holidays').on('click', '.delHolidayBtn', function() {
             const holidayNo = $(this).closest('tr').attr('holidayNo');
-            console.log(holidayNo)
             
             $('#modalMsg').empty()
             $('#modalMsg').append(`<p>해당 연차를 삭제 하시겠습니까?<p>`)

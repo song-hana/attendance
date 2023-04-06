@@ -10,7 +10,6 @@ public class Holiday {
 	private String empName;
 	private int employeeNo;
 	private String companyId;
-	private LocalDate hireDate;
 	private int holidayNo;
 	private LocalDate holDate;
 	private String holContent;

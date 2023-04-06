@@ -26,8 +26,8 @@ public class PlanDaoImpl implements PlanDao {
 	}
 	
 	@Override
-	public void insertPlan(String planTitle, LocalDate planDate, String planContent) {
-		planMap.insertPlan(planTitle, planDate, planContent);
+	public void insertPlan(String planTitle, LocalDate planDate, String planContent, String companyId) {
+		planMap.insertPlan(planTitle, planDate, planContent, companyId);
 	}
 	
 	@Override

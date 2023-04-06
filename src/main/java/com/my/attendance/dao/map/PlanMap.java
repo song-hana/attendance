@@ -13,7 +13,8 @@ public interface PlanMap {
 	List<Holiday> selectHolidays(@Param("companyId") String companyId);
 	int insertPlan(@Param("planTitle") String planTitle,
 					@Param("planDate") LocalDate planDate,
-					@Param("planContent") String planContent);
+					@Param("planContent") String planContent,
+					@Param("companyId") String companyId);
 	int updatePlan(Plan plan);
 	int deletePlan(int planNo);
 }

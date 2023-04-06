@@ -13,7 +13,7 @@
 	</select>
 	
 	<select id='selectUserHoliday' resultType='holiday'>
-		select e.emp_name, e.hire_date, h.holiday_no, h.hol_date
+		select e.emp_name, h.holiday_no, h.hol_date
 		from attendance.employees e
 		join attendance.holidays h
 		on e.employee_no = h.employee_no
