@@ -49,8 +49,9 @@ public class HolidayController {
 	
 	@GetMapping("holidaylist/get")
 	@ResponseBody
-	public List<Holiday> getHolidays(@RequestParam("yearMonth") @DateTimeFormat(pattern = "yyyy-MM") YearMonth yearMonth) {
-	    return holidayService.getHolidays(yearMonth);
+	public List<Holiday> getHolidays(@RequestParam("yearMonth") @DateTimeFormat(pattern = "yyyy-MM") YearMonth yearMonth,
+										String companyId) {
+	    return holidayService.getHolidays(yearMonth, companyId);
 	}
 	
 	@PostMapping("getholiday/add")

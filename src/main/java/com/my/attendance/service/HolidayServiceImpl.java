@@ -15,8 +15,8 @@ public class HolidayServiceImpl implements HolidayService {
 	@Autowired private HolidayDao holidayDao;
 	
 	@Override
-	public List<Holiday> getHolidays(YearMonth yearMonth) {
-		return holidayDao.selectHolidays(yearMonth);
+	public List<Holiday> getHolidays(YearMonth yearMonth, String companyId) {
+		return holidayDao.selectHolidays(yearMonth, companyId);
 	}
 	
 	@Override

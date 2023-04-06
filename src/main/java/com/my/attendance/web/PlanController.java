@@ -41,9 +41,9 @@ public class PlanController {
 		return mv;
 	}
 	
-	@GetMapping("planlist/get")
+	@GetMapping("planlist/getPlan")
 	@ResponseBody
-	public List<Plan> getPlans(@RequestParam String companyId) {
+	public List<Plan> getPlans(String companyId) {
 	    return planService.getPlans(companyId);
 	}
 	

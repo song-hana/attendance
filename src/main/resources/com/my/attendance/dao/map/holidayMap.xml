@@ -8,6 +8,7 @@
 		join attendance.holidays h
 		on e.employee_no = h.employee_no
 		where to_char(h.hol_date, 'YYYY-MM') = #{yearMonth}
+		and e.company_id = #{companyId}
 		order by h.hol_date
 	</select>
 	

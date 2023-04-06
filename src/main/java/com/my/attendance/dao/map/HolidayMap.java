@@ -9,7 +9,8 @@ import org.apache.ibatis.annotations.Param;
 import com.my.attendance.domain.Holiday;
 
 public interface HolidayMap {
-	List<Holiday> selectHolidays(@Param("yearMonth")YearMonth yearMonth);
+	List<Holiday> selectHolidays(@Param("yearMonth")YearMonth yearMonth,
+								@Param("companyId") String companyId);
 	List<Holiday> selectUserHoliday(@Param("employeeNo") int employeeNo);
 	int insertHoliday(@Param("holDate") LocalDate holDate,
 						@Param("holContent") String holContent,

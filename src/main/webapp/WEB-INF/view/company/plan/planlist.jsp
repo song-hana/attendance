@@ -23,15 +23,14 @@
         btn_click()
         input_footer()
         show_logout()
-        console.log(companyId)
     })
 
 
 	let companyId = "${sessionScope.comId}"
    // company_id 를 이용하여 검색
-   function listPlans(successCallback) {
+  	function listPlans(successCallback) {
 	    $.ajax({
-	        url: 'planlist/get',
+	        url: 'planlist/getPlan',
 	        method: 'get',
 	        dataType: 'json',
 	        contentType: 'application/json',
@@ -243,9 +242,13 @@
             dayMaxEvents: false,
             events: function(info, successCallback) {
                 $.ajax({
-                    url: 'planlist/get',
+                    url: 'planlist/getPlan',
                     method: 'get',
                     dataType: 'json',
+                    contentType: 'application/json',
+                    data: {
+                    	companyId: companyId
+                    },
                     success: function(response) {
                         let events = [];
                         for (let i = 0; i < response.length; i++) {

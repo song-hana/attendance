@@ -22,11 +22,17 @@
         show_logout()
     })
     
+    let companyId = "${sessionScope.comId}"
+    
     function listPlans(successCallback) {
 	    $.ajax({
-	        url: 'planlist/get',
+	        url: 'planlist/getPlan',
 	        method: 'get',
 	        dataType: 'json',
+	        contentType: 'application/json',
+	        data: {
+	            companyId: companyId
+	        },
 	        success: function(response) {
 	            let events = [];
 	            for (let i = 0; i < response.length; i++) {
@@ -53,6 +59,10 @@
             url: 'planlist/getHoliday',
             method: 'get',
             dataType: 'json',
+            contentType: 'application/json',
+	        data: {
+	            companyId: companyId
+	        },
             success: function(response) {
                 let events = [];
                 for (let i = 0; i < response.length; i++) {
@@ -127,9 +137,13 @@
             dayMaxEvents: false,
             events: function(info, successCallback) {
                 $.ajax({
-                    url: 'planlist/get',
+                    url: 'planlist/getPlan',
                     method: 'get',
                     dataType: 'json',
+                    contentType: 'application/json',
+        	        data: {
+        	            companyId: companyId
+        	        },
                     success: function(response) {
                         let events = [];
                         for (let i = 0; i < response.length; i++) {

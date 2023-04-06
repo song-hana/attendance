@@ -7,7 +7,7 @@ import java.util.List;
 import com.my.attendance.domain.Holiday;
 
 public interface HolidayService {
-	List<Holiday> getHolidays(YearMonth yearMonth);
+	List<Holiday> getHolidays(YearMonth yearMonth, String companyId);
 	List<Holiday> getUserHoliday(int employeeNo);
 	void addHoliday(LocalDate holDate, String holContent, int employeeNo);
 	void fixHoliday(Holiday holiday);

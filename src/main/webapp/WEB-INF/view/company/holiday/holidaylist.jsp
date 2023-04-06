@@ -15,6 +15,8 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title> 연차 내역 조회 </title>
 <script>
+	let companyId = "${sessionScope.comId}"
+
 	$(function() {
 	    let today = new Date();
 	    let dateString = today.getFullYear() + "." + (today.getMonth() + 1) + "-" + today.getDate();
@@ -69,7 +71,10 @@
 	    $.ajax({
 	        url: 'holidaylist/get',
 	        dataType: 'json',
-	        data: { yearMonth: yearMonth },
+	        data: { 
+	        	yearMonth: yearMonth,
+	        	companyId: companyId
+	        	},
 	        success: holidays => {
 	            if (holidays.length) {
 	                const holidayArr = [];
