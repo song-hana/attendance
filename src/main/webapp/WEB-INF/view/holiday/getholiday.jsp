@@ -1,6 +1,5 @@
 <%@ page language='java' contentType='text/html; charset=utf-8' pageEncoding='utf-8'%>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset='utf-8'>
@@ -11,16 +10,21 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
-<script src='<c:url value="res/common.js"/>'></script>
+<script src='<c:url value="/res/common.js"/>'></script>
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title>연차</title>
 <script>
+const empNo = '1';
+
 	function listHolidays() {
 	    $('#holidays').empty();
 	
 	    $.ajax({
 	        url: 'getholiday/get',
 	        dataType: 'json',
+	        data: {
+	        	empNo: empNo
+	        },
 	        success: holidays => {
 	            if (holidays.length) {
 	                const holidayArr = [];
@@ -46,6 +50,11 @@
 	                    
 	                    const usedHoliday = holidays.length
 	                    const remainHoliday = grantHoliday - usedHoliday
+	                    if(remainHoliday == 0) {
+	                    	$('#addHolidayBtn').hide();
+	                    } else {
+	                    	$('#addHolidayBtn').show();
+	                    }
 	                    
 	                    $('#grantHoliday').text(`\${grantHoliday}`); // 부여연차
 	                    $('#usedHoliday').text(`\${usedHoliday}`); // 소진연차
@@ -141,7 +150,8 @@
                     type: 'post',
                     data: {
                         holDate: $('#addHolidayDate').val(),
-                        holContent: $('#addHolidayContent').val()
+                        holContent: $('#addHolidayContent').val(),
+                        empNo: empNo
                     },
                     success: listHolidays
                 });

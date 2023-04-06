@@ -20,7 +20,7 @@ function input_user_header() {
     header_txt += '             <a href="user/login" class="float-end collapse show" id="login_btn"><i class="fa-solid fa-user"></i></a>'
     header_txt += '             <a href="#" class="float-end collapse" id="showLnb"><i class="fa-solid fa-user"></i></a>'
     header_txt += '             <ul class="lnb collapse">'
-    header_txt += '                 <li><a href="../holiday/01.html">연차관리</a></li>'
+    header_txt += '                 <li><a href="../getholiday">연차관리</a></li>'
     header_txt += '                 <li><a href="../work/01.html">근로내역</a></li>'
     header_txt += '                 <li><a href="../user/04.html">비밀번호<br>변경</a></li>'
     header_txt += '                 <li><a href="logout">로그아웃</a></li>'
@@ -37,7 +37,7 @@ function input_user_header() {
     navigation += '         <a href="../work/02.html"><i class="fa-solid fa-check-to-slot"></i></a>'
     navigation += '     </div>'
     navigation += '     <div class="col text-center">'
-    navigation += '         <a href="../plan/01.html"><i class="fa-regular fa-calendar"></i></a>'
+    navigation += '         <a href="../getplan"><i class="fa-regular fa-calendar"></i></a>'
     navigation += '     </div>'
     navigation += ' </div>'
 

@@ -16,13 +16,13 @@
 		from attendance.employees e
 		join attendance.holidays h
 		on e.emp_no = h.emp_no
-		where e.emp_no = 1
+		where e.emp_no = #{empNo}
 		order by h.hol_date
 	</select>
 	
 	<insert id='insertHoliday'>
 		insert into holidays (hol_no, hol_date, hol_content, emp_no) 
-		values (attendance.hol_holno_seq.nextval, #{holDate}, #{holContent}, 1)
+		values (attendance.hol_holno_seq.nextval, #{holDate}, #{holContent}, #{empNo})
 	</insert>
 	
 	<update id='updateHoliday'>

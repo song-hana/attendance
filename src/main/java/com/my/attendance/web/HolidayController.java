@@ -43,8 +43,8 @@ public class HolidayController {
 	
 	@GetMapping("getholiday/get")
 	@ResponseBody
-	public List<Holiday> getUserHoliday() {
-	    return holidayService.getUserHoliday();
+	public List<Holiday> getUserHoliday(int empNo) {
+	    return holidayService.getUserHoliday(empNo);
 	}
 	
 	@GetMapping("holidaylist/get")
@@ -54,8 +54,8 @@ public class HolidayController {
 	}
 	
 	@PostMapping("getholiday/add")
-	public ResponseEntity<String> addHoliday(@DateTimeFormat(pattern="yyyy-MM-dd") LocalDate holDate, String holContent) {
-	    holidayService.addHoliday(holDate, holContent);
+	public ResponseEntity<String> addHoliday(@DateTimeFormat(pattern="yyyy-MM-dd") LocalDate holDate, String holContent, int empNo) {
+	    holidayService.addHoliday(holDate, holContent, empNo);
 	    return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
