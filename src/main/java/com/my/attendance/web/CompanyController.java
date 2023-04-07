@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.my.attendance.domain.Company;
@@ -13,31 +12,28 @@ import com.my.attendance.service.CompanyService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
+@RequestMapping("company/user")
 public class CompanyController {
-	@RequestMapping("company/user/login")
-	@GetMapping
+	@GetMapping("login")
 	public String login() {
 		return "company/user/login";
 	}
 	
-	@RequestMapping("company/user/findid")
-	@GetMapping
+	@GetMapping("findid")
 	public String findid() {
 		return "company/user/findid";
 	}
 	
-	@RequestMapping("company/user/findpw")
-	@GetMapping
+	@GetMapping("findpw")
 	public String findpw() {
 		return "company/user/findpw";
 	}
 	
-	
 	@Autowired private CompanyService companyService;
 	
-	@RequestMapping("company/user/loginCom")
-	public String getLoginCompany(@RequestParam("companyId") String companyId,
-			@RequestParam("companyPw") String companyPw, HttpSession session) {
+	@GetMapping("loginCom")
+	public String getLoginCompany(String companyId, String companyPw, 
+			HttpSession session) {
 		String result = "";
 		Company com = companyService.loginCheck(companyId, companyPw);
 		if(com != null) {
@@ -58,24 +54,22 @@ public class CompanyController {
 		return result;
 	}
 	
-	@GetMapping("company/logout")
+	@GetMapping(value = {"logout", "*/logout"})
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:main";
+		return "redirect:company/main";
 	}
 	
 	@ResponseBody
-	@RequestMapping("company/user/findId")
-	public String getcompanyId(@RequestParam("comName") String companyName,
-			@RequestParam("comReg") String companyRegno) {
+	@GetMapping("findId")
+	public String getcompanyId(String companyName, String companyRegno) {
 		String id = companyService.findId(companyName, companyRegno);
 		return id;
 	}
 	
 	@ResponseBody
-	@RequestMapping("company/user/findPw")
-	public String getcompanyPw(@RequestParam("comId") String companyId,
-			@RequestParam("comEmail") String companyEmail) {
+	@GetMapping("findPw")
+	public String getcompanyPw(String companyId, String companyEmail) {
 		String pw = companyService.findPw(companyId, companyEmail);
 		return pw;
 	}

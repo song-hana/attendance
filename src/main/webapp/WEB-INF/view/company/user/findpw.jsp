@@ -29,8 +29,8 @@
     		url: 'findPw',
     		type: 'post',
     		data: ({
-    			comId: comId,
-    			comEmail: email
+    			companyId: comId,
+    			companyEmail: email
     		}),
     		success: pw => {
     			$('#modalMsg').text('비밀번호는 ' + pw + ' 입니다.')

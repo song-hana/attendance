@@ -12,16 +12,16 @@ import com.my.attendance.service.AdminService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
+@RequestMapping("admin")
 public class AdminController {
-	@RequestMapping("admin/login")
-	@GetMapping
+	@GetMapping("login")
 	public String login() {
 		return "admin/login";
 	}
 	
 	@Autowired private AdminService adminService;
 	
-	@RequestMapping("admin/loginAdmin")
+	@GetMapping("loginAdmin")
 	public String getLoginAdmin(@RequestParam("adminId") String adminId,
 			@RequestParam("adminPw") String adminPw, HttpSession session) {
 		String result = "";
@@ -38,7 +38,7 @@ public class AdminController {
 		return result;
 	}
 	
-	@GetMapping("admin/logout")
+	@GetMapping(value = {"logout", "*/logout"})
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:admin";

@@ -23,7 +23,7 @@ function input_user_header() {
     header_txt += '                 <li><a href="../holiday/01.html">연차관리</a></li>'
     header_txt += '                 <li><a href="../work/01.html">근로내역</a></li>'
     header_txt += '                 <li><a href="../user/04.html">비밀번호<br>변경</a></li>'
-    header_txt += '                 <li><a href="logout">로그아웃</a></li>'
+    header_txt += '                 <li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>'
     header_txt += '             </ul>'
     header_txt += '          </div>'
     header_txt += '     </div>'

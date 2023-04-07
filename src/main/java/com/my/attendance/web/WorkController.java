@@ -17,18 +17,18 @@ import com.my.attendance.service.WorkService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
+@RequestMapping("work")
 public class WorkController {
 	@Autowired WorkService workService;
 	
-	@RequestMapping("work/record")
-	@GetMapping
+	@GetMapping("record")
 	public String recordTime() {
 		return "work/record";
 	}
 	
 	@ResponseBody
-	@RequestMapping("work/start")
-	public String recordStartTime(@RequestParam("empNo") int employeeNo,
+	@GetMapping("start")
+	public String recordStartTime(int employeeNo,
 			HttpSession session) {
 		String result = "";
 		
@@ -44,8 +44,8 @@ public class WorkController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("work/end")
-	public String recordEndTime(@RequestParam("workNo") int workNo,
+	@GetMapping("end")
+	public String recordEndTime(int workNo,
 			HttpSession session) {
 		String result = "";
 		

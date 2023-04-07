@@ -52,7 +52,7 @@
     	$.ajax({
     		url: 'start',
     		data: ({
-    			empNo: empNo
+    			employeeNo: empNo
     		}),
     		success: startTime => {
     			$('#modalMsg').empty()

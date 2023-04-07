@@ -30,8 +30,8 @@
     		url: 'findId',
     		type: 'post',
     		data: ({
-    			comName: name,
-    			comReg: regno
+    			companyName: name,
+    			companyReg: regno
     		}),
     		success: id => {
     			$('#modalMsg').text('ID는 ' + id + ' 입니다.')
