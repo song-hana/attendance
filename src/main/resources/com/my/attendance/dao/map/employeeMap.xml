@@ -22,4 +22,15 @@
 		where emp_id = '${employeeId}'
 		and emp_pino = '${employeePino}'
 	</select>
+	
+	<select id='selectEmployees' resultType='employee'>
+		select *
+		from employees
+		where company_id = 'company'
+	</select>
+	
+	<delete id='deleteEmployee'>
+		delete employees
+		where employee_no = #{employeeNo}
+	</delete>
 </mapper>
