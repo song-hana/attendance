@@ -1,6 +1,5 @@
 package com.my.attendance.dao;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,18 +23,17 @@ public class PublicNoticeDaoImpl implements PublicNoticeDao {
 	}
 	
 	@Override
-	public int insertPublicNotice(String pubntcTitle, String pubntcContent, 
-														LocalDate pubntcDate) {
-		return publicNoticeMap.insertPublicNotice(pubntcTitle, pubntcContent, pubntcDate);
+	public void insertPublicNotice(String pubntcTitle, String pubntcContent) {
+		publicNoticeMap.insertPublicNotice(pubntcTitle, pubntcContent);
 	}
 	
 	@Override
-	public int updatePublicNotice(PublicNotice publicNotice) {
-		return publicNoticeMap.updatePublicNotice(publicNotice);
+	public void updatePublicNotice(PublicNotice publicNotice) {
+		publicNoticeMap.updatePublicNotice(publicNotice);
 	}
 	
 	@Override
-	public int deletePublicNotice(int publicNoticeNo) {
-		return publicNoticeMap.deletePublicNotice(publicNoticeNo);
+	public void deletePublicNotice(int publicNoticeNo) {
+		publicNoticeMap.deletePublicNotice(publicNoticeNo);
 	}
 }

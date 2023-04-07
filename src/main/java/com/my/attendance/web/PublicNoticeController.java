@@ -1,13 +1,12 @@
 package com.my.attendance.web;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,6 +25,7 @@ public class PublicNoticeController {
 		return mv;
 	}
 	
+	@ResponseBody
 	@GetMapping("list")
 	public List<PublicNotice> getPublicNoticeList() {
 		/*System.out.println(publicNoticeService.getPublicNoticeLists().size());*/
@@ -43,10 +43,10 @@ public class PublicNoticeController {
 	}
 	
 	//공지사항 추가, 데이터 추가하기
+	@ResponseBody
 	@PostMapping("addPublicNotice")
-	public int addPublicNotice(String pubntcTitle, String pubntcContent, 
-							@DateTimeFormat(pattern="yyyy-MM-dd") LocalDate pubntcDate) {
-		return publicNoticeService.addPublicNotice(pubntcTitle, pubntcContent, pubntcDate);
+	public void addPublicNotice(String pubntcTitle, String pubntcContent) {
+		publicNoticeService.addPublicNotice(pubntcTitle, pubntcContent);
 	}
 	
 

@@ -1,6 +1,5 @@
 package com.my.attendance.service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,18 +23,17 @@ public class PublicNoticeServiceImpl implements PublicNoticeService {
 	}
 	
 	@Override
-	public int addPublicNotice(String pubntcTitle, String pubntcContent, 
-													LocalDate pubntcDate) {
-		return publicNoticeDao.insertPublicNotice(pubntcTitle, pubntcContent, pubntcDate);
+	public void addPublicNotice(String pubntcTitle, String pubntcContent) {
+		 publicNoticeDao.insertPublicNotice(pubntcTitle, pubntcContent);
 	}
 	
 	@Override
-	public int fixPublicNotice(PublicNotice publicNotice) {
-		return publicNoticeDao.updatePublicNotice(publicNotice);
+	public void fixPublicNotice(PublicNotice publicNotice) {
+		 publicNoticeDao.updatePublicNotice(publicNotice);
 	}
 	
 	@Override
-	public int delPublicNotice(int publicNoticeNo) {
-		return publicNoticeDao.deletePublicNotice(publicNoticeNo);
+	public void delPublicNotice(int publicNoticeNo) {
+		 publicNoticeDao.deletePublicNotice(publicNoticeNo);
 	}
 }

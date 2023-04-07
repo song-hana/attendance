@@ -22,8 +22,13 @@
         show_logout()
     	
     	addPublicNotice()
+		
     	
-    
+    	$('#addNoBtn').click(() =>  {
+    		$('#modalMsg').empty()
+    		$('#modalMsg').text('이 페이지를 벗어나면 기존 작성된 글이 삭제됩니다.')
+    		$('#modal').modal('show')
+    	})
     })
   
     function isVal(field) {
@@ -46,6 +51,7 @@
         return isGood;
     }
 
+    
 	function addPublicNotice() {
 		$('#addPublicNoticeBtn').click(() => {
 			if(isVal($('#publicNoticeTitle')) && isVal($('#publicNoticeContent'))) {
@@ -60,7 +66,7 @@
 					data: publicNotice,
 					contentType:'applicaion/json',
 					success: publicNotice => {
-						window.location.href ='admnoticelist';
+						window.location.href ='ntclist';
 					}
 				})
 			}

@@ -30,6 +30,7 @@
     	
     	$.ajax({
     		url:'list',
+    		method : 'get',
     		dataType:'json',
     		success: publicNoticeList => {
     			if(publicNoticeList.length) {

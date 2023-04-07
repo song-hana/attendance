@@ -10,7 +10,7 @@
 	
 	<insert id='insertPublicNotice'>
 		insert into public_notices (public_notice_no, pubntc_title, pubntc_content, pubntc_date)
-		values (attendance.public_notice_no_seq.nextval, #{pubntcTitle} ,#{pubntcContent}, #{pubntcDate})
+		values (attendance.pubntc_pubntcno_seq.nextval, #{pubntcTitle} , #{pubntcContent}, sysdate)
 	</insert>
 	
 	<update id='updatePublicNotice'>
