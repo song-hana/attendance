@@ -36,11 +36,18 @@
     				move()
     			}
     		}
-    	})
+    	}).done(() => $('.msgBox').removeClass('show'))
+		.fail(() => error())
     }
     
     function move() {
     	window.location.href = '../main'
+    }
+    
+    function error() {
+    	$('#msg').css('color', 'red')
+    	$('#msg').text('ID 혹은 비밀번호가 잘못되었습니다.')
+    	$('.msgBox').addClass('show')
     }
     
     function isVal(field) {
@@ -77,6 +84,9 @@
                     <form class='form_box'>
                         <input type='text' id='comId' class='form-control' placeholder='아이디'/><br>
                         <input type='password' id='comPw' class='form-control' placeholder='비밀번호'/><br>
+                        <div class='msgBox collapse'>
+			                <span id='msg'></span><br><br>
+		                </div>
                         <input type='submit' id='login' class='form-control btn btn-blue' value='로그인'/><br>
                     </form>
                 </div>

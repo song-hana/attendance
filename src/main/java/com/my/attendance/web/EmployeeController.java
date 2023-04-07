@@ -51,6 +51,7 @@ public class EmployeeController {
 			session.setAttribute("empNo", emp.getEmployeeNo());
 			session.setAttribute("empId", emp.getEmpId());
 			session.setAttribute("empPw", emp.getEmpPw());
+			session.setAttribute("empName", emp.getEmpName());
 			session.setAttribute("empAddr", emp.getEmpAddr());
 			session.setAttribute("empDetailAddr", emp.getEmpDetailAddr());
 			session.setAttribute("empPostcode", emp.getEmpPostcode());

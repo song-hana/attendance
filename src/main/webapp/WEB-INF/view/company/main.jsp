@@ -20,7 +20,6 @@
         input_footer()
         btn_click()
 		
-        
         if(session != '') {
             show_logout()
         }
