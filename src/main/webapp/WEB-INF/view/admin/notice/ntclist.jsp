@@ -2,7 +2,6 @@
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <html>
 <head>
-<meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet'>
 <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js'></script>
@@ -14,48 +13,46 @@
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <script src='<c:url value="/res/common.js"/>'></script>
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'/>
-<title>ADMIN.NOTICE.07 전체 공지사항 목록 </title>
+<title></title>
 <script>
     $(() => {
         input_admin_header()
         input_admin_sidebar()
         input_footer()
+        btn_click()
+        show_logout()
+        
+        listPublicNotice()
     })
     
-	function ntclists() {
-    	$('#publicNotices').empty();
+	function listPublicNotice() {
+    	$('#publicNoticeList').empty(); 
     	
     	$.ajax({
-    		method:'post',
-    		url:"<%=request.getContextPath()%>/admin/notice/getntc"
-    	}).done(publicNotices => {
-    		if(publicNotices.length) {
-    			const publicNoticeArr = []
-    			
-    			$.each(publicNotices, (i,publicNotice) => {
-    				publicNoticeArr.unshift(
-    					`<tr>
-    						<td><input type='checkbox' name='publicNoticeNo' id='publicNoticeNo'
-    								value='\${publicNotice.publicNoticeNo}'/></td>
-    						<td>\${publicNotice.publicNoticeNo}</td>
-    						<td><a href='getntc?publicNoticeNo=\${publicNotice.publicNoticeNo}'>\
-    								\${publicNotice.publicNoticeTitle}</td>
-    						<td>\${publicNotice.publicNoticeDate}</td>
-    					</tr>`
-    				);
-    			})
-    			$('#publicNotices').append(publicNoticeArr.join(''))
-    		} else {
-    			$('#publicNotices').append('<tr><td colspan=5 class=text-center>공지사항이 없습니다.</td></tr>')
+    		url:'list',
+    		dataType:'json',
+    		success: publicNoticeList => {
+    			if(publicNoticeList.length) {
+    				const publicNoticeArr = [];
+    				
+    				$.each(publicNoticeList, (i,publicNotice) => {
+    					publicNoticeArr.unshift(
+    						`<tr>
+    							<td>\${publicNotices.publicNoticeNo}</td>
+    							<td>\${publicNotices.pubntcTitle}</td>
+    							<td>\${publicNotices.pubntcDate}</td>
+        					</tr>`					
+    					)
+    				})
+    				$('#publicNoticeList').append(publicNoticeArr.join(''));
+    			} else {
+    				$('#publicNoticeList').append('<tr><td colspan=5 class=text-center>공지사항이 없습니다.</td></tr>')
+    			}
     		}
     	})
     }
-
-    function init() {
-    	$(ntclists)
-    }
     
-    $(init)
+    
 </script>
 <style>
     .table {
@@ -114,8 +111,13 @@
                                 <th>등록일</th>
                             </tr>
                         </thead>
-                        <tbody id='publicNotices'>
-                         	
+                        <tbody id='publicNoticeList'>
+							
+							<!--
+                            <tr><td><p></p></td><td></td><td></td></tr>
+                            <tr><td><p></p></td><td></td><td></td></tr>
+                            <tr><td><p></p></td><td></td><td></td></tr>
+                            -->
                         </tbody>
                     </table>
                 </div>

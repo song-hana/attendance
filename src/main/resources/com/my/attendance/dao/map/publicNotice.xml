@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN' 
+	'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+<mapper namespace='com.my.attendance.dao.map.PublicNoticeMap'>
+	<select id='selectPublicNoticeLists' resultType='PublicNotice'>
+		select public_notice_no, pubntc_title, pubntc_content , pubntc_date
+		from public_notices
+		order by public_notice_no desc
+	</select> 
+	
+	<insert id='insertPublicNotice'>
+		insert into public_notices (public_notice_no, pubntc_title, pubntc_content, pubntc_date)
+		values (attendance.public_notice_no_seq.nextval, #{pubntcTitle} ,#{pubntcContent}, #{pubntcDate})
+	</insert>
+	
+	<update id='updatePublicNotice'>
+		update public_notices
+		set pubntc_title = #{pubntcTitle}, pubntc_content = #{pubntcContent} , pubntc_date = #{pubntcDate}
+		where public_notice_no = #{publicNoticeNo}
+	</update>
+	
+	<delete id='deletePublicNotice'>
+		delete public_notices
+		where public_notice_no = #{publicNoticeNo}
+	</delete>
+</mapper>
