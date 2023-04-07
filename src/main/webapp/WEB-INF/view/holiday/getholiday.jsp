@@ -18,6 +18,23 @@ let employeeNo = ${sessionScope.empNo}
 let employeeName = "${sessionScope.empName}"
 let employeeHireDate = "${sessionScope.hireDate}"
 
+	function isVal(field) {        
+	    let isGood = false
+	    let errMsg
+	
+	    if(!field.val()) errMsg = field.attr('placeholder') + '를 입력하세요.'
+	    else isGood = true
+	
+	    if(!isGood) {            
+	        $('#modalMsg').text(errMsg)
+	        $('#modalBtn').hide()
+	        $('#modal').modal('show')           
+	    }
+	
+	    return isGood
+	}
+
+
 	function listHolidays() {
 	    $('#holidays').empty();
 	    
@@ -104,33 +121,37 @@ let employeeHireDate = "${sessionScope.hireDate}"
         show_logout()
         listHolidays()
 
+        // 연차 수정
         $('#holidays').on('click', '.fixHolidayBtn', function() {
             const holidayNo = $(this).closest('tr').attr('holidayNo');
             
             $('#modalMsg').empty()
-            $('#modalMsg').append(`<p>날짜: <input type='date' id='fixHolidayDate'/> </p>`)
+            $('#modalMsg').append(`<p>날짜: <input type='date' id='fixHolidayDate' placeholder='날짜'/> </p>`)
             $('#modalBtn').show()
             $('#modal').modal('show')
             
-            $('#modalOKBtn').off('click').on('click', function() {
-                let holiday = {
-                    holidayNo: holidayNo,
-                    holDate: $('#fixHolidayDate').val() 
-                }
-                
-                $.ajax({
-                    url: 'holidaylist/fix',
-                    type: 'put',
-                    contentType: 'application/json',
-                    data: JSON.stringify(holiday),
-                    success: listHolidays
-                });
-
-                $('#modalMsg').empty()
-                $('#modalMsg').text('연차 수정 되었습니다.')
-                $('#modalBtn').hide()
-                $('#modal').modal('show')
-            })
+            
+           	$('#modalOKBtn').off('click').on('click', function() {
+           		if(isVal($('#fixHolidayDate'))) {
+	                let holiday = {
+	                    holidayNo: holidayNo,
+	                    holDate: $('#fixHolidayDate').val() 
+	                }
+	                
+	                $.ajax({
+	                    url: 'holidaylist/fix',
+	                    type: 'put',
+	                    contentType: 'application/json',
+	                    data: JSON.stringify(holiday),
+	                    success: listHolidays
+	                });
+	
+	                $('#modalMsg').empty()
+	                $('#modalMsg').text('연차 수정 되었습니다.')
+	                $('#modalBtn').hide()
+	                $('#modal').modal('show')
+           		}
+       		})
         });
         // 연차 삭제
         $('#holidays').on('click', '.delHolidayBtn', function() {
@@ -158,27 +179,30 @@ let employeeHireDate = "${sessionScope.hireDate}"
         // 연차 추가
         $('#addHolidayBtn').click(() => {
             $('#modalMsg').empty()
-            $('#modalMsg').append(`<p>날짜: <input type='date' id='addHolidayDate'/></p>`)
-                            .append(`<p>사유: <input type='text' class='pb-3' id='addHolidayContent'/></p>`)
+            $('#modalMsg').append(`<p>날짜: <input type='date' id='addHolidayDate' placeholder='날짜'/></p>`)
+                            .append(`<p>사유: <input type='text' class='pb-3' id='addHolidayContent' placeholder='사유'/></p>`)
             $('#modalBtn').show()
             $('#modal').modal('show')
 
-            $('#modalOKBtn').off('click').on('click', function() {
-                $.ajax({
-                    url: 'getholiday/add',
-                    type: 'post',
-                    data: {
-                        holDate: $('#addHolidayDate').val(),
-                        holContent: $('#addHolidayContent').val(),
-                        employeeNo: employeeNo
-                    },
-                    success: listHolidays
-                });
-                
-                $('#modalMsg').empty()
-                $('#modalMsg').text('연차 신청 되었습니다.')
-                $('#modalBtn').hide()
-                $('#modal').modal('show')
+            $('#modalOKBtn').on('click', function() {
+            	if( isVal($('#addHolidayDate')) && isVal($('#addHolidayContent'))) {
+            		
+	                $.ajax({
+	                    url: 'getholiday/add',
+	                    type: 'post',
+	                    data: {
+	                        holDate: $('#addHolidayDate').val(),
+	                        holContent: $('#addHolidayContent').val(),
+	                        employeeNo: employeeNo
+	                    },
+	                    success: listHolidays
+	                });
+	                
+	                $('#modalMsg').empty()
+	                $('#modalMsg').text('연차 신청 되었습니다.')
+	                $('#modalBtn').hide()
+	                $('#modal').modal('show')
+            	}
             })
         })
     })

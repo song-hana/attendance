@@ -56,7 +56,6 @@ public class EmployeeController {
 			session.setAttribute("profileName", emp.getProfileName());
 			session.setAttribute("comId", emp.getCompanyId());
 			result = "main";
-			System.out.println(emp);
 		} else {
 			result = "";
 		}
