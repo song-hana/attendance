@@ -16,11 +16,22 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title>사내 일정 조회</title>
 <script>
+	let session = ${sessionScope.empNo}
+
     $(() => {
         input_user_header()
         btn_click()
-        show_logout()
+        
+        mp_check()
     })
+    
+    function mp_check() {
+		if(session > 0) {
+			show_logout()
+		} else {
+			window.location.href = '../main'
+		}
+	}
     
     let companyId = "${sessionScope.comId}"
     

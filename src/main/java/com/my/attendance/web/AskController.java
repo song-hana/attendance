@@ -58,6 +58,27 @@ public class AskController {
 		mv.setViewName("admin/ask/getask");
 		return mv;
 	}
+	
+	@GetMapping
+	@RequestMapping("userasklist")
+	public ModelAndView userasklist(ModelAndView mv) {
+		mv.setViewName("ask/asklist");
+		return mv;
+	}
+	
+	@GetMapping
+	@RequestMapping("useraddask")
+	public ModelAndView useraddask(ModelAndView mv) {
+		mv.setViewName("ask/addask");
+		return mv;
+	}
+	
+	@GetMapping
+	@RequestMapping("usergetask")
+	public ModelAndView usergetask(ModelAndView mv) {
+		mv.setViewName("ask/getask");
+		return mv;
+	}
 
 	@GetMapping("asklist/get")
 	@ResponseBody

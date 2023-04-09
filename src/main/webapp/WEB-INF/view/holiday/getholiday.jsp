@@ -18,7 +18,7 @@ let employeeNo = ${sessionScope.empNo}
 let employeeName = "${sessionScope.empName}"
 let employeeHireDate = "${sessionScope.hireDate}"
 
-	function isVal(field) {        
+	function isVal(field) {
 	    let isGood = false
 	    let errMsg
 	
@@ -180,11 +180,11 @@ let employeeHireDate = "${sessionScope.hireDate}"
         $('#addHolidayBtn').click(() => {
             $('#modalMsg').empty()
             $('#modalMsg').append(`<p>날짜: <input type='date' id='addHolidayDate' placeholder='날짜'/></p>`)
-                            .append(`<p>사유: <input type='text' class='pb-3' id='addHolidayContent' placeholder='사유'/></p>`)
+                            .append(`<p>사유: <input type='text' class='pb-3' id='addHolidayContent' placeholder='사유' /></p>`)
             $('#modalBtn').show()
             $('#modal').modal('show')
 
-            $('#modalOKBtn').on('click', function() {
+            $('#modalOKBtn').off('click').on('click', function() {
             	if( isVal($('#addHolidayDate')) && isVal($('#addHolidayContent'))) {
             		
 	                $.ajax({
