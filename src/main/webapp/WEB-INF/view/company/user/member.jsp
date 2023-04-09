@@ -14,7 +14,6 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title>회사 회원가입</title>
 <script>
-
 	function errMsgClear() {
 	    $('#idErrMsg, #pwErrMsg, #pwCheckErrMsg, #nameCheckErrMsg, #regnoErrMsg, #addrErrMsg, #presidentErrMsg, #emailErrMsg, #phErrMsg').empty()
 	}
@@ -30,6 +29,9 @@
 	
 	    return isGood
 	}
+	
+	let checkId = 0;
+	let checkIdVal
 	
     $(() => {
         input_form_header()
@@ -51,7 +53,6 @@
 	        const comEmail = inputEmail.val() + '@' + subEmail.val()
 	        const comPh = $('#comPh')
 	
-	        // 예외 처리를 위한 함수 호출
 	        const isCompanyId = isVal(companyId, $('#idErrMsg'), '회사 ID를 입력하세요.')
 	        const isComPw = isVal(comPw, $('#pwErrMsg'), '비밀번호를 입력하세요.')
 	        const isComPwCheck = isVal(comPwCheck, $('#pwCheckErrMsg'), '비밀번호 확인을 입력하세요.')
@@ -77,22 +78,60 @@
 	                comPh: comPh.val()
 	            }
 	            
-	            if(comPw == comPwCheck) {
-		        	$.ajax({
-		                url: '../../company/user/member/add',
-		                type: 'post',
-		                contentType: 'application/json',
-		                data: JSON.stringify(company),
-		                success: function() {
-					        $('#modalMsg').text('회원가입이 완료되었습니다.')
-					        $('#modal').modal('show');
-					        window.location.href = '../../company/main'
-					      }
-		            });
+	            if(checkId != 0 && checkIdVal == $('#companyId').val()) {
+		            if(comPw.val() == comPwCheck.val()) {
+			        	$.ajax({
+			                url: '../../company/user/member/add',
+			                type: 'post',
+			                contentType: 'application/json',
+			                data: JSON.stringify(company),
+			                success: function() {
+			                    $('#modalMsg').text('회원가입이 완료되었습니다.')
+			                    $('#modalBtn').hide()
+			                    $('#modal').modal('show')
+			                    setTimeout(function() {
+			                        window.location.href = '../../company/main'
+			                    }, 2000)
+			                }
+			            });
+		            } else {
+		        		$('#pwCheckErrMsg').text('비밀번호가 일치하지 않습니다.').css('color', 'red')
+		            }
 	            } else {
-	        		$('#pwCheckErrMsg').val('비밀번호가 일치하지 않습니다.').css('color', 'red')
+	            	$('#modalMsg').empty()
+	            	$('#modalMsg').text('아이디를 중복확인하세요.')
+                    $('#modalBtn').hide()
+                    $('#modal').modal('show')
 	            }
+	            
 	        }
+        })
+        
+        $('.form_box').on('click', '#companyIdCheck', function() {
+            const companyId = $('#companyId').val();
+			
+            if(companyId) {
+            	
+	            $.ajax({
+	                url: '../../company/user/member/check',
+	                type: 'get',
+	                data: {companyId: companyId},
+	                success: function(result) {
+	                    console.log(result)
+	                    if (result == '1') {
+	                    	checkId = 0;
+	                    	
+	                    	$('#idErrMsg').text('이미 사용중인 회사 ID입니다.').css('color', 'red');
+	                    } else {
+	                    	checkId = 1;
+	                    	checkIdVal = $('#companyId').val()
+	                    	$('#idErrMsg').text('사용 가능한 회사 ID입니다.').css('color', 'green');
+	                    }
+	                }
+	            })
+            } else {
+            	$('#idErrMsg').text('회사 ID를 입력하세요.').css('color', 'red')
+            }
         })
     })
     
@@ -157,29 +196,39 @@
       line-height: 1.6rem;
     }
     
-    #duplicate-check{
+    #companyIdCheck{
       color: black;
       border-radius: 0.5rem;
       width: 7rem;
-        background-color: lightgray;
-        margin-left: 0.5rem;
+      background-color: lightgray;
+      margin-left: 0.5rem;
     }
     
     #searchpost{
       background-color: lightgray;
-        color: black;
-        margin-left: 1rem;    
+      color: black;
+      margin-left: 1rem;    
     }
-    #extraAddress{
-        margin-top: 0.5rem;
+    
+    #comAddr{
+      margin-top: 0.5rem;
     }
-    #detailAddress {
+    
+    #comDetailAddr {
       margin-left: .5rem;
       margin-top: .5rem;
     }
+    
     #dropdown{
       margin-left: 0.5rem;
     }
+    
+    input[type=number]::-webkit-outer-spin-button,
+	input[type=number]::-webkit-inner-spin-button {
+	    -webkit-appearance: none;
+	    margin: 0;
+	}
+	
 </style>
 </head>
 <body>
@@ -191,7 +240,7 @@
                 <label for='input-id'>아이디</label>
                 <div class='input-group'>
                   <input type='text' class='form-control' id='companyId' name='id' placeholder='숫자, 문자 포함 12자이하로 입력하세요'>
-                  <button class='btn' type='button' id='duplicate-check'>중복확인</button>
+                  <button class='btn' type='button' id='companyIdCheck'>중복확인</button>
                 </div>
                 <span id='idErrMsg'></span><br>
                 <label for='password'>비밀번호</label>

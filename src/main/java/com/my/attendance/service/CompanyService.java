@@ -7,5 +7,5 @@ public interface CompanyService {
 	String findId(String companyName, String companyRegno);
 	String findPw(String companyId, String companyEmail);
 	void addCompany(Company company);
-	void checkCompany(String companyId);
+	int checkCompany(String companyId);
 }

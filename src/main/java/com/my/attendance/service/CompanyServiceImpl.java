@@ -31,7 +31,7 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 	
 	@Override
-	public void checkCompany(String companyId) {
-	    companyDao.checkCompany(companyId);
+	public int checkCompany(String companyId) {
+	    return companyDao.checkCompany(companyId);
 	}
 }

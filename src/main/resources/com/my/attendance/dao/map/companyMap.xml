@@ -31,7 +31,7 @@
         #{comEmail},#{president})
     </insert>
     
-    <select id='checkCompany' resultType='int'>
+    <select id='checkCompany' resultType='Int'>
 	  	select count(*)
 	  	from companys
 	  	where company_id = #{companyId}
