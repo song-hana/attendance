@@ -24,4 +24,14 @@ public class CompanyServiceImpl implements CompanyService {
 	public String findPw(String companyId, String companyEmail) {
 		return companyDao.selectCompanyPw(companyId, companyEmail);
 	}
+	
+	@Override
+	public void addCompany(Company company) {
+		 companyDao.insertCompany(company);
+	}
+	
+	@Override
+	public void checkCompany(String companyId) {
+	    companyDao.checkCompany(companyId);
+	}
 }

@@ -1,11 +1,16 @@
 package com.my.attendance.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.my.attendance.domain.Company;
 import com.my.attendance.service.CompanyService;
@@ -31,7 +36,6 @@ public class CompanyController {
 	public String findpw() {
 		return "company/user/findpw";
 	}
-	
 	
 	@Autowired private CompanyService companyService;
 	
@@ -78,5 +82,18 @@ public class CompanyController {
 			@RequestParam("comEmail") String companyEmail) {
 		String pw = companyService.findPw(companyId, companyEmail);
 		return pw;
+	}
+	
+	@GetMapping
+	@RequestMapping("company/user/member")
+	public ModelAndView asklist(ModelAndView mv) {
+		mv.setViewName("company/user/member");
+		return mv;
+	}
+	
+	@PostMapping("company/user/member/add")
+	public ResponseEntity<String> addAnswer(@RequestBody Company company) {
+	    companyService.addCompany(company);
+	    return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 }

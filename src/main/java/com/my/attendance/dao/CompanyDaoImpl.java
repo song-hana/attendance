@@ -24,4 +24,14 @@ public class CompanyDaoImpl implements CompanyDao {
 	public String selectCompanyPw(String companyId, String companyEmail) {
 		return companyMap.selectCompanyPw(companyId, companyEmail);
 	}
+	
+	@Override
+	public int insertCompany(Company company) {
+		return companyMap.insertCompany(company);
+	}
+	
+	@Override
+    public int checkCompany(String companyId) {
+        return companyMap.checkCompany(companyId);
+    }
 }

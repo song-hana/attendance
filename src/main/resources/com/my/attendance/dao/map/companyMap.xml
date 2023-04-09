@@ -22,4 +22,18 @@
 		where company_id = '${companyId}'
 		and com_email = '${companyEmail}'
 	</select>
+	
+	<insert id="insertCompany">
+        insert into  attendance.companys(company_Id,com_pw,com_name,
+        com_regno,com_addr,com_detailaddr,com_postcode,com_ph,com_email,president)    
+        values (#{companyId}, #{comPw}, #{comName},
+        #{comRegno},#{comAddr},#{comDetailAddr},#{comPostcode},#{comPh},
+        #{comEmail},#{president})
+    </insert>
+    
+    <select id='checkCompany' resultType='int'>
+	  	select count(*)
+	  	from companys
+	  	where company_id = #{companyId}
+	</select>
 </mapper>

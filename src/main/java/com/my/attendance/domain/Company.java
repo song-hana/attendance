@@ -7,10 +7,10 @@ public class Company {
 	private String companyId;
 	private String comPw;
 	private String comName;
-	private String comRegno;
+	private int comRegno;
 	private String comAddr;
 	private String comDetailAddr;
-	private String comPostcode;
+	private int comPostcode;
 	private String comPh;
 	private String comEmail;
 	private String president;
