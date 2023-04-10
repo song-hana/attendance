@@ -34,4 +34,9 @@ public class CompanyDaoImpl implements CompanyDao {
     public int checkCompany(String companyId) {
         return companyMap.checkCompany(companyId);
     }
+	
+	@Override
+	public int updateCompany(Company company) {
+		return companyMap.updateCompany(company);
+	}
 }

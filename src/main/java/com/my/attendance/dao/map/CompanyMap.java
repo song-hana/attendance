@@ -8,4 +8,5 @@ public interface CompanyMap {
 	String selectCompanyPw(String companyId, String companyEmail);
 	int insertCompany(Company company);
 	int checkCompany(String companyId);
+	int updateCompany(Company company);
 }

@@ -22,4 +22,19 @@
 		where emp_id = '${employeeId}'
 		and emp_pino = '${employeePino}'
 	</select>
+	
+	<insert id='insertEmployee'>
+		insert into attendance.employees(employee_no,emp_id,emp_pw,emp_addr,
+		emp_detailaddr,emp_postcode,emp_ph,emp_email,hire_date,emp_position,
+		emp_pino,profile_name,company_id)
+		values(#{employeeNo},#{empId},#{empPw},#{empName},#{empName},#{empAddr},
+		#{empDetailAddr},#{empPostcode},#{empPh},#{empEmail},#{hireDate},
+		#{empPostition},#{empPino},#{profileName},#{companyId})
+	</insert>
+	
+	<select id='checkEmployee' resultType='Int'>
+		select count(*)
+		from employees
+		where emp_id = ${employeeId}
+	</select>
 </mapper>

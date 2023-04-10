@@ -8,4 +8,5 @@ public interface CompanyService {
 	String findPw(String companyId, String companyEmail);
 	void addCompany(Company company);
 	int checkCompany(String companyId);
+	void fixCompany(Company company);
 }

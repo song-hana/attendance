@@ -36,4 +36,19 @@
 	  	from companys
 	  	where company_id = #{companyId}
 	</select>
+	
+	<update id="updateCompany">
+		  update attendance.companys
+		  set com_pw = #{comPw},
+		      com_name = #{comName},
+		      com_regno = #{comRegno},
+		      com_addr = #{comAddr},
+		      com_detailaddr = #{comDetailAddr},
+		      com_postcode = #{comPostcode},
+		      com_ph = #{comPh},
+		      com_email = #{comEmail},
+		      president = #{president}
+		  where company_Id = #{companyId}
+</update>
+
 </mapper>

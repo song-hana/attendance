@@ -34,4 +34,9 @@ public class CompanyServiceImpl implements CompanyService {
 	public int checkCompany(String companyId) {
 	    return companyDao.checkCompany(companyId);
 	}
+	
+	@Override
+	public void fixCompany(Company company) {
+		 companyDao.updateCompany(company);
+	}
 }

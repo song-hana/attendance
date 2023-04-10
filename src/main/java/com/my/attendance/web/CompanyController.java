@@ -1,15 +1,12 @@
 package com.my.attendance.web;
 
-import java.time.YearMonth;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.my.attendance.domain.Company;
-import com.my.attendance.domain.Holiday;
 import com.my.attendance.service.CompanyService;
 
 import jakarta.servlet.http.HttpSession;
@@ -91,9 +87,15 @@ public class CompanyController {
 	
 	@GetMapping
 	@RequestMapping("company/user/member")
-	public ModelAndView asklist(ModelAndView mv) {
+	public ModelAndView member(ModelAndView mv) {
 		mv.setViewName("company/user/member");
 		return mv;
+	}
+	@GetMapping
+	@RequestMapping("company/user/fixinfo")
+	public ModelAndView fixCompany(ModelAndView mv) {
+		mv.setViewName("company/user/fixinfo");
+		return mv;				
 	}
 	
 	@PostMapping("company/user/member/add")
@@ -106,5 +108,11 @@ public class CompanyController {
 	@ResponseBody
 	public int checkCompany(String companyId) {
 	    return companyService.checkCompany(companyId);
+	}
+	
+	@PutMapping("company/user/member/fix")
+	public ResponseEntity<String> fixCompany(@RequestBody Company company){
+		companyService.fixCompany(company);
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 }
