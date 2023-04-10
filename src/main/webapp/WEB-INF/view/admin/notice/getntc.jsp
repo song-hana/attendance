@@ -13,48 +13,61 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'/>
 <title></title>
 <script>
+	const urlParams = new URLSearchParams(window.location.search);
+	const publicNoticeNo = urlParams.get('publicNoticeNo');
+	
+	function PublicNoticeDetail() {
+		$.ajax({
+			url: 'ntclist/getNtc',
+			dataType: 'json',
+			data : {
+				publicNoticeNo: publicNoticeNo
+			},
+			success : publicNoticeDetail => {
+				if(publicNoticeDetail.length) {
+					const publicNoticeArr = [];
+					
+					$.each(publicNoticeDetail, (i, publicNotice) => {
+						publicNoticeArr.unshift(
+							`<thead>
+								<tr>
+									<th>\${publicNotice.pubntcTitle}</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>\${publicNotice.pubntcContent}</td>
+								</tr>
+							</tbody>`
+						);
+					});
+					$('#publicNoticeDetail').append(publicNoticeArr.join(''));
+				}
+			}
+		});
+	}
+
     $(() => {
         input_admin_header()
         input_admin_sidebar()
         input_footer()
-        PublicNoticeList()
+        PublicNoticeDetail()
 
-        $('#delBtn').click(() => {
-            $('#modalMsg').empty()
-            $('#modalMsg').text('정말로 삭제하시겠습니까?')
-            $('#modal').modal('show')
-        })
+        $('#delPublicNoticeBtn').on('click', function() {
+        	$('#modalMsg').empty()
+        	$('#modalMsg').text('정말로 삭제하시겠습니까?')
+        	$('#modalBtn').show()
+        	$('#modal').modal("show")
+        	
+        	$('#modalOkBtn').off('click').on('click', function() {
+        		$.ajax({
+        			url: 'getntc/del/' + publicNoticeNo,
+        			method:'delete',
+        			success: window.location.href='../notice/ntclist' 
+        		});
+        	})
+        });
     })
-    
-    function PublicNoticeList() {
-    	$.ajax({
-    		url: 'ntclist/getntc',
-    		dataType: 'json',
-    		data : {
-    			publicNoticeNo: publicNoticeNo
-    		},
-    		success : publicNoticeDetail => {
-    			if(publicNoticeDetail.length) {
-    				const publicNoticeArr = [];
-    				
-    				$.each(publicNoticeDetail, (i, publicNotice) => {
-    					publicNoticeArr.unshift(
-    						`<thead>
-    							<tr>
-    								<th>\${publicNotice.publicNoticeTitle}</th>
-    							</tr>
-    						</thead>
-    						<tbody>
-    							<tr>
-    								<td>\${publicNotice.publicNoticeContent}</td>
-    							</tr>
-    						</tbody>`
-    					);
-    				})
-    			}
-    		}
-    	})
-    }
 </script>
 <style>
 
@@ -66,7 +79,7 @@
         font-size: 1.2rem;
     }
 
-    #modalOKBtn {
+    #modalOkBtn {
         background-color: darkblue;
         color: white;
     }
@@ -111,9 +124,10 @@
             </div>
             <div class='row'>
                 <div class='col d-flex justify-content-end'>
-                    <button type='button' class='btn me-3 btn-white' onclick="window.location.href='fixntc'">수정</button>
+                    <button type='button' class='btn me-3 btn-white'
+                    		onclick="window.location.href=`fixntc?publicNoticeNo=\${publicNoticeNo}`">수정</button>
                     <button type='button' class='btn me-3 btn-secondary' onclick="window.location.href='ntclist'">목록</button>
-                    <button type='button' class='btn btn-red' id='delBtn'>삭제</button>
+                    <button type='button' class='btn btn-red' id='delPublicNoticeBtn'>삭제</button>
                 </div>
             </div>
         </div>
@@ -131,7 +145,7 @@
             </div>
             <div class='modal-footer' id='modalBtn'>
                 <button type='button' class='btn m-2' id='modalCancelBtn' data-bs-dismiss='modal'>취소</button>
-                <button type='button' class='btn' id='modalOKBtn' onclick="window.location.href='07.html'">확인</button>
+                <button type='button' class='btn' id='modalOkBtn'>확인</button>
             </div>
         </div>
     </div>

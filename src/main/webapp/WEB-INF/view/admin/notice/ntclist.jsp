@@ -35,12 +35,12 @@
     			if(publicNoticeList.length) {
     				const publicNoticeArr = [];
     				
-    				$.each(publicNoticeList, (i, publicNotices) => {
+    				$.each(publicNoticeList, (i, publicNotice) => {
     					publicNoticeArr.unshift(
-    						`<tr onclick="window.location.href='../notice/getntc?PublicNoticeNo=\${publicNotices.publicNoticeNo}'">
-    							<td>\${publicNotices.publicNoticeNo}</td>
-    							<td>\${publicNotices.pubntcTitle}</td>
-    							<td>\${publicNotices.pubntcDate}</td>
+    						`<tr onclick="window.location.href='../notice/getntc?publicNoticeNo=\${publicNotice.publicNoticeNo}'">
+    							<td>\${publicNotice.publicNoticeNo}</td>
+    							<td>\${publicNotice.pubntcTitle}</td>
+    							<td>\${publicNotice.pubntcDate}</td>
         					</tr>`
     					);
     					
@@ -66,7 +66,7 @@
     }
 
     tr th:nth-child(2) {
-        padding-left: 4rem;
+        padding-left: 1rem;
     }
 
     tr th:last-child {

@@ -24,17 +24,14 @@
     	
     	$('#addPublicNoticeBtn').click(() => {
 			if(isVal($('#publicNoticeTitle')) && isVal($('#publicNoticeContent'))) {
-				let publicNotice = {
-						publicNoticeTitle: $('#publicNoticeTitle').val(),
-						publicNoticeContent: $('#publicNoticeContent').val()
-				}
-				
 				$.ajax({
 					url:'addntc/add',
 					method:'post',
-					contentType: 'application/json',
-					data: JSON.stringify(publicNotice),
-					//success : window.location.href = '../notice/ntclist'
+					data: {
+						pubntcTitle: \$('#publicNoticeTitle').val(),
+						pubntcContent: \$('#publicNoticeContent').val()
+					},
+					success : window.location.href = '../notice/ntclist'
 				});
 			}
 		})
@@ -112,10 +109,33 @@
             <div class='row pt-3'>
                 <div class='col'>
                     <h4>제목</h4>
-                    <input type='text' id='publicNoticeTitle' name='publicNoticeTitle' placeholder='제목을 입력하세요.'>
+                    <input type='text' id='publicNoticeTitle' placeholder='제목을 입력하세요.'>
                     <h4 class='pt-3'>내용</h4>
-                    <textarea id='publicNoticeContent' name='publicNoticeContent' placeholder='내용을 입력하세요.'></textarea>
+                    <textarea id='publicNoticeContent' placeholder='내용을 입력하세요.'></textarea>
                 </div>
+
+                <!--  
+				<tbody>
+						<tr>
+							<th class="active" >제목</th>
+							<td>
+								${boardContents.board_title }
+							</td>
+						</tr>
+						<tr>
+							<th class="active">작성자</th>
+							<td>
+								${boardContents.board_writer }
+							</td>
+						</tr>
+						<tr>
+							<th class="active" >내용</th>
+							<td>
+								${boardContents.board_content }
+							</td>
+						</tr>
+				</tbody>
+                -->
             </div>
             <div class='row'>
                 <div class='col d-flex justify-content-end mt-3'>

@@ -5,7 +5,7 @@
 	<select id='selectPublicNoticeLists' resultType='PublicNotice'>
 		select *
 		from attendance.public_notices
-		order by public_notice_no desc
+		order by public_notice_no
 	</select> 
 	
 	<select id='selectPublicNoticeDetail' resultType='PublicNotice'>
