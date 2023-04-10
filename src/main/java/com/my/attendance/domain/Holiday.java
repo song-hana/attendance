@@ -8,7 +8,9 @@ import lombok.Data;
 @Data
 public class Holiday {
 	private String empName;
-	private int holNo;
+	private int employeeNo;
+	private String companyId;
+	private int holidayNo;
 	private LocalDate holDate;
 	private String holContent;
 	private YearMonth yearMonth;

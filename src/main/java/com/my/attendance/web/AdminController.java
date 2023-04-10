@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.my.attendance.domain.Admin;
 import com.my.attendance.service.AdminService;
@@ -21,26 +21,25 @@ public class AdminController {
 	
 	@Autowired private AdminService adminService;
 	
-	@GetMapping("loginAdmin")
-	public String getLoginAdmin(@RequestParam("adminId") String adminId,
-			@RequestParam("adminPw") String adminPw, HttpSession session) {
+	@ResponseBody
+	@GetMapping(value = {"loginAdmin", "*/loginAdmin"})
+	public String getLoginAdmin(String adminId, String adminPw, HttpSession session) {
 		String result = "";
 		Admin adm = adminService.loginCheck(adminId, adminPw);
 		if(adm != null) {
 			session.setAttribute("adminId", adm.getAdminId());
 			session.setAttribute("adminPw", adm.getAdminPw());
-			result = "admin/notice";
+			result = "admin";
 		} else {
 			result = "";
 		}
 		
-		System.out.println(adm);
 		return result;
 	}
 	
 	@GetMapping("logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:admin";
+		return "redirect:login";
 	}
 }

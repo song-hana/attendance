@@ -1,6 +1,5 @@
 <%@ page language='java' contentType='text/html; charset=utf-8' pageEncoding='utf-8'%>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset='utf-8'>
@@ -9,50 +8,15 @@
 <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js'></script>
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
-<script src='<c:url value="res/common.js"/>'></script>
+<script src='<c:url value="/res/common.js"/>'></script>
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title>연차</title>
 <script>
-	function listHolidays() {
-	    $('#holidays').empty();
-	
-	    $.ajax({
-	        url: 'getholiday/get',
-	        dataType: 'json',
-	        success: holidays => {
-	            if (holidays.length) {
-	                const holidayArr = [];
-	
-	                $.each(holidays, (i, holiday) => {
-	                    const today = new Date();
-	                    const holidayDate = new Date(holiday.holDate);
-	                    const timeDiff = holidayDate.getTime() - today.getTime();
-	                    const daysDiff = timeDiff / (1000 * 3600 * 24);
-	
-	                    let fixdelBtn = '';
-	                    if (daysDiff >= 3) {
-	                    	fixdelBtn = `<button type='button' class='btn btn-white btn-sm fixHolidayBtn'>수정</button>
-	                                   <button type='button' class='btn btn-red btn-sm delHolidayBtn'>삭제</button>`;
-	                    }
-	
-	                    holidayArr.unshift(`
-	                        <tr holNo='\${holiday.holNo}'>
-	                            <td>\${holiday.empName}</td>
-	                            <td>\${holiday.holDate}</td>
-	                            <td>\${fixdelBtn}</td>
-	                        </tr>
-	                    `);
-	                });
-	
-	                $('#holidays').append(holidayArr.join(''));
-	            } else {
-	                $('#holidays').append('<tr><td colspan=3 class=text-center>연차내역이 없습니다.</td></tr>');
-	            }
-	        }
-	    });
-	}
-
+	let employeeNo = ${sessionScope.empNo}
+	let employeeName = "${sessionScope.empName}"
+	let employeeHireDate = "${sessionScope.hireDate}"
 
     $(() => {
         input_user_header()
@@ -60,47 +24,50 @@
         show_logout()
         listHolidays()
 
+        // 연차 수정
         $('#holidays').on('click', '.fixHolidayBtn', function() {
-            const holNo = $(this).closest('tr').attr('holNo');
+            const holidayNo = $(this).closest('tr').attr('holidayNo')
             
             $('#modalMsg').empty()
-            $('#modalMsg').append(`<p>날짜: <input type='date' id='fixHolidayDate'/> </p>`)
+            $('#modalMsg').append(`<p>날짜: <input type='date' id='fixHolidayDate' placeholder='날짜'/> </p>`)
             $('#modalBtn').show()
             $('#modal').modal('show')
             
-            $('#modalOKBtn').off('click').on('click', function() {
-                let holiday = {
-                    holNo: holNo,
-                    holDate: $('#fixHolidayDate').val() 
-                }
-                
-                $.ajax({
-                    url: 'holidaylist/fix',
-                    type: 'put',
-                    contentType: 'application/json',
-                    data: JSON.stringify(holiday),
-                    success: listHolidays
-                });
-
-                $('#modalMsg').empty()
-                $('#modalMsg').text('연차 수정 되었습니다.')
-                $('#modalBtn').hide()
-                $('#modal').modal('show')
-            })
-        });
-
+            
+           	$('#modalOKBtn').off('click').on('click', function() {
+           		if(isVal($('#fixHolidayDate'))) {
+	                let holiday = {
+	                    holidayNo: holidayNo,
+	                    holDate: $('#fixHolidayDate').val() 
+	                }
+	                
+	                $.ajax({
+	                    url: '/company/holiday/holidaylist/fix',
+	                    type: 'put',
+	                    contentType: 'application/json',
+	                    data: JSON.stringify(holiday),
+	                    success: listHolidays
+	                })
+	
+	                $('#modalMsg').empty()
+	                $('#modalMsg').text('연차 수정 되었습니다.')
+	                $('#modalBtn').hide()
+	                $('#modal').modal('show')
+           		}
+       		})
+        })
         // 연차 삭제
-        $('#holidays').on('click', '.delHolidayBtn', function() {
-            const holNo = $(this).closest('tr').attr('holNo');
+        $('#holidays').on('click', '.delHolidayBtn', () => {
+            const holidayNo = $(this).closest('tr').attr('holidayNo')
             
             $('#modalMsg').empty()
             $('#modalMsg').append(`<p>해당 연차를 삭제 하시겠습니까?<p>`)
             $('#modalBtn').show()
             $('#modal').modal('show')
 
-            $('#modalOKBtn').off('click').on('click', function() {
+            $('#modalOKBtn').off('click').on('click', () => {
                 $.ajax({
-                    url: 'holidaylist/del/' + holNo,
+                    url: '/company/holiday/holidaylist/del/' + holidayNo,
                     method: 'delete',
                     success: listHolidays
                 })
@@ -110,23 +77,133 @@
                 $('#modalBtn').hide()
                 $('#modal').modal('show')
             })
-        });
+        })
 
+        // 연차 추가
         $('#addHolidayBtn').click(() => {
             $('#modalMsg').empty()
-            $('#modalMsg').append(`<p>날짜: <input type='date' id='fixHolidayDate'/> </p>`)
-                            .append(`<p>사유: <input type='text' class='pb-3'/> </p>`)
+            $('#modalMsg').append(`<p>날짜: <input type='date' id='addHolidayDate' placeholder='날짜'/></p>`)
+                            .append(`<p>사유: <input type='text' class='pb-3' id='addHolidayContent' placeholder='사유' /></p>`)
             $('#modalBtn').show()
             $('#modal').modal('show')
 
-            $('#modalOKBtn').click(() => {
-                $('#modalMsg').empty()
-                $('#modalMsg').text('연차 신청 되었습니다.')
-                $('#modalBtn').hide()
-                $('#modal').modal('show')
+            $('#modalOKBtn').off('click').on('click', function() {
+            	if( isVal($('#addHolidayDate')) && isVal($('#addHolidayContent'))) {
+            		
+	                $.ajax({
+	                    url: '/holiday/getholiday/add',
+	                    type: 'post',
+	                    data: {
+	                        holDate: $('#addHolidayDate').val(),
+	                        holContent: $('#addHolidayContent').val(),
+	                        employeeNo: employeeNo
+	                    },
+	                    success: listHolidays
+	                })
+	                
+	                $('#modalMsg').empty()
+	                $('#modalMsg').text('연차 신청 되었습니다.')
+	                $('#modalBtn').hide()
+	                $('#modal').modal('show')
+            	}
             })
         })
     })
+
+	function isVal(field) {
+	    let isGood = false
+	    let errMsg
+	
+	    if(!field.val()) errMsg = field.attr('placeholder') + '를 입력하세요.'
+	    else isGood = true
+	
+	    if(!isGood) {            
+	        $('#modalMsg').text(errMsg)
+	        $('#modalBtn').hide()
+	        $('#modal').modal('show')           
+	    }
+	
+	    return isGood
+	}
+
+	function listHolidays() {
+	    $('#holidays').empty()
+	    
+	    $.ajax({
+	        url: '/holiday/getholiday/get',
+	        dataType: 'json',
+	        data: {
+	        	employeeNo: employeeNo
+	        },
+	        success: holidays => {
+	            if (holidays.length) {
+	                const holidayArr = []
+	                
+	                $.each(holidays, (i, holiday) => {
+	                	// 수정,삭제 버튼을 위한 날짜 계산
+	                    const today = new Date()
+	                    const holidayDate = new Date(holiday.holDate)
+	                    const timeDiff = holidayDate.getTime() - today.getTime()
+	                    const daysDiff = timeDiff / (1000 * 3600 * 24)
+	                    
+	                    let fixdelBtn = ''
+	                    if (daysDiff >= 3) {
+	                    	fixdelBtn = `<button type='button' class='btn btn-white btn-sm fixHolidayBtn'>수정</button>
+	                                   <button type='button' class='btn btn-red btn-sm delHolidayBtn'>삭제</button>`;
+	                    }
+	                    
+	                    // 부여연차, 잔여연차, 소진연차 입력.
+	                    let grantHoliday = moment().diff(moment(employeeHireDate), 'months')
+	                    if(grantHoliday > 12) {
+	                    	grantHoliday = 15
+	                    }
+	                    
+	                    const usedHoliday = holidays.length
+	                    const remainHoliday = grantHoliday - usedHoliday
+	                    if(remainHoliday == 0) {
+	                    	$('#addHolidayBtn').hide()
+	                    } else {
+	                    	$('#addHolidayBtn').show()
+	                    }
+	                    
+	                    $('#grantHoliday').text(`\${grantHoliday}`) // 부여연차
+	                    $('#usedHoliday').text(`\${usedHoliday}`) // 소진연차
+	                    $('#remainHoliday').text(remainHoliday) // 잔여연차
+	                    $('#employeeName').text(employeeName) // 사용자이름
+	
+	                    holidayArr.unshift(`
+	                        <tr holidayNo='\${holiday.holidayNo}'>
+	                            <td>\${employeeName}</td>
+	                            <td>\${holiday.holDate}</td>
+	                            <td>\${fixdelBtn}</td>
+	                        </tr>
+	                    `)
+	                })
+	
+	                $('#holidays').append(holidayArr.join(''))
+	            } else {
+	                let grantHoliday = moment().diff(moment(employeeHireDate), 'months')
+                    if(grantHoliday > 12) {
+                    	grantHoliday = 15
+                    }
+                    
+                    const usedHoliday = holidays.length
+                    const remainHoliday = grantHoliday - usedHoliday
+                    if(remainHoliday == 0) {
+                    	$('#addHolidayBtn').hide()
+                    } else {
+                    	$('#addHolidayBtn').show()
+                    }
+                    
+                    $('#grantHoliday').text(`\${grantHoliday}`) // 부여연차
+                    $('#usedHoliday').text(`\${usedHoliday}`) // 소진연차
+                    $('#remainHoliday').text(remainHoliday) // 잔여연차
+                    $('#employeeName').text(employeeName) // 사용자이름
+                    $('#holidays').append('<tr><td colspan=3 class=text-center>연차내역이 없습니다.</td></tr>')
+	            }
+	        }
+	    })
+	}
 </script>
 <style>
     table > caption {
@@ -160,16 +237,16 @@
             <div class='row'>
                 <h1 class='p-3 text-center'><b>연차</b></h1>
                 <div class='col pt-3 text-center'>
-                    <h3>송하나님의 연차현황</h3>
-                    <h3>잔여연차 : 12 일</h3> 
+                    <h3><span id='employeeName'></span>님의 연차현황</h3>
+                    <h3>잔여연차 : <span id='remainHoliday'></span> 일</h3> 
                 </div>
             </div>
             <div class='row pt-2'>
                 <div class='col-5'></div>
                 <div class='col'>
                     <ul>
-                        <li>부여연차: 15일</li>
-                        <li>소진연차: 3일</li>
+                        <li>부여연차: <span id='grantHoliday'></span>일</li>
+                        <li>소진연차: <span id='usedHoliday'></span>일</li>
                     </ul>
                 </div>
                 <div class='col-3'>

@@ -1,8 +1,14 @@
 package com.my.attendance.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,26 +19,25 @@ import com.my.attendance.service.EmployeeService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("user")
 public class EmployeeController {
-	@GetMapping("login")
+	@GetMapping("user/login")
 	public String login() {
 		return "user/login";
 	}
 	
-	@GetMapping("findid")
+	@GetMapping("user/findid")
 	public String findid() {
 		return "user/findid";
 	}
 	
-	@GetMapping("findpw")
+	@GetMapping("user/findpw")
 	public String findpw() {
 		return "user/findpw";
 	}
 	
 	@Autowired private EmployeeService employeeService;
 	
-	@GetMapping("loginEmp")
+	@GetMapping("user/loginEmp")
 	public String getLoginEmployee(String employeeId, String employeePw, HttpSession session) {
 		String result = "";
 		Employee emp = employeeService.loginCheck(employeeId, employeePw);
@@ -58,30 +63,31 @@ public class EmployeeController {
 		return result;
 	}
 	
-	@GetMapping("logout")
+	@GetMapping(value = {"logout", "*/logout"})
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "main";
+		return "redirect:/main";
 	}
 	
 	@ResponseBody
-	@GetMapping("findId")
+	@GetMapping("user/findId")
 	public String getEmployeeId(String employeeName, String employeePh) {
 		String id = employeeService.findId(employeeName, employeePh);
 		return id;
 	}
 	
 	@ResponseBody
-	@GetMapping("findPw")
+	@GetMapping("user/findPw")
 	public String getEmployeePw( String employeeId, String employeePino) {
 		String pw = employeeService.findPw(employeeId, employeePino);
 		return pw;
 	}
 	
 	@GetMapping
-	@RequestMapping("emplist")
+	@RequestMapping("company/emp/emplist")
 	public ModelAndView listEmployee(ModelAndView mv) {
 		mv.setViewName("company/emp/emplist");
 		return mv;
 	}
+	
 }

@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -16,18 +15,18 @@ public class HolidayDaoImpl implements HolidayDao {
 	@Autowired private HolidayMap holidayMap;
 	
 	@Override
-	public List<Holiday> selectHolidays(YearMonth yearMonth) {
-		return holidayMap.selectHolidays(yearMonth);
+	public List<Holiday> selectHolidays(YearMonth yearMonth, String companyId) {
+		return holidayMap.selectHolidays(yearMonth, companyId);
 	}
 	
 	@Override
-	public List<Holiday> selectUserHoliday() {
-		return holidayMap.selectUserHoliday();
+	public List<Holiday> selectUserHoliday(int employeeNo) {
+		return holidayMap.selectUserHoliday(employeeNo);
 	}
 	
 	@Override
-	public void insertHoliday(LocalDate holDate, String holContent) {
-		holidayMap.insertHoliday(holDate, holContent);
+	public void insertHoliday(LocalDate holDate, String holContent, int employeeNo) {
+		holidayMap.insertHoliday(holDate, holContent, employeeNo);
 	}
 	
 	@Override
@@ -36,7 +35,7 @@ public class HolidayDaoImpl implements HolidayDao {
 	}
 	
 	@Override
-	public void deleteHoliday(int holNo) {
-		holidayMap.deleteHoliday(holNo);
+	public void deleteHoliday(int holidayNo) {
+		holidayMap.deleteHoliday(holidayNo);
 	}
 }

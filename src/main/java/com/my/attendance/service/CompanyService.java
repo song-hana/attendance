@@ -6,4 +6,6 @@ public interface CompanyService {
 	Company loginCheck(String companyId, String companyPw);
 	String findId(String companyName, int companyRegno);
 	String findPw(String companyId, String companyEmail);
+	void addCompany(Company company);
+	int checkCompany(String companyId);
 }

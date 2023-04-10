@@ -26,7 +26,7 @@
     
     function checkAdmin(id, pw) {
     	$.ajax({
-    		url: 'loginAdmin',
+    		url: 'admin/loginAdmin',
     		data: ({
     			adminId: id,
     			adminPw: pw
@@ -41,7 +41,7 @@
     }
     
     function move() {
-    	window.location.href = 'notice/ntclist'
+    	window.location.href = '/admin/ask/asklist'
     }
     
     function error() {
@@ -92,7 +92,7 @@
                         <div class='msgBox collapse'>
 			                <span id='msg'></span><br><br>
 		                </div>
-                        <input type='submit' id='login' class='form-control btn btn-blue' value='로그인' /><br>
+                        <input type='submit' id='login' class='form-control btn btn-blue' value='로그인'/><br>
                     </form>
                 </div>
                 <div class='col'></div>

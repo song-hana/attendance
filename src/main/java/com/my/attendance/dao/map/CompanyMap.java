@@ -6,4 +6,6 @@ public interface CompanyMap {
 	Company selectCompany(String companyId, String companyPw);
 	String selectCompanyId(String companyName, int companyRegno);
 	String selectCompanyPw(String companyId, String companyEmail);
+	int insertCompany(Company company);
+	int checkCompany(String companyId);
 }

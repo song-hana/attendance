@@ -15,18 +15,18 @@ public class HolidayServiceImpl implements HolidayService {
 	@Autowired private HolidayDao holidayDao;
 	
 	@Override
-	public List<Holiday> getHolidays(YearMonth yearMonth) {
-		return holidayDao.selectHolidays(yearMonth);
+	public List<Holiday> getHolidays(YearMonth yearMonth, String companyId) {
+		return holidayDao.selectHolidays(yearMonth, companyId);
 	}
 	
 	@Override
-	public List<Holiday> getUserHoliday() {
-		return holidayDao.selectUserHoliday();
+	public List<Holiday> getUserHoliday(int employeeNo) {
+		return holidayDao.selectUserHoliday(employeeNo);
 	}
 	
 	@Override
-	public void addHoliday(LocalDate holDate, String holContent) {
-		holidayDao.insertHoliday(holDate, holContent);
+	public void addHoliday(LocalDate holDate, String holContent, int employeeNo) {
+		holidayDao.insertHoliday(holDate, holContent, employeeNo);
 	}
 	
 	@Override
@@ -35,7 +35,7 @@ public class HolidayServiceImpl implements HolidayService {
 	}
 	
 	@Override
-	public void delHoliday(int holNo) {
-		holidayDao.deleteHoliday(holNo);
+	public void delHoliday(int holidayNo) {
+		holidayDao.deleteHoliday(holidayNo);
 	}
 }

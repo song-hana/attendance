@@ -9,10 +9,49 @@
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
-<script src='<c:url value="res/common.js"/>'></script>
+<script src='<c:url value="/res/common.js"/>'></script>
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title>직원목록</title>
 <script>
+	$(() => {
+	    input_company_header()
+	    input_company_sidebar()
+	    input_footer()
+	    btn_click()
+	    show_logout()
+	    listEmployees()
+	    
+	    $('#employeeDelBtn').click(() => {
+	    	if(isVal($('#employeeNo:checked'))) {
+	        	$('#modalMsg').empty()
+	            $('#modalMsg').text('삭제하시겠습니까?')
+	            $('#modalBtn').show()
+	            $('#modal').modal('show')
+	            
+	            $('#modalOKBtn').off('click').on('click', () => {
+	                $.ajax({
+	                    url: 'emplist/del/' + $('#employeeNo:checked').val(),
+	                    method: 'delete',
+	                    success: listEmployees
+	                })
+	                
+	                $('#modalMsg').empty()
+	                $('#modalMsg').text('삭제 되었습니다.')
+	                $('#modalBtn').hide()
+	                $('#modal').modal('show')
+	            })
+	    	}
+	    })
+	    
+	    $(document).on('click', '.employee-info td:not(:first-child)', () => {
+	        const employeeNo = $(this).siblings(':first-child').find('input[type="radio"]').val()
+	        $('#modalMsg').empty()
+	        $('#modalMsg').text('이름 ' + employeeNo + ' 회원정보를 조회합니다.')
+	        $('#modalBtn').hide()
+	        $('#modal').modal('show')
+	    })
+	})
+	
 	function isVal(field) {        
 	    let isGood = false
 	    let errMsg
@@ -31,7 +70,7 @@
 
 	function listEmployees() {
 		$('input').not(':radio').val('')
-	    $('#employees').empty();
+	    $('#employees').empty()
 	
 	    $.ajax({
 	        url: 'emplist/get',
@@ -52,58 +91,16 @@
     							<td>\${employee.empEmail}</td>
     							<td>\${employee.hireDate}</td>
 	                        </tr>
-	                    `);
-	                });
+	                    `)
+	                })
 	
-	                $('#employees').append(employeeArr.join(''));
+	                $('#employees').append(employeeArr.join(''))
 	            } else {
-	                $('#employees').append('<tr><td colspan=7 class=text-center>직원이 없습니다.</td></tr>');
+	                $('#employees').append('<tr><td colspan=7 class=text-center>직원이 없습니다.</td></tr>')
 	            }
 	        }
-	    });
+	    })
 	}
-
-    $(() => {
-        input_company_header()
-        input_company_sidebar()
-        input_footer()
-        btn_click()
-        show_logout()
-        listEmployees()
-
-        
-        $('#employeeDelBtn').click(() => {
-        	if(isVal($('#employeeNo:checked'))) {
-	        	$('#modalMsg').empty()
-	            $('#modalMsg').text('삭제하시겠습니까?')
-	            $('#modalBtn').show()
-	            $('#modal').modal('show')
-	            
-	            $('#modalOKBtn').off('click').on('click', function() {
-	                $.ajax({
-	                    url: 'emplist/del/' + $('#employeeNo:checked').val(),
-	                    method: 'delete',
-	                    success: listEmployees
-	                })
-	                
-	                $('#modalMsg').empty()
-	                $('#modalMsg').text('삭제 되었습니다.')
-	                $('#modalBtn').hide()
-	                $('#modal').modal('show')
-	            })
-        	}
-        });
-        
-        $(document).on('click', '.employee-info td:not(:first-child)', function() {
-            const employeeNo = $(this).siblings(':first-child').find('input[type="radio"]').val();
-            $('#modalMsg').empty();
-            $('#modalMsg').text('이름 ' + employeeNo + ' 회원정보를 조회합니다.');
-            $('#modalBtn').hide();
-            $('#modal').modal('show');
-        });
-
-
-    })
 </script>
 <style>
 
@@ -161,3 +158,4 @@
 </div>
 </body>
 </html>
+

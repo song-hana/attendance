@@ -10,4 +10,5 @@ public class Plan {
 	private String planTitle;
 	private LocalDate planDate;
 	private String planContent;
+	private String companyId;
 }

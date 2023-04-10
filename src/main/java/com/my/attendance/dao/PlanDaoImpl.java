@@ -15,18 +15,18 @@ public class PlanDaoImpl implements PlanDao {
 	@Autowired private PlanMap planMap;
 	
 	@Override
-	public List<Plan> selectPlans() {
-		return planMap.selectPlans();
+	public List<Plan> selectPlans(String companyId) {
+		return planMap.selectPlans(companyId);
 	}
 	
 	@Override
-	public List<Holiday> selectHolidays() {
-		return planMap.selectHolidays();
+	public List<Holiday> selectHolidays(String companyId) {
+		return planMap.selectHolidays(companyId);
 	}
 	
 	@Override
-	public void insertPlan(String planTitle, LocalDate planDate, String planContent) {
-		planMap.insertPlan(planTitle, planDate, planContent);
+	public void insertPlan(String planTitle, LocalDate planDate, String planContent, String companyId) {
+		planMap.insertPlan(planTitle, planDate, planContent, companyId);
 	}
 	
 	@Override

@@ -15,18 +15,18 @@ public class PlanServiceImpl implements PlanService {
 	@Autowired private PlanDao planDao;
 	
 	@Override
-	public List<Plan> getPlans() {
-		return planDao.selectPlans();
+	public List<Plan> getPlans(String companyId) {
+		return planDao.selectPlans(companyId);
 	}
 	
 	@Override
-	public List<Holiday> getHolidays() {
-		return planDao.selectHolidays();
+	public List<Holiday> getHolidays(String companyId) {
+		return planDao.selectHolidays(companyId);
 	}
 	
 	@Override
-	public void addPlan(String planTitle, LocalDate planDate, String planContent) {
-		planDao.insertPlan(planTitle, planDate, planContent);
+	public void addPlan(String planTitle, LocalDate planDate, String planContent, String companyId) {
+		planDao.insertPlan(planTitle, planDate, planContent, companyId);
 	}
 	
 	@Override

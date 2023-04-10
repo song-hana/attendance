@@ -13,27 +13,52 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js'></script>
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
-<script src='<c:url value="res/common.js"/>'></script>
+<script src='<c:url value="/res/common.js"/>'></script>
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title>일정 조회</title>
 <script>
-    $(() => {
-        input_company_header()
-        input_company_sidebar()
-        btn_click()
-        input_footer()
-        show_logout()
-    })
+	let companyId = "${sessionScope.comId}"
+    let currentEvent;
+	
+	$(() => {
+	    input_company_header()
+	    input_company_sidebar()
+	    btn_click()
+	    input_footer()
+	    show_logout()
+	})
 
-   function listPlans(successCallback) {
+	function isVal(field) {        
+	    let isGood = false
+	    let errMsg
+	
+	    if(!field.val()) errMsg = field.attr('placeholder') + '을 입력하세요.'
+	    else isGood = true
+	
+	    if(!isGood) {            
+	        $('#modalMsg').text(errMsg)
+	        $('#modalBtn').hide()
+	        $('#modalBtn1').hide()
+	        $('#modal').modal('show')           
+	    }
+	
+	    return isGood
+	}
+
+   // company_id 를 이용하여 검색
+  	function listPlans(successCallback) {
 	    $.ajax({
-	        url: 'planlist/get',
+	        url: 'planlist/getPlan',
 	        method: 'get',
 	        dataType: 'json',
-	        success: function(response) {
-	            let events = [];
+	        contentType: 'application/json',
+	        data: {
+	            companyId: companyId
+	        },
+	        success: response => {
+	            let events = []
 	            for (let i = 0; i < response.length; i++) {
-	                let plan = response[i];
+	                let plan = response[i]
 	                let event = {
 	                    id: plan.planNo,
 	                    title: plan.planTitle,
@@ -42,52 +67,55 @@
 	                    extendedProps: {
 	                    	type: 'plan'
 	                    }
-	                };
-	                events.push(event);
+	                }
+	                events.push(event)
 	            }
-	            calendar.events = events;
-	            successCallback(events);
+	            calendar.events = events
+	            successCallback(events)
 	        },
-	    });
+	    })
 	}
     
+    // 회사 company_id 의 소속된 직원들의 employee_no 로 검색?
     function listHolidays(successCallback) {
         $.ajax({
             url: 'planlist/getHoliday',
             method: 'get',
             dataType: 'json',
-            success: function(response) {
-                let events = [];
+            contentType: 'application/json',
+            data: {
+            	companyId: companyId
+            },
+            success: response => {
+                let events = []
                 for (let i = 0; i < response.length; i++) {
-                    let holiday = response[i];
+                    let holiday = response[i]
                     let event = {
-                        id: holiday.holNo,
+                        id: holiday.holidayNo,
                         title: holiday.empName + ' 연차',
                         description: holiday.holContent,
                         start: holiday.holDate,
                         extendedProps: {
 	                    	type: 'holiday'
 	                    }
-                    };
-                    events.push(event);
+                    }
+                    events.push(event)
                 }
-                calendar.events = events;
-                successCallback(events);
+                calendar.events = events
+                successCallback(events)
             },
-        });
+        })
     }
     
-    let currentEvent;
-    
-    document.addEventListener('DOMContentLoaded', function() {
-        const calendarEl = document.getElementById('calendar');
+    document.addEventListener('DOMContentLoaded', () => {
+        const calendarEl = document.getElementById('calendar')
 
         const calendar = new FullCalendar.Calendar(calendarEl, {
             customButtons: {
                 selectHolidays: {
                     text: '연차내역 조회',
                     click: function() {
-                        location.href='holidaylist';
+                        location.href='../holiday/holidaylist';
                     }
                 }
             },
@@ -104,16 +132,16 @@
             
             initialView: 'dayGridMonth',
             navLinks: false,
-            titleFormat : function(date) { 
-                return date.date.year +". "+(date.date.month +1); 
+            titleFormat : date => { 
+                return date.date.year +". "+(date.date.month +1)
             },
             selectable: true,
             selectMirror: true,
-            select: function(arg) {
+            select: arg => {
                 $('#modalMsg').empty()
                 $('#modalBtn1').empty()
-                $('#modalMsg').append(`<p>제목: <input type='text' id='planTitle'/> </p>`)
-                                .append(`<p>내용: <input type='text' class='pb-3'id='planDescription'/></p>`)
+                $('#modalMsg').append(`<p>제목: <input type='text' id='planTitle' placeholder='제목'/> </p>`)
+                                .append(`<p>내용: <input type='text' class='pb-3'id='planDescription' placeholder='내용'/></p>`)
                 $('#modalBtn1').append(`<button type='button' class='btn btn-blue m-2' id='addPlanBtn'>추가</button>`)
                 $('#modalBtn1').show()
                 $('#modalBtn').hide()
@@ -121,40 +149,43 @@
 
                 // 일정 추가.
                 $('#addPlanBtn').click(() => {
-                    const planTitle = $('#planTitle').val()
-                    const planDescription = $('#planDescription').val()
-                    const planDate = moment(arg.start).format('YYYY-MM-DD');
-
-                    $.ajax({
-                        url: 'planlist/add',
-                        type: 'post',
-                        data: {
-                          planTitle: planTitle,
-                          planDate: planDate,
-                          planContent: planDescription
-                        },
-                        success: function() {
-                        	listPlans(function(events) {
-			                    calendar.getEventSources().forEach(function(eventSource) {
-			                            eventSource.refetch();
-			                    });
-			                });
-			            }
-                    });
-
-                    $('#modalMsg').empty()
-                    $('#modalBtn1').empty()
-                    $('#modalMsg').text('일정이 추가 되었습니다.')
-                    $('#modalBtn').hide()
-                    $('#modal').modal('show')
-
-                    calendar.unselect()
+                	if(isVal($('#planTitle')) && isVal($('#planDescription'))) {
+	                    const planTitle = $('#planTitle').val()
+	                    const planDescription = $('#planDescription').val()
+	                    const planDate = moment(arg.start).format('YYYY-MM-DD')
+	
+	                    $.ajax({
+	                        url: 'planlist/add',
+	                        type: 'post',
+	                        data: {
+	                          planTitle: planTitle,
+	                          planDate: planDate,
+	                          planContent: planDescription,
+	                          companyId: companyId
+	                        },
+	                        success: () => {
+	                        	listPlans(events => {
+				                    calendar.getEventSources().forEach(eventSource => {
+				                            eventSource.refetch()
+				                    })
+				                })
+				            }
+	                    })
+	
+	                    $('#modalMsg').empty()
+	                    $('#modalBtn1').empty()
+	                    $('#modalMsg').text('일정이 추가 되었습니다.')
+	                    $('#modalBtn').hide()
+	                    $('#modal').modal('show')
+	
+	                    calendar.unselect()
+                	}
                 })
               },
             
-            eventClick: function(arg) {
-            	currentEvent = null;
-            	currentEvent = arg.event;
+            eventClick: arg => {
+            	currentEvent = null
+            	currentEvent = arg.event
                 $('#modalMsg').empty()
                 $('#modalBtn1').empty()
                 const eventType = arg.event.extendedProps.type
@@ -164,8 +195,8 @@
                                 .append(`<p>사유: \${currentEvent.extendedProps.description} </p>`)
                     $('#modalBtn').hide()
                 } else {
-                    $('#modalMsg').append(`<p>제목: <input type='text' value='\${currentEvent.title}' id='planTitle'/> </p>`)
-                                .append(`<p>내용: <input type='text' class='pb-5' value='\${currentEvent.extendedProps.description}' id='planDescription'/> </p>`)
+                    $('#modalMsg').append(`<p>제목: <input type='text' value='\${currentEvent.title}' id='planTitle' placeholder='제목'/> </p>`)
+                                .append(`<p>내용: <input type='text' class='pb-5' value='\${currentEvent.extendedProps.description}' id='planDescription' placeholder='내용'/> </p>`)
                     $('#modalBtn').show()
                 }
                 $('#modal').modal('show')
@@ -173,70 +204,77 @@
                 
 				// 일정 수정.
                  $('#fixPlanBtn').off('click').on('click', function() {
-			        const planNo = currentEvent.id;
-			        const planTitle = $('#planTitle').val();
-			        const planDescription = $('#planDescription').val();
-			        const planDate = moment(currentEvent.start).format('YYYY-MM-DD');
-			
-			        let plan = {
-			            planNo: planNo,
-			            planTitle: planTitle,
-			            planDate: planDate,
-			            planContent: planDescription
-			        };
-			
-			        $.ajax({
-			            url: 'planlist/fix',
-			            type: 'put',
-			            contentType: 'application/json',
-			            data: JSON.stringify(plan),
-			            success: function() {
-			                listPlans(function(events) {
-			                    calendar.getEventSources().forEach(function(eventSource) {
-			                            eventSource.refetch();
-			                    });
-			                });
-			            }
-			        });
-			
-			        $('#modalMsg').empty();
-			        $('#modalMsg').text('일정이 수정 되었습니다.');
-			        $('#modalBtn').hide();
-			        $('#modal').modal('show');
-			    });
+               	 	if(isVal($('#planTitle')) && isVal($('#planDescription'))) {
+               	 		
+				        const planNo = currentEvent.id
+				        const planTitle = $('#planTitle').val()
+				        const planDescription = $('#planDescription').val()
+				        const planDate = moment(currentEvent.start).format('YYYY-MM-DD')
+				
+				        let plan = {
+				            planNo: planNo,
+				            planTitle: planTitle,
+				            planDate: planDate,
+				            planContent: planDescription
+				        }
+				
+				        $.ajax({
+				            url: 'planlist/fix',
+				            type: 'put',
+				            contentType: 'application/json',
+				            data: JSON.stringify(plan),
+				            success: () => {
+				                listPlans(events => {
+				                    calendar.getEventSources().forEach(eventSource => {
+				                            eventSource.refetch()
+				                    })
+				                })
+				            }
+				        })
+				
+				        $('#modalMsg').empty()
+				        $('#modalMsg').text('일정이 수정 되었습니다.')
+				        $('#modalBtn').hide()
+				        $('#modal').modal('show')
+               	 	}
+			    })
 
                 // 일정 삭제.
-                $('#delPlanBtn').off('click').on('click', function() {
-                    const planNo = currentEvent.id;
+                $('#delPlanBtn').off('click').on('click', () => {
+                    const planNo = currentEvent.id
                     $.ajax({
                         url: 'planlist/del/' + planNo,
                         method: 'delete',
-                        success: function() {
-                        	listPlans(function(events) {
-			                    calendar.getEventSources().forEach(function(eventSource) {
+                        success: () => {
+                        	listPlans(events => {
+			                    calendar.getEventSources().forEach(eventSource => {
 			                            eventSource.refetch();
-			                    });
-			                });
+			                    })
+			                })
 			            }
-                    });
+                    })
 
-                    $('#modalMsg').empty();
-                    $('#modalMsg').text('일정이 삭제 되었습니다.');
-                    $('#modalBtn').hide();
-                    $('#modal').modal('show');
-                });
+                    $('#modalMsg').empty()
+                    $('#modalMsg').text('일정이 삭제 되었습니다.')
+                    $('#modalBtn').hide()
+                    $('#modal').modal('show')
+                })
             },
             editable: false,
             dayMaxEvents: false,
-            events: function(info, successCallback) {
+            events: (info, successCallback) => {
                 $.ajax({
-                    url: 'planlist/get',
+                    url: 'planlist/getPlan',
                     method: 'get',
                     dataType: 'json',
-                    success: function(response) {
-                        let events = [];
+                    contentType: 'application/json',
+                    data: {
+                    	companyId: companyId
+                    },
+                    success: response => {
+                        let events = []
                         for (let i = 0; i < response.length; i++) {
-                            let plan = response[i];
+                            let plan = response[i]
                             let event = {
                                 id: plan.planNo,
                                 title: plan.planTitle,
@@ -245,23 +283,23 @@
                                 extendedProps: {
         	                    	type: 'plan'
         	                    }
-                            };
-                            events.push(event);
+                            }
+                            events.push(event)
                         }
                         
-                        listHolidays(function(holidayEvents) {
+                        listHolidays(holidayEvents => {
                             events = events.concat(holidayEvents);
                             successCallback(events);
-                        });
+                        })
                     },
-                });
+                })
             },
-            eventDrop: function(info) {
+            eventDrop: info => {
                 info.revert();
             }
-        });
-    calendar.render();
-});
+        })
+    calendar.render()
+})
 </script>
 <style>
     .fc .fc-button-primary {
