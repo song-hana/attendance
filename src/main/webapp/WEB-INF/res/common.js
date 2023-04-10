@@ -14,7 +14,7 @@ function input_user_header() {
     header_txt += '             </ul>'
     header_txt += '          </div>'
     header_txt += '          <div class="col logo">'
-    header_txt += `             <div class="logo_img text-center" onclick="/main">로고이미지</div>`
+    header_txt += `             <div class="logo_img text-center" onclick='location.href="/main"'>로고이미지</div>`
     header_txt += '          </div>'
     header_txt += '          <div class="col mt-1 float-end lnb_btn">'
     header_txt += '             <a href="/user/login" class="float-end collapse show" id="login_btn"><i class="fa-solid fa-user"></i></a>'
@@ -60,13 +60,13 @@ function input_company_header() {
     header_txt += '             </ul>'
     header_txt += '          </div>'
     header_txt += '          <div class="col logo">'
-    header_txt += `             <div class="logo_img text-center" onclick='location.href="company/main"'>로고이미지</div>`
+    header_txt += `             <div class="logo_img text-center" onclick='location.href="/company/main"'>로고이미지</div>`
     header_txt += '          </div>'
     header_txt += '          <div class="col btns mt-1 text-end">'
     header_txt += '             <a href="/company/user/login" class="collapse show">로그인</a>'
     header_txt += '             <a href="/company/user/member" class="collapse show">회원가입</a>'
     header_txt += '             <a href="/company/user/logout" class="collapse" id="logout">로그아웃</a>'
-    header_txt += '             <a href="/company/notice/comntclist" class="collapse">마이페이지</a>'
+    header_txt += '             <a href="/company/plan/planlist" class="collapse">마이페이지</a>'
     header_txt += '          </div>'
     header_txt += '     </div>'
     header_txt += ' </div>'
@@ -134,9 +134,9 @@ function input_company_sidebar() {
     sideBar += '     <ul>'
     sideBar += '         <br>'
     sideBar += '         <li><a href="/company/notice/comntclist">사내 공지</a></li><br>'
-    sideBar += '         <li><a href="/company/user/emplist">직원 조회</a></li><br>'
+    sideBar += '         <li><a href="/company/emp/emplist">직원 조회</a></li><br>'
     sideBar += '         <li><a href="/company/work/getlist">직원 근태 목록</a></li><br>'
-    sideBar += '         <li><a href="/company/plan/planlist">사내 일정</a></li><br>'
+    sideBar += '         <li><a href="holidaylist">사내 일정</a></li><br>'
     sideBar += '         <li><a href="/company/user/getinfo">회사 정보</a></li><br>'
     sideBar += '     </ul>'
 
