@@ -103,7 +103,6 @@
                     $('#modalBtn').hide()
                     $('#modal').modal('show')
 	            }
-	            
 	        }
         })
         

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.my.attendance.domain.Ask;
-import com.my.attendance.domain.Plan;
 import com.my.attendance.service.AskService;
 
 @Controller("askController")
