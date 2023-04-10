@@ -6,7 +6,7 @@ import com.my.attendance.domain.PublicNotice;
 
 public interface PublicNoticeDao { 
 	List<PublicNotice> selectPublicNoticeLists();
-	PublicNotice selectPublicNoticeDetail(int publicNoticeNo);
+	List<PublicNotice> selectPublicNoticeDetail(int publicNoticeNo);
 	void insertPublicNotice(String pubntcTitle, String pubntcContent);
 	void updatePublicNotice(PublicNotice publicNotice);
 	void deletePublicNotice(int publicNoticeNo);

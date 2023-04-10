@@ -18,7 +18,7 @@ public class PublicNoticeDaoImpl implements PublicNoticeDao {
 	}
 	
 	@Override
-	public PublicNotice selectPublicNoticeDetail(int publicNoticeNo) {
+	public List<PublicNotice> selectPublicNoticeDetail(int publicNoticeNo) {
 		return publicNoticeMap.selectPublicNoticeDetail(publicNoticeNo);
 	}
 	

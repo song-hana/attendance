@@ -18,7 +18,7 @@ public class PublicNoticeServiceImpl implements PublicNoticeService {
 	}
 	
 	@Override
-	public PublicNotice getPublicNoticeDetail(int publicNoticeNo) {
+	public List<PublicNotice> getPublicNoticeDetail(int publicNoticeNo) {
 		return publicNoticeDao.selectPublicNoticeDetail(publicNoticeNo);
 	}
 	

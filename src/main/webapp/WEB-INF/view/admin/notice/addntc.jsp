@@ -20,15 +20,36 @@
         input_footer()
         btn_click()
         show_logout()
+
     	
-    	addPublicNotice()
+    	$('#addPublicNoticeBtn').click(() => {
+			if(isVal($('#publicNoticeTitle')) && isVal($('#publicNoticeContent'))) {
+				let publicNotice = {
+						publicNoticeTitle: $('#publicNoticeTitle').val(),
+						publicNoticeContent: $('#publicNoticeContent').val()
+				}
+				
+				$.ajax({
+					url:'addntc/add',
+					method:'post',
+					contentType: 'application/json',
+					data: JSON.stringify(publicNotice),
+					//success : window.location.href = '../notice/ntclist'
+				});
+			}
+		})
 		
-    	
-    	$('#addNoBtn').click(() =>  {
-    		$('#modalMsg').empty()
-    		$('#modalMsg').text('이 페이지를 벗어나면 기존 작성된 글이 삭제됩니다.')
-    		$('#modal').modal('show')
-    	})
+		$('#addNoBtn').click(() => {
+			if($('#publicNoticeTitle').val() || $('#publicNoticeContent').val()) {
+				$('#modalMsg').empty()
+				$('#modalMsg').append(`<p>이 페이지를 벗어나면 기존 작성된 글이 삭제됩니다.</p>`)
+				$('#modal').modal('show')
+				$('modalBtn').show()
+				$('#modalOkBtn').click(() => {
+					window.location.href = '../notice/ntclist'
+				})
+			} else {(window.location.href = '../notice/ntclist')}
+		})
     })
   
     function isVal(field) {
@@ -50,29 +71,6 @@
         }
         return isGood;
     }
-
-    
-	function addPublicNotice() {
-		$('#addPublicNoticeBtn').click(() => {
-			if(isVal($('#publicNoticeTitle')) && isVal($('#publicNoticeContent'))) {
-				let publicNotice = {
-						publicNoticeTitle: $('#publicNoticeTitle').val(),
-						publicNoticeContent: $('#publicNoticeContent').val()
-				}
-				
-				$.ajax({
-					url:'addPublicNotice',
-					method:'post',
-					data: publicNotice,
-					contentType:'applicaion/json',
-					success: publicNotice => {
-						window.location.href ='ntclist';
-					}
-				})
-			}
-		})
-	}
-    
    
 </script>
 <style>
@@ -122,7 +120,7 @@
             <div class='row'>
                 <div class='col d-flex justify-content-end mt-3'>
                     <button type='button' class='btn me-3 btn-blue' id='addPublicNoticeBtn'>작성</button>
-                    <button type='button' class='btn btn-secondary' id='addNOBtn'>취소</button>
+                    <button type='button' class='btn btn-secondary' id='addNoBtn'>취소</button>
                 </div>
             </div>
         </div>

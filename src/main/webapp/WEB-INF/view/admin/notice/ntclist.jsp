@@ -22,32 +22,32 @@
         btn_click()
         show_logout()
         
-        listPublicNotice()
+        listPublicNotices()
     })
-    
-	function listPublicNotice() {
-    	$('#publicNoticeList').empty(); 
+     
+    function listPublicNotices() {
+    	$('#publicNoticeList').empty();
     	
     	$.ajax({
-    		url:'list',
-    		method : 'get',
-    		dataType:'json',
-    		success: publicNoticeList => {
+    		url :'ntclist/get',
+    		dataType: 'json',
+    		success :publicNoticeList => {
     			if(publicNoticeList.length) {
     				const publicNoticeArr = [];
     				
-    				$.each(publicNoticeList, (i,publicNotice) => {
+    				$.each(publicNoticeList, (i, publicNotices) => {
     					publicNoticeArr.unshift(
-    						`<tr>
+    						`<tr onclick="window.location.href='../notice/getntc?PublicNoticeNo=\${publicNotices.publicNoticeNo}'">
     							<td>\${publicNotices.publicNoticeNo}</td>
     							<td>\${publicNotices.pubntcTitle}</td>
     							<td>\${publicNotices.pubntcDate}</td>
-        					</tr>`					
-    					)
-    				})
+        					</tr>`
+    					);
+    					
+    				});
     				$('#publicNoticeList').append(publicNoticeArr.join(''));
     			} else {
-    				$('#publicNoticeList').append('<tr><td colspan=5 class=text-center>공지사항이 없습니다.</td></tr>')
+    				$('#publicNoticeList').append('<tr><td colspan=3 class=text-center>공지사항이 없습니다.</td></tr>')
     			}
     		}
     	})
@@ -70,7 +70,7 @@
     }
 
     tr th:last-child {
-        width: 15%;
+        width: 30%;
         text-align: center;
     }
     
@@ -114,11 +114,6 @@
                         </thead>
                         <tbody id='publicNoticeList'>
 							
-							<!--
-                            <tr><td><p></p></td><td></td><td></td></tr>
-                            <tr><td><p></p></td><td></td><td></td></tr>
-                            <tr><td><p></p></td><td></td><td></td></tr>
-                            -->
                         </tbody>
                     </table>
                 </div>

@@ -6,7 +6,7 @@ import com.my.attendance.domain.PublicNotice;
 
 public interface PublicNoticeMap {	 
 	List<PublicNotice> selectPublicNoticeLists();
-	PublicNotice selectPublicNoticeDetail(int publicNoticeNo);
+	List<PublicNotice> selectPublicNoticeDetail(int publicNoticeNo);
 	int insertPublicNotice(String pubntcTitle,String pubntcContent);
 	int updatePublicNotice(PublicNotice publicNotice);
 	int deletePublicNotice(int publicNoticeNo);
