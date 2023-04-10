@@ -38,7 +38,7 @@ public class AdminController {
 		return result;
 	}
 	
-	@GetMapping(value = {"logout", "*/logout"})
+	@GetMapping("logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:admin";

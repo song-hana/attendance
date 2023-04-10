@@ -16,7 +16,7 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 	
 	@Override
-	public String findId(String companyName, String companyRegno) {
+	public String findId(String companyName, int companyRegno) {
 		return companyDao.selectCompanyId(companyName, companyRegno);
 	}
 	

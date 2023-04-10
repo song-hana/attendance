@@ -16,7 +16,7 @@ public class CompanyDaoImpl implements CompanyDao {
 	}
 	
 	@Override
-	public String selectCompanyId(String companyName, String companyRegno) {
+	public String selectCompanyId(String companyName, int companyRegno) {
 		return companyMap.selectCompanyId(companyName, companyRegno);
 	}
 	

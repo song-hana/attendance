@@ -31,7 +31,7 @@
     		type: 'post',
     		data: ({
     			companyName: name,
-    			companyReg: regno
+    			companyRegno: regno
     		}),
     		success: id => {
     			$('#modalMsg').text('ID는 ' + id + ' 입니다.')

@@ -54,7 +54,7 @@ public class CompanyController {
 		return result;
 	}
 	
-	@GetMapping(value = {"logout", "*/logout"})
+	@GetMapping("logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:company/main";
@@ -62,7 +62,7 @@ public class CompanyController {
 	
 	@ResponseBody
 	@GetMapping("findId")
-	public String getcompanyId(String companyName, String companyRegno) {
+	public String getcompanyId(String companyName, int companyRegno) {
 		String id = companyService.findId(companyName, companyRegno);
 		return id;
 	}
