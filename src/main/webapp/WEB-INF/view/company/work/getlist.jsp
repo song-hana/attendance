@@ -17,16 +17,9 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title>직원 근태 목록</title>
 <script>
-    $(() => {
-        input_company_header()
-        input_company_sidebar()
-        input_footer()
-        btn_click()
-        show_logout()
-    })
-
-    
-    $(function() {
+	let companyId = 'company'
+	
+	$(function() {
         let today = new Date();
         let dateString = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 
@@ -47,15 +40,23 @@
             monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
             showOn: 'button',
             buttonText: '<i class="far fa-calendar "></i>',
-
+            
             onSelect: function(date) {
-                today = new Date(date);
-                dateString = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
-                $("#toDay").text(dateString);
-            }
+			    today = new Date(date);
+			    let year = today.getFullYear();
+			    let month = (today.getMonth() + 1).toString().padStart(2, '0');
+			    let day = today.getDate().toString().padStart(2, '0');
+			    dateString = year + "." + month + "." + day;
+			    $("#toDay").text(dateString);
+			    listWorks()
+			}
         });
 
         function displayToday() {
+        	let year = today.getFullYear();
+		    let month = (today.getMonth() + 1).toString().padStart(2, '0');
+		    let day = today.getDate().toString().padStart(2, '0');
+		    dateString = year + "." + month + "." + day;
             $("#toDay").prepend(dateString);
         }
 
@@ -64,20 +65,89 @@
         $("#prevDay").click(function() {
             let prevDate = new Date(today);
             prevDate.setDate(today.getDate() - 1);
-            let prevDateString = prevDate.getFullYear() + "-" + (prevDate.getMonth() + 1) + "-" + prevDate.getDate();
+            let year = prevDate.getFullYear();
+            let month = (prevDate.getMonth() + 1).toString().padStart(2, '0'); // 두 자리 수로 표현
+            let day = prevDate.getDate().toString().padStart(2, '0'); // 두 자리 수로 표현
+            let prevDateString = year + "." + month + "." + day;
             $("#toDay").text(prevDateString);
             today = prevDate;
-            console.log($('#toDay').val())
+            listWorks();
         });
 
         $("#nextDay").click(function() {
             let nextDate = new Date(today);
             nextDate.setDate(today.getDate() + 1);
-            let nextDateString = nextDate.getFullYear() + "-" + (nextDate.getMonth() + 1) + "-" + nextDate.getDate();
+            let year = nextDate.getFullYear();
+            let month = (nextDate.getMonth() + 1).toString().padStart(2, '0'); // 두 자리 수로 표현
+            let day = nextDate.getDate().toString().padStart(2, '0'); // 두 자리 수로 표현
+            let nextDateString = year + "." + month + "." + day;
             $("#toDay").text(nextDateString);
             today = nextDate;
+            listWorks();
         });
-    });
+
+    })
+	
+	function listWorks() {
+	    $('#works').empty()
+	    
+	    let today = $('#toDay').text()
+	    today = today.split('.').map(Number)
+	    today[1] = today[1] < 10 ? '0' + today[1] : today[1]
+	    today[2] = today[2] < 10 ? '0' + today[2] : today[2]
+	    today = today.join('-')
+	    
+	    $.ajax({
+	        url: 'getlist/get',
+	        dataType: 'json',
+	        data: { 
+	            choiceDay: today,
+	            companyId: companyId
+	        },
+	        success: works => {
+	            if (works.length) {
+	                const workArr = [];
+
+	                $.each(works, (i, work) => {
+	                	const startTime = new Date(work.startTime);
+	                    const endTime = new Date(work.endTime);
+
+	                    const startHour = startTime.getHours().toString().padStart(2, '0');
+	                    const startMinute = startTime.getMinutes().toString().padStart(2, '0');
+	                    const endHour = endTime.getHours().toString().padStart(2, '0');
+	                    const endMinute = endTime.getMinutes().toString().padStart(2, '0');
+	                	
+	                    workArr.unshift(`
+	                        <tr>
+	                            <td>\${today}</td>
+	                            <td>\${work.empName}</td>
+	                            <td>\${work.empPosition}</td>
+	                            <td>\${startHour}:\${startMinute}</td>
+	                            <td>\${endHour}:\${endMinute}</td>
+	                            <td></td>
+	                            <td></td>
+	                            <td></td>
+	                        </tr>
+	                    `);
+	                });
+
+	                $('#works').append(workArr.join(''));
+	            } else {
+	                $('#works').append('<tr><td colspan=8 class=text-center>출근내역이 없습니다.</td></tr>');
+	            }
+	        }
+	    })
+	}
+
+
+    $(() => {
+        input_company_header()
+        input_company_sidebar()
+        input_footer()
+        btn_click()
+        show_logout()
+        listWorks()
+    })
 </script>
 <style>
     #prevDay, #nextDay {
@@ -179,17 +249,19 @@
                 <div class='col'>
                     <table class='table'>
                         <thead>
-                            <tr><th>일자</th><th>이름</th><th>직급</th><th>출근</th><th>퇴근</th><th>근무시간</th><th>추가근무시간</th><th>비고</th></tr>
+                            <tr>
+                            	<th>일자</th>
+                            	<th>이름</th>
+                            	<th>직급</th>
+                            	<th>출근</th>
+                            	<th>퇴근</th>
+                            	<th>근무시간</th>
+                            	<th>추가근무시간</th>
+                            	<th>비고</th>
+                            </tr>
                         </thead>
-                        <tbody>
-                            <tr><td>2023-03-21</td><td>김이젠</td><td>사장</td><td>09:30</td><td>20:00</td><td>9h</td><td>2h</td><td></td></tr>
-                            <tr><td>2023-03-21</td><td>최한석</td><td>과장</td><td>08:50</td><td>18:00</td><td>9h</td><td>0</td><td></td></tr>
-                            <tr><td>2023-03-21</td><td>한아름</td><td>대리</td><td>00:00</td><td>00:00</td><td>0</td><td>0</td><td>연차</td></tr>
-                            <tr><td>2023-03-21</td><td>김철수</td><td>사원</td><td>08:40</td><td>20:17</td><td>9h</td><td>2h</td><td></td></tr>
-                            <tr><td>2023-03-21</td><td>양승일</td><td>인턴</td><td>08:00</td><td>18:00</td><td>9h</td><td>0</td><td></td></tr>
-                            <tr><td>2023-03-21</td><td>송하나</td><td>사장</td><td>08:55</td><td>22:24</td><td>9h</td><td>4h</td><td></td></tr>
-                            <tr><td>2023-03-21</td><td>김민형</td><td>과장</td><td>08:50</td><td>18:00</td><td>9h</td><td>0</td><td></td></tr>
-                            <tr><td>2023-03-21</td><td>최서영</td><td>대리</td><td>00:00</td><td>00:00</td><td>0h</td><td>0</td><td>연차</td></tr>
+                        <tbody id='works'>
+                            
                         </tbody>
                     </table>
                 </div>

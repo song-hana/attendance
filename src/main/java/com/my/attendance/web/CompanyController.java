@@ -86,7 +86,7 @@ public class CompanyController {
 	
 	@GetMapping
 	@RequestMapping("company/user/member")
-	public ModelAndView asklist(ModelAndView mv) {
+	public ModelAndView member(ModelAndView mv) {
 		mv.setViewName("company/user/member");
 		return mv;
 	}

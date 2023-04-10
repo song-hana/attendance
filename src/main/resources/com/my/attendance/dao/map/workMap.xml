@@ -24,11 +24,11 @@
 	</select>
 	
 	<select id='selectChoiceDay' resultType='Work'>
-		select e.emp_name, e.emp_position, w.start_time, TO_CHAR(w.start_time, 'HH24:MI') AS start_time, TO_CHAR(w.end_time, 'HH24:MI') AS end_time
+		select e.emp_name, e.emp_position, w.start_time, w.end_time
 		from works w
 		join employees e
 		on e.employee_no = w.employee_no
-		where to_char(start_time, 'YYYY-MM-DD') = ${choiceDay}
-		and e.company_id = ${companyId}
+		where to_char(start_time, 'YYYY-MM-DD') = #{choiceDay}
+		and e.company_id = #{companyId}
 	</select>
 </mapper>

@@ -35,15 +35,7 @@
 
 	$(function() {
 	    let today = new Date();
-	    let dateString = today.getFullYear() + "." + (today.getMonth() + 1) + "-" + today.getDate();
-	
-	    $("#datepicker").datepicker({
-	        onSelect: function(date) {
-	            today = new Date(date);
-	            dateString = today.getFullYear() + "." + (today.getMonth() + 1) + "-" + today.getDate();
-	            $("#yearMonth").text(dateString);
-	        }
-	    });
+	    let dateString = today.getFullYear() + "." + (today.getMonth() + 1)
 		
 	    // 년 월 나타내기.
 	    function displayToday() {
