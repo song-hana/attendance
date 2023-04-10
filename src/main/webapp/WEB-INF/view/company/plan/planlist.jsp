@@ -295,7 +295,7 @@
                 })
             },
             eventDrop: info => {
-                info.revert();
+                info.revert()
             }
         })
     calendar.render()

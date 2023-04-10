@@ -273,6 +273,7 @@ form .btn.btn-blue {
         border-top: .1rem solid;
         background-color: white;
         box-shadow: 0px -0.5px 3px #0A21A6;
+        z-index: 100;
     }
    	
     .navigation a {

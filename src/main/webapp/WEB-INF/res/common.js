@@ -14,13 +14,13 @@ function input_user_header() {
     header_txt += '             </ul>'
     header_txt += '          </div>'
     header_txt += '          <div class="col logo">'
-    header_txt += `             <div class="logo_img text-center" onclick="main">로고이미지</div>`
+    header_txt += `             <div class="logo_img text-center" onclick='location.href="/main"'>로고이미지</div>`
     header_txt += '          </div>'
     header_txt += '          <div class="col mt-1 float-end lnb_btn">'
     header_txt += '             <a href="/user/login" class="float-end collapse show" id="login_btn"><i class="fa-solid fa-user"></i></a>'
     header_txt += '             <a href="#" class="float-end collapse" id="showLnb"><i class="fa-solid fa-user"></i></a>'
     header_txt += '             <ul class="lnb collapse">'
-    header_txt += '                 <li><a href="getholiday">연차관리</a></li>'
+    header_txt += '                 <li><a href="/holiday/getholiday">연차관리</a></li>'
     header_txt += '                 <li><a href="/work/getlist">근로내역</a></li>'
     header_txt += '                 <li><a href="/user/fixpw">비밀번호<br>변경</a></li>'
     header_txt += '                 <li><a href="/user/logout">로그아웃</a></li>'
@@ -60,7 +60,7 @@ function input_company_header() {
     header_txt += '             </ul>'
     header_txt += '          </div>'
     header_txt += '          <div class="col logo">'
-    header_txt += `             <div class="logo_img text-center" onclick='location.href="company/main"'>로고이미지</div>`
+    header_txt += `             <div class="logo_img text-center" onclick='location.href="/company/main"'>로고이미지</div>`
     header_txt += '          </div>'
     header_txt += '          <div class="col btns mt-1 text-end">'
     header_txt += '             <a href="/company/user/login" class="collapse show">로그인</a>'

@@ -200,6 +200,9 @@
         border-color:darkblue;
     }
 
+	#calendar {
+		margin-bottom: 3rem;
+	}
 </style>
 </head>
 <body>
