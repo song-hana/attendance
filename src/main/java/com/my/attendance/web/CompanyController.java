@@ -1,10 +1,6 @@
 package com.my.attendance.web;
 
-import java.time.YearMonth;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.my.attendance.domain.Company;
-import com.my.attendance.domain.Holiday;
 import com.my.attendance.service.CompanyService;
 
 import jakarta.servlet.http.HttpSession;

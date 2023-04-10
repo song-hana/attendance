@@ -39,7 +39,7 @@ let employeeHireDate = "${sessionScope.hireDate}"
 	    $('#holidays').empty();
 	    
 	    $.ajax({
-	        url: 'getholiday/get',
+	        url: '/holiday/getholiday/get',
 	        dataType: 'json',
 	        data: {
 	        	employeeNo: employeeNo
@@ -139,7 +139,7 @@ let employeeHireDate = "${sessionScope.hireDate}"
 	                }
 	                
 	                $.ajax({
-	                    url: 'holidaylist/fix',
+	                    url: '/company/holiday/holidaylist/fix',
 	                    type: 'put',
 	                    contentType: 'application/json',
 	                    data: JSON.stringify(holiday),
@@ -164,7 +164,7 @@ let employeeHireDate = "${sessionScope.hireDate}"
 
             $('#modalOKBtn').off('click').on('click', function() {
                 $.ajax({
-                    url: 'holidaylist/del/' + holidayNo,
+                    url: '/company/holiday/holidaylist/del/' + holidayNo,
                     method: 'delete',
                     success: listHolidays
                 })
@@ -188,7 +188,7 @@ let employeeHireDate = "${sessionScope.hireDate}"
             	if( isVal($('#addHolidayDate')) && isVal($('#addHolidayContent'))) {
             		
 	                $.ajax({
-	                    url: 'getholiday/add',
+	                    url: '/holiday/getholiday/add',
 	                    type: 'post',
 	                    data: {
 	                        holDate: $('#addHolidayDate').val(),

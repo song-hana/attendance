@@ -12,7 +12,7 @@
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.js'></script>
 <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js'></script>
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
-<script src='<c:url value="res/common.js"/>'></script>
+<script src='<c:url value="/res/common.js"/>'></script>
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title>사내 일정 조회</title>
 <script>
@@ -67,7 +67,7 @@
     
     function listHolidays(successCallback) {
         $.ajax({
-            url: 'planlist/getHoliday',
+            url: '/company/plan/planlist/getHoliday',
             method: 'get',
             dataType: 'json',
             contentType: 'application/json',
@@ -148,7 +148,7 @@
             dayMaxEvents: false,
             events: function(info, successCallback) {
                 $.ajax({
-                    url: 'planlist/getPlan',
+                    url: '/company/plan/planlist/getPlan',
                     method: 'get',
                     dataType: 'json',
                     contentType: 'application/json',

@@ -18,12 +18,12 @@
 	const askNo = urlParams.get('askNo');
 	
 	function move() {
-		window.location.href = '../admasklist'
+		window.location.href = 'asklist'
 	}
 	
 	function listAsk() {
 	    $.ajax({
-	        url: 'asklist/getAsk',
+	        url: '/company/ask/asklist/getAsk',
 	        dataType: 'json',
 	        data: {
 	        	askNo: askNo
@@ -79,7 +79,7 @@
        	 		
 	       	 	$('#modalOKBtn').off('click').on('click', function() {
 			        $.ajax({
-			            url: 'admgetask/add',
+			            url: 'getask/add',
 			            type: 'put',
 			            contentType: 'application/json',
 			            data: JSON.stringify(answer),
@@ -103,7 +103,7 @@
             
         	$('#modalOKBtn').off('click').on('click', function() {
 	            $.ajax({
-	                url: 'admgetask/del/' + askNo,
+	                url: 'getask/del/' + askNo,
 	                method: 'delete',
 	                success: move()
 	            });
@@ -183,7 +183,7 @@
             <div class='row pt-2'>
                 <div class='col d-flex justify-content-end'>
                     <button type='button' class='btn me-3 btn-blue' id='addAnswer'>답변저장</button>
-                    <button type='button' class='btn me-3 btn-secondary' onclick="window.location.href='../admasklist'">목록</button>
+                    <button type='button' class='btn me-3 btn-secondary' onclick="window.location.href='asklist'">목록</button>
                     <button type='button' class='btn btn-red' id='delAskBtn'>삭제</button>
                 </div>
             </div>

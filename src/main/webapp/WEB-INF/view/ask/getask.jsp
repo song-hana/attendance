@@ -19,7 +19,7 @@
 	
 	function listAsk() {
 	    $.ajax({
-	        url: 'asklist/getAsk',
+	        url: '/company/ask/asklist/getAsk',
 	        dataType: 'json',
 	        data: {
 	        	askNo: askNo
@@ -183,7 +183,7 @@
     </div>
     <div class='row pt-2'>
         <div class='col d-flex justify-content-end'>
-            <button type='button' class='btn btn-secondary' id='listBtn' onclick="window.location.href='../userasklist'">목록</button>
+            <button type='button' class='btn btn-secondary' id='listBtn' onclick="window.location.href='asklist'">목록</button>
         </div>
     </div>
     <div class='navigation'></div>

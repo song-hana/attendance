@@ -81,7 +81,7 @@
 	            if(checkId != 0 && checkIdVal == $('#companyId').val()) {
 		            if(comPw.val() == comPwCheck.val()) {
 			        	$.ajax({
-			                url: '../../company/user/member/add',
+			                url: '/company/user/member/add',
 			                type: 'post',
 			                contentType: 'application/json',
 			                data: JSON.stringify(company),
@@ -297,7 +297,7 @@
                 <button type='button' id='addCompanyBtn' class='btn btn-blue text-center'>회 원 가 입</button><br>
             </form>
         </div>
-        <div class='navigation'></div>
+        <div class='footer'></div>
     </div>
 </div>
 <div class='modal fade' id='modal'>

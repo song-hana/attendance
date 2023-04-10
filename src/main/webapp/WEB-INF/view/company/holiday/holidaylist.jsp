@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/smoothness/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
-<script src='<c:url value="res/common.js"/>'></script>
+<script src='<c:url value="/res/common.js"/>'></script>
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title> 연차 내역 조회 </title>
 <script>
@@ -252,7 +252,7 @@
                             <div class='ps-4' id='yearMonth'></div>
                         </div>
                         <div class='col d-md-flex justify-content-md-end'>
-                            <button type='button' class='btn' id='planBtn' onclick="window.location.href='planlist'">사내일정 조회</button>
+                            <button type='button' class='btn' id='planBtn' onclick="window.location.href='../plan/planlist'">사내일정 조회</button>
                         </div>
                     </div>
                 </div>

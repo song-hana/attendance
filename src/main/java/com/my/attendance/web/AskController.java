@@ -25,87 +25,87 @@ public class AskController {
 	@Autowired private AskService askService;
 	
 	@GetMapping
-	@RequestMapping("asklist")
+	@RequestMapping("company/ask/asklist")
 	public ModelAndView asklist(ModelAndView mv) {
 		mv.setViewName("company/ask/asklist");
 		return mv;
 	}
 	
 	@GetMapping
-	@RequestMapping("addask")
+	@RequestMapping("company/ask/addask")
 	public ModelAndView addask(ModelAndView mv) {
 		mv.setViewName("company/ask/addask");
 		return mv;
 	}
 	
 	@GetMapping
-	@RequestMapping("getask")
+	@RequestMapping("company/ask/getask")
 	public ModelAndView getask(ModelAndView mv) {
 		mv.setViewName("company/ask/getask");
 		return mv;
 	}
 	
 	@GetMapping
-	@RequestMapping("admasklist")
+	@RequestMapping("admin/ask/asklist")
 	public ModelAndView admasklist(ModelAndView mv) {
 		mv.setViewName("admin/ask/asklist");
 		return mv;
 	}
 	
 	@GetMapping
-	@RequestMapping("admgetask")
+	@RequestMapping("admin/ask/getask")
 	public ModelAndView admgetask(ModelAndView mv) {
 		mv.setViewName("admin/ask/getask");
 		return mv;
 	}
 	
 	@GetMapping
-	@RequestMapping("userasklist")
+	@RequestMapping("ask/asklist")
 	public ModelAndView userasklist(ModelAndView mv) {
 		mv.setViewName("ask/asklist");
 		return mv;
 	}
 	
 	@GetMapping
-	@RequestMapping("useraddask")
+	@RequestMapping("ask/addask")
 	public ModelAndView useraddask(ModelAndView mv) {
 		mv.setViewName("ask/addask");
 		return mv;
 	}
 	
 	@GetMapping
-	@RequestMapping("usergetask")
+	@RequestMapping("ask/getask")
 	public ModelAndView usergetask(ModelAndView mv) {
 		mv.setViewName("ask/getask");
 		return mv;
 	}
 
-	@GetMapping("asklist/get")
+	@GetMapping("company/ask/asklist/get")
 	@ResponseBody
 	public List<Ask> getAsks() {
 	    return askService.getAsks();
 	}
 
-	@GetMapping("asklist/getAsk")
+	@GetMapping("company/ask/asklist/getAsk")
 	@ResponseBody
 	public List<Ask> getAsk(int askNo) {
 		return askService.getAsk(askNo);
 	}
 	
-	@PostMapping("addask/add")
+	@PostMapping("company/ask/addask/add")
 	public ResponseEntity<String> addAsk(String askTitle, String askName, String askContent) {
 	    askService.addAsk(askTitle, askName, askContent);
 	    return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
-	@PutMapping("admgetask/add")
+	@PutMapping("admin/ask/getask/add")
 	public ResponseEntity<String> addAnswer(@RequestBody Ask ask) {
 	    askService.addAnswer(ask);
 	    return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@DeleteMapping("admgetask/del/{askNo}")
-	public ResponseEntity<String> delPlan(@PathVariable int askNo) {
+	@DeleteMapping("admin/ask/getask/del/{askNo}")
+	public ResponseEntity<String> delAnswer(@PathVariable int askNo) {
 	    askService.delAsk(askNo);
 	    return new ResponseEntity<>(HttpStatus.OK);
 	}

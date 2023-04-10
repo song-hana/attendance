@@ -126,7 +126,7 @@
     </div>
     <div class='row pt-2'>
         <div class='col d-flex justify-content-end'>
-            <button type='button' class='btn btn-secondary' id='listBtn' onclick="window.location.href='../asklist'">목록</button>
+            <button type='button' class='btn btn-secondary' id='listBtn' onclick="window.location.href='asklist'">목록</button>
         </div>
     </div>
     <div class='row mt-5'>

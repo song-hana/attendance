@@ -27,45 +27,45 @@ public class PlanController {
 	@Autowired private PlanService planService;
 	
 	@GetMapping
-	@RequestMapping("planlist")
+	@RequestMapping("company/plan/planlist")
 	public ModelAndView planlist(ModelAndView mv) {
 		mv.setViewName("company/plan/planlist");
 		return mv;
 	}
 	
 	@GetMapping
-	@RequestMapping("getplan")
+	@RequestMapping("plan/getplan")
 	public ModelAndView getplan(ModelAndView mv) {
 		mv.setViewName("plan/getplan");
 		return mv;
 	}
 	
-	@GetMapping("planlist/getPlan")
+	@GetMapping("company/plan/planlist/getPlan")
 	@ResponseBody
 	public List<Plan> getPlans(String companyId) {
 	    return planService.getPlans(companyId);
 	}
 	
-	@GetMapping("planlist/getHoliday")
+	@GetMapping("company/plan/planlist/getHoliday")
 	@ResponseBody
 	public List<Holiday> getHolidays(String companyId) {
 	    return planService.getHolidays(companyId);
 	}
 	
-	@PostMapping("planlist/add")
+	@PostMapping("company/plan/planlist/add")
 	public ResponseEntity<String> addPlan(String planTitle,
 	    @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate planDate, String planContent,  String companyId) {
 	    planService.addPlan(planTitle, planDate, planContent, companyId);
 	    return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
-	@PutMapping("planlist/fix")
+	@PutMapping("company/plan/planlist/fix")
 	public ResponseEntity<String> fixPlan(@RequestBody Plan plan) {
 	    planService.fixPlan(plan);
 	    return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@DeleteMapping("planlist/del/{planNo}")
+	@DeleteMapping("company/plan/planlist/del/{planNo}")
 	public ResponseEntity<String> delPlan(@PathVariable int planNo) {
 	    planService.delPlan(planNo);
 	    return new ResponseEntity<>(HttpStatus.OK);

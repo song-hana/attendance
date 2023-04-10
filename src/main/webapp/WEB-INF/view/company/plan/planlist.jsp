@@ -13,7 +13,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js'></script>
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
-<script src='<c:url value="res/common.js"/>'></script>
+<script src='<c:url value="/res/common.js"/>'></script>
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title>일정 조회</title>
 <script>
@@ -115,7 +115,7 @@
                 selectHolidays: {
                     text: '연차내역 조회',
                     click: function() {
-                        location.href='holidaylist';
+                        location.href='../holiday/holidaylist';
                     }
                 }
             },

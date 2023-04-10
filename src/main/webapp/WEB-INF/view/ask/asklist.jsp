@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
 <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js'></script>
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
-<script src='<c:url value="res/common.js"/>'></script>
+<script src='<c:url value="/res/common.js"/>'></script>
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title>문의사항 목록</title>
 <script>
@@ -18,7 +18,7 @@
 	    $('#asks').empty();
 	
 	    $.ajax({
-	        url: 'asklist/get',
+	        url: '/company/ask/asklist/get',
 	        dataType: 'json',
 	        success: asks => {
 	            if (asks.length) {
@@ -26,7 +26,7 @@
 	                
 	                $.each(asks, (i, ask) => {
 	                    askArr.unshift(`
-                    		<tr onclick="window.location.href='../usergetask?askNo=\${ask.askNo}'">
+                    		<tr onclick="window.location.href='getask?askNo=\${ask.askNo}'">
 	                            <td>\${ask.askNo}</td>
 	                            <td>\${ask.askTitle}</td>
 	                            <td>\${ask.askName}</td>
@@ -118,7 +118,7 @@
     </div>
     <div class='row pt-2'>
         <div class='col d-flex justify-content-end'>
-            <button type='button' class='btn btn-blue' id='addAskBtn' onclick="location.href='../useraddask'">글쓰기</button>
+            <button type='button' class='btn btn-blue' id='addAskBtn' onclick="location.href='addask'">글쓰기</button>
         </div>
     </div>
     <div class='row pt-4'>
