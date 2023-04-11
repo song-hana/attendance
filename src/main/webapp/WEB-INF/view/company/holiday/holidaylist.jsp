@@ -17,72 +17,6 @@
 <script>
 	let companyId = "${sessionScope.comId}"
 	
-	$(() => {
-        input_company_header()
-        input_company_sidebar()
-        btn_click()
-        input_footer()
-        show_logout()
-        date()
-        listHolidays()
-		
-        // 연차 수정
-        $('#holidays').on('click', '.fixHolidayBtn', () =>  {
-            const holidayNo = $(this).closest('tr').attr('holidayNo')
-            
-            $('#modalMsg').empty()
-            $('#modalMsg').append(`<p>날짜: <input type='date' id='fixHolidayDate' placeholder='날짜'/> </p>`)
-            $('#modalBtn').show()
-            $('#modal').modal('show')
-            
-            $('#modalOKBtn').off('click').on('click', () => {
-            	if(isVal($('#fixHolidayDate'))) {
-
-            		let holiday = {
-	                    holidayNo: holidayNo,
-	                    holDate: $('#fixHolidayDate').val() 
-	                }
-	                
-	                $.ajax({
-	                    url: 'holidaylist/fix',
-	                    type: 'put',
-	                    contentType: 'application/json',
-	                    data: JSON.stringify(holiday),
-	                    success: listHolidays
-	                })
-	
-	                $('#modalMsg').empty()
-	                $('#modalMsg').text('연차 수정 되었습니다.')
-	                $('#modalBtn').hide()
-	                $('#modal').modal('show')
-            	}
-            })
-        })
-
-        // 연차 삭제
-        $('#holidays').on('click', '.delHolidayBtn', () => {
-            const holidayNo = $(this).closest('tr').attr('holidayNo')
-            
-            $('#modalMsg').empty()
-            $('#modalMsg').append(`<p>해당 연차를 삭제 하시겠습니까?<p>`)
-            $('#modalBtn').show()
-            $('#modal').modal('show')
-
-            $('#modalOKBtn').off('click').on('click', () => {
-                $.ajax({
-                    url: 'holidaylist/del/' + holidayNo,
-                    method: 'delete',
-                    success: listHolidays
-                })
-                
-                $('#modalMsg').empty()
-                $('#modalMsg').text('연차 삭제 되었습니다.')
-                $('#modalBtn').hide()
-                $('#modal').modal('show')
-            })
-        })
-    })
-	
 	function isVal(field) {        
 	    let isGood = false
 	    let errMsg
@@ -98,58 +32,48 @@
 	
 	    return isGood
 	}
-
-	function date() {
-	    let today = new Date()
-	    let dateString = today.getFullYear() + "." + (today.getMonth() + 1) + "-" + today.getDate()
-	
-	    $("#datepicker").datepicker({
-	        onSelect: date => {
-	            today = new Date(date)
-	            dateString = today.getFullYear() + "." + (today.getMonth() + 1) + "-" + today.getDate()
-	            $("#yearMonth").text(dateString)
-	        }
-	    })
+	$(function() {
+	    let today = new Date();
+	    let dateString = today.getFullYear() + "." + (today.getMonth() + 1)
 		
 	    // 년 월 나타내기.
 	    function displayToday() {
-	        let year = today.getFullYear()
-	        let month = today.getMonth() + 1
-	        let dateString = year + "." + month
-	        $("#yearMonth").prepend(dateString)
+	        let year = today.getFullYear();
+	        let month = today.getMonth() + 1;
+	        let dateString = year + "." + month;
+	        $("#yearMonth").prepend(dateString);
 	    }
 	
-	    displayToday()
+	    displayToday();
 		
 	    // 이전달 버튼
-	    $("#prevBtn").click(() => {
-	        today.setMonth(today.getMonth() - 1)
-	        let year = today.getFullYear()
-	        let month = today.getMonth() + 1
-	        yearMonthString = year + "." + ("" + month).slice(-2)
-	        $("#yearMonth").text(yearMonthString)
+	    $("#prevBtn").click(function() {
+	        today.setMonth(today.getMonth() - 1);
+	        let year = today.getFullYear();
+	        let month = today.getMonth() + 1;
+	        yearMonthString = year + "." + ("" + month).slice(-2);
+	        $("#yearMonth").text(yearMonthString);
 	        listHolidays()
-	    })
+	    });
 		
 	    // 다음달 버튼
-	    $("#nextBtn").click(() => {
-	        today.setMonth(today.getMonth() + 1)
-	        let year = today.getFullYear()
-	        let month = today.getMonth() + 1
-	        yearMonthString = year + "." + ("" + month).slice(-2)
-	        $("#yearMonth").text(yearMonthString)
+	    $("#nextBtn").click(function() {
+	        today.setMonth(today.getMonth() + 1);
+	        let year = today.getFullYear();
+	        let month = today.getMonth() + 1;
+	        yearMonthString = year + "." + ("" + month).slice(-2);
+	        $("#yearMonth").text(yearMonthString);
 	        listHolidays()
-	    })
-	}
+	    });
+	});
 	
 	// 연차내역조회
 	function listHolidays() {
-	    $('#holidays').empty()
-	    let yearMonth = $('#yearMonth').text()
-	    yearMonth = yearMonth.split('.').map(Number)
-	    yearMonth[1] = yearMonth[1] < 10 ? '0' + yearMonth[1] : yearMonth[1]
-	    yearMonth = yearMonth.join('-')
-
+	    $('#holidays').empty();
+	    let yearMonth = $('#yearMonth').text();
+	    yearMonth = yearMonth.split('.').map(Number);
+	    yearMonth[1] = yearMonth[1] < 10 ? '0' + yearMonth[1] : yearMonth[1];
+	    yearMonth = yearMonth.join('-');
 	    $.ajax({
 	        url: 'holidaylist/get',
 	        dataType: 'json',
@@ -160,35 +84,92 @@
 	        success: holidays => {
 	            if (holidays.length) {
 	                const holidayArr = [];
-
 	                $.each(holidays, (i, holiday) => {
-	                    const today = new Date()
-	                    const holidayDate = new Date(holiday.holDate)
-	                    const timeDiff = holidayDate.getTime() - today.getTime()
-	                    const daysDiff = timeDiff / (1000 * 3600 * 24)
-
-	                    let fixdelBtn = ''
+	                    const today = new Date();
+	                    const holidayDate = new Date(holiday.holDate);
+	                    const timeDiff = holidayDate.getTime() - today.getTime();
+	                    const daysDiff = timeDiff / (1000 * 3600 * 24);
+	                    let fixdelBtn = '';
 	                    if (daysDiff >= 3) {
 	                    	fixdelBtn = `<button type='button' class='btn btn-white btn-sm fixHolidayBtn'>수정</button>
-	                                   <button type='button' class='btn btn-red btn-sm delHolidayBtn'>삭제</button>`
+	                                   <button type='button' class='btn btn-red btn-sm delHolidayBtn'>삭제</button>`;
 	                    }
-
 	                    holidayArr.unshift(`
 	                        <tr holidayNo='\${holiday.holidayNo}'>
 	                            <td>\${holiday.empName}</td>
 	                            <td>\${holiday.holDate}</td>
 	                            <td>\${fixdelBtn}</td>
 	                        </tr>
-	                    `)
-	                })
-
-	                $('#holidays').append(holidayArr.join(''))
+	                    `);
+	                });
+	                $('#holidays').append(holidayArr.join(''));
 	            } else {
-	                $('#holidays').append('<tr><td colspan=3 class=text-center>연차내역이 없습니다.</td></tr>')
+	                $('#holidays').append('<tr><td colspan=3 class=text-center>연차내역이 없습니다.</td></tr>');
 	            }
 	        }
-	    })
+	    });
 	}
+    $(() => {
+        input_company_header()
+        input_company_sidebar()
+        btn_click()
+        input_footer()
+        show_logout()
+        listHolidays()
+		
+        // 연차 수정
+        $('#holidays').on('click', '.fixHolidayBtn', function() {
+            const holidayNo = $(this).closest('tr').attr('holidayNo');
+            
+            $('#modalMsg').empty()
+            $('#modalMsg').append(`<p>날짜: <input type='date' id='fixHolidayDate' placeholder='날짜'/> </p>`)
+            $('#modalBtn').show()
+            $('#modal').modal('show')
+            
+            $('#modalOKBtn').off('click').on('click', function() {
+            	if(isVal($('#fixHolidayDate'))) {
+            		let holiday = {
+	                    holidayNo: holidayNo,
+	                    holDate: $('#fixHolidayDate').val() 
+	                }
+	                
+	                $.ajax({
+	                    url: 'holidaylist/fix',
+	                    type: 'put',
+	                    contentType: 'application/json',
+	                    data: JSON.stringify(holiday),
+	                    success: listHolidays
+	                });
+	
+	                $('#modalMsg').empty()
+	                $('#modalMsg').text('연차 수정 되었습니다.')
+	                $('#modalBtn').hide()
+	                $('#modal').modal('show')
+            	}
+            })
+        });
+        // 연차 삭제
+        $('#holidays').on('click', '.delHolidayBtn', function() {
+            const holidayNo = $(this).closest('tr').attr('holidayNo');
+            
+            $('#modalMsg').empty()
+            $('#modalMsg').append(`<p>해당 연차를 삭제 하시겠습니까?<p>`)
+            $('#modalBtn').show()
+            $('#modal').modal('show')
+            $('#modalOKBtn').off('click').on('click', function() {
+                $.ajax({
+                    url: 'holidaylist/del/' + holidayNo,
+                    method: 'delete',
+                    success: listHolidays
+                })
+                
+                $('#modalMsg').empty()
+                $('#modalMsg').text('연차 삭제 되었습니다.')
+                $('#modalBtn').hide()
+                $('#modal').modal('show')
+            })
+        });
+    })
 </script>
 <style>
     #prevBtn, #nextBtn, #planBtn {
