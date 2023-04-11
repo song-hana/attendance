@@ -17,7 +17,7 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title>직원 근태 목록</title>
 <script>
-	let companyId = 'company'
+	let companyId = "${sessionScope.comId}"
 	
 	$(function() {
         let today = new Date();
@@ -107,16 +107,38 @@
 	        success: works => {
 	            if (works.length) {
 	                const workArr = [];
+	                let plusWorkHour = 0
+	                let workHour = 0
 
 	                $.each(works, (i, work) => {
 	                	const startTime = new Date(work.startTime);
 	                    const endTime = new Date(work.endTime);
 
-	                    const startHour = startTime.getHours().toString().padStart(2, '0');
+	                    let startHour = startTime.getHours().toString().padStart(2, '0');
 	                    const startMinute = startTime.getMinutes().toString().padStart(2, '0');
 	                    const endHour = endTime.getHours().toString().padStart(2, '0');
 	                    const endMinute = endTime.getMinutes().toString().padStart(2, '0');
 	                	
+	                    // 일찍 출근하면.
+	                    if(startHour < 9) {
+	                    	workHour = endHour - 9
+	                    } else {
+	                    	workHour = endHour - startHour
+	                    }
+	                    
+	                    // 지각하면
+	                    if(startMinute > 0) {
+	                    	workHour = endHour - startHour - 1
+	                    }
+	                    
+	                    // 추가근무시간
+	                    if (workHour > 9) {
+	                    	plusWorkHour = (workHour - 9)
+	                    	workHour = 8
+	                    } else {
+	                    	plusWorkHour = 0
+	                    }
+	                    
 	                    workArr.unshift(`
 	                        <tr>
 	                            <td>\${today}</td>
@@ -124,8 +146,8 @@
 	                            <td>\${work.empPosition}</td>
 	                            <td>\${startHour}:\${startMinute}</td>
 	                            <td>\${endHour}:\${endMinute}</td>
-	                            <td></td>
-	                            <td></td>
+	                            <td>\${workHour}h</td>
+	                            <td>\${plusWorkHour}h</td>
 	                            <td></td>
 	                        </tr>
 	                    `);

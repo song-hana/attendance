@@ -96,9 +96,9 @@
     }
     
     document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
+        let calendarEl = document.getElementById('calendar');
 
-        var calendar = new FullCalendar.Calendar(calendarEl, {
+        let calendar = new FullCalendar.Calendar(calendarEl, {
             
             headerToolbar: {
                 left: 'prev,next today',
@@ -117,7 +117,7 @@
             selectable: false,
             selectMirror: true,
             select: function(arg) {
-                var title = prompt('제목:');
+                let title = prompt('제목:');
                 if (title) {
                 calendar.addEvent({
                     title: title,
