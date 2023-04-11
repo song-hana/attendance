@@ -261,7 +261,7 @@ let employeeHireDate = "${sessionScope.hireDate}"
                 <tbody id='holidays'>
                     
                 </tbody>
-                <caption class="text-end">*연차 사용일로부터 3일 전까지 수정, 취소가 가능합니다.</caption>
+                <caption class="text-end">*연차 사용일로부터 3일 전까지 수정, 삭제가 가능합니다.</caption>
             </table>
         </div>
     </div>
