@@ -14,8 +14,8 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title>직원 추가</title>
 <script>
- let companyId = "${sessionScope.comId}"
-//let companyId = "company"
+// let companyId = "${sessionScope.comId}"
+let companyId = "company"
 
 function errMsgClear() {
     $('#idErrMsg, #pwErrMsg, #pwCheckErrMsg, #nameCheckErrMsg, #fileErrMsg, #addrErrMsg, #empPositionErrMsg, #emailErrMsg, #empPhErrMsg,#hireDateErrMsg,#empPinoCheckErrMsg').empty()

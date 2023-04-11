@@ -113,6 +113,6 @@ public class CompanyController {
 	@PutMapping("company/user/addcom/fix")
 	public ResponseEntity<String> fixCompany(@RequestBody Company company){
 		companyService.fixCompany(company);
-		return new ResponseEntity<>(HttpStatus.CREATED);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
