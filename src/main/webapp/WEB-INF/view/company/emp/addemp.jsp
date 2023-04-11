@@ -14,8 +14,11 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title>직원 추가</title>
 <script>
+ let companyId = "${sessionScope.comId}"
+//let companyId = "company"
+
 function errMsgClear() {
-    $('#idErrMsg, #pwErrMsg, #pwCheckErrMsg, #nameCheckErrMsg, #fileErrMsg, #addrErrMsg, #rankErrMsg, #emailErrMsg, #empPhErrMsg,#empdateErrMsg,#empPinoCheckErrMsg').empty()
+    $('#idErrMsg, #pwErrMsg, #pwCheckErrMsg, #nameCheckErrMsg, #fileErrMsg, #addrErrMsg, #empPositionErrMsg, #emailErrMsg, #empPhErrMsg,#hireDateErrMsg,#empPinoCheckErrMsg').empty()
 }
 
 function isVal(field, errMsgElement, errMsg) {
@@ -50,9 +53,9 @@ function isVal(field, errMsgElement, errMsg) {
 	        const empEmail = inputEmail.val() + '@' + subEmail.val()
 	        const empPh = $('#empPh')
 			const empPino = $('#empPino')
-			const empRank = $('#empRank')
-			const empDate = $('#empDate')
-			const empProfile = $('#empfile')						
+			const empPosition = $('#empPosition')
+			const hireDate = $('#hireDate')
+			const profileName = $('#profileName')						
 			
 	        const isEmpId = isVal(empId, $('#idErrMsg'), 'ID를 입력하세요.')
 	        const isEmpPw = isVal(empPw, $('#pwErrMsg'), '비밀번호를 입력하세요.')
@@ -60,15 +63,13 @@ function isVal(field, errMsgElement, errMsg) {
 	        const isEmpName = isVal(empName, $('#nameCheckErrMsg'), '이름을 입력하세요.')
 	        const isEmpPino = isVal(empPino, $('#empPinoCheckErrMsg'), '주민번호를 입력하세요.')
 	        const isEmpAddr = isVal(empAddr, $('#addrErrMsg'), '주소를 입력하세요.')
-	        const isEmpRank = isVal(empRank, $('#rankErrMsg'), '직급을 입력하세요.')
+	        const isEmpPosition = isVal(empPosition, $('#empPositionErrMsg'), '직급을 입력하세요.')
 	        const isInputEmail = isVal(inputEmail, $('#emailErrMsg'), '이메일을 입력하세요.')
 	        const isSubEmail = isVal(subEmail, $('#emailErrMsg'), '이메일을 입력하세요.')
 	        const isEmpPh = isVal(empPh, $('#empPhErrMsg'), '전화번호를 입력하세요.')
-	        const isEmpDate = isVal(empDate,$('#empdateErrMsg'),'입사일을 입력하세요')
+	        const isHireDate = isVal(hireDate,$('#hireDateErrMsg'),'입사일을 입력하세요')	        	        
 	        
-	        
-	        
-	        if (isEmpId && isEmpPw && isEmpDate && isEmpPwCheck && isEmpName && isEmpPino && isEmpAddr && isEmpRank && isInputEmail && isSubEmail && isEmpPh) {
+	        if (isEmpId && isEmpPw && isHireDate && isEmpPwCheck && isEmpName && isEmpPino && isEmpAddr && isEmpRank && isInputEmail && isSubEmail && isEmpPh) {
 	            let employee = {
 	                empId: empId.val(),
 	                empPw: empPw.val(),
@@ -77,18 +78,18 @@ function isVal(field, errMsgElement, errMsg) {
 	                empDetailAddr: empDetailAddr.val(),
 	                empPostcode: empPostcode.val(),
 	                empPh: empPh.val(),
-	                empEmail: empEmail,
-	                hireDate
-	                empRank: empRank.val(),//포지션
+	                empEmail: empEmail.val(),
+	                hireDate:hireDate.val(),
+	                empPosition: empPosition.val(),
 	                empPino: empPino.val(),
-	                profileName
-	                companyId
+	                profileName:profileName.val(),
+	                companyId: companyId
 	            }
 	            
 	            if(checkId != 0 && checkIdVal == $('#empId').val()) {
 		            if(empPw.val() == empPwCheck.val()) {
 			        	$.ajax({
-			                url: '../../company/emp/addemp/add',
+			                url: '/company/emp/addemp/add',
 			                type: 'post',
 			                contentType: 'application/json',
 			                data: JSON.stringify(employee),
@@ -97,7 +98,7 @@ function isVal(field, errMsgElement, errMsg) {
 			                    $('#modalBtn').hide()
 			                    $('#modal').modal('show')
 			                    setTimeout(function() {
-			                        window.location.href = '../../company/main'
+			                        window.location.href = '/company/main'
 			                    }, 2000)
 			                }
 			            });
@@ -266,7 +267,7 @@ function isVal(field, errMsgElement, errMsg) {
                 <span id='pwCheckErrMsg'></span><br>
                 <div class='form-group'>
                     <label for='input-email'>이메일주소</label>
-                    <div class='input-group'>
+                    <div class='input-group' id='empEmail'>
                         <input type='text' class='form-control' id='inputEmail'>
                         <h4>&nbsp; @ &nbsp;</h4>
                         <input type='text' class='form-control' id='subEmail'>
@@ -300,21 +301,21 @@ function isVal(field, errMsgElement, errMsg) {
                 </div>
                 <span id='addrErrMsg'></span><br>
                 <label for='date of employment'>입사일</label>
-                <input type='date' class='form-control' id='empDate'>
-                <span id='empdateErrMsg'></span><br>
+                <input type='date' class='form-control' id='hireDate'>
+                <span id='hireDateErrMsg'></span><br>
                 <div class='form-group'>
                 <label for='profil'>프로필</label>
                 <div class='input-group'>
-                <input type='text' class='form-control' id='profil' name='profil'>               
+                <input type='text' class='form-control' id='profileName' name='profil'>               
                 <div class='input-group-append'>
                     <button type='button' class='btn' id='empProfile' name='file'>파일 첨부</button>
                 </div>                
                 </div>
                 </div>
                 <span id='fileErrMsg'></span><br>
-                <label for='rank'>직급</label>
-                  <input type='text' class='form-control' id='empRank'>
-                 <span id='rankErrMsg'></span> <br>
+                <label for='empPosition'>직급</label>
+                  <input type='text' class='form-control' id='empPosition'>
+                 <span id='empPositionErrMsg'></span> <br>
                 <br>
                 <button type='button' id='addEmpBtn' class='btn btn-blue text-center'>직 원 등 록</button><br>
             </form>
