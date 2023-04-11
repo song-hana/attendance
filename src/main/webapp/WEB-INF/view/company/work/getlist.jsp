@@ -132,25 +132,44 @@
 	                    }
 	                    
 	                    // 추가근무시간
-	                    if (workHour > 9) {
+	                    if (workHour >= 9) {
 	                    	plusWorkHour = (workHour - 9)
 	                    	workHour = 8
 	                    } else {
 	                    	plusWorkHour = 0
 	                    }
 	                    
-	                    workArr.unshift(`
-	                        <tr>
-	                            <td>\${today}</td>
-	                            <td>\${work.empName}</td>
-	                            <td>\${work.empPosition}</td>
-	                            <td>\${startHour}:\${startMinute}</td>
-	                            <td>\${endHour}:\${endMinute}</td>
-	                            <td>\${workHour}h</td>
-	                            <td>\${plusWorkHour}h</td>
-	                            <td></td>
-	                        </tr>
-	                    `);
+	                    let holDate = `\${work.holDate}`
+	                    
+	                    console.log(holDate)
+	                    
+	                    if(holDate == null) {
+	                    	workArr.unshift(`
+	    	                        <tr>
+	    	                            <td>\${today}</td>
+	    	                            <td>\${work.empName}</td>
+	    	                            <td>\${work.empPosition}</td>
+	    	                            <td>\${startHour}:\${startMinute}</td>
+	    	                            <td>\${endHour}:\${endMinute}</td>
+	    	                            <td>\${workHour}h</td>
+	    	                            <td>\${plusWorkHour}h</td>
+	    	                            <td></td>
+	    	                        </tr>
+	    	                    `)
+	                    } else {
+	                    	workArr.unshift(`
+	    	                        <tr>
+	    	                            <td>\${today}</td>
+	    	                            <td>\${work.empName}</td>
+	    	                            <td>\${work.empPosition}</td>
+	    	                            <td>00:00</td>
+	    	                            <td>00:00</td>
+	    	                            <td>0</td>
+	    	                            <td>0</td>
+	    	                            <td>연차</td>
+	    	                        </tr>
+	    	                    `)
+	                    }
 	                });
 
 	                $('#works').append(workArr.join(''));

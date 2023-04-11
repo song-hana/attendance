@@ -20,4 +20,5 @@ public class Work {
 	private String companyId;
 	private String empName;
 	private String empPosition;
+	private LocalDate holDate;
 }
