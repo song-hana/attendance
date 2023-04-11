@@ -12,29 +12,35 @@
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <script src='<c:url value="/res/common.js"/>'></script>
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
-<title>전체 문의사항 조회</title>
+<title>문의사항 작성</title>
 <script>
-	const urlParams = new URLSearchParams(window.location.search);
-	const askNo = urlParams.get('askNo');
-	
-	function move() {
-		window.location.href = 'asklist'
-	}
+	const urlParams = new URLSearchParams(window.location.search)
+	const askNo = urlParams.get('askNo')
+	let session = '${sessionScope.comId}'
+
+    $(() => {
+        input_company_header()
+        btn_click()
+        input_footer()
+        listAsk()
+        mp_check()
+        console.log(session)
+    })
 	
 	function listAsk() {
 	    $.ajax({
-	        url: '/company/ask/asklist/getAsk',
+	        url: 'asklist/getAsk',
 	        dataType: 'json',
 	        data: {
 	        	askNo: askNo
 	        },
 	        success: asks => {
 	            if (asks.length) {
-	                const askArr = [];
+	                const askArr = []
 	                
 	                $.each(asks, (i, ask) => {
 	                    askArr.unshift(`
-	                		<thead>
+                    		<thead>
 	                            <tr>
 	                                <th>\${ask.askTitle}</th>
 	                                <th>\${ask.askName}</th>
@@ -45,82 +51,31 @@
 	                        		<td>\${ask.askContent}</td>
 	                        	</tr>
 	                        </tbody>
-	                    `);
+	                    `)
 	                    $('#answerContent').append(`\${ask.answerContent ? `\${ask.answerContent}` : ''}`)
-	                });
+	                })
 	
-	                $('#asks').append(askArr.join(''));
+	                $('#asks').append(askArr.join(''))
+	                
 	            }
 	        }
-	    });
+	    })
 	}
 	
-    $(() => {
-        input_admin_header()
-        input_admin_sidebar()
-        btn_click()
-        input_footer()
-        listAsk()
-        
-        // 답변 저장
-        $('#addAnswer').on('click', function() {
-       	 	if($('#answerContent').val()) {
-       	 		const answerContent = $('#answerContent').val()
-       	 		
-		        let answer = {
-		            askNo: askNo,
-		            answerContent: answerContent
-		        };
-       	 		
-	       	 	$('#modalMsg').empty()
-	            $('#modalMsg').text('답변내용을 저장하시겠습니까?')
-	            $('#modalBtn').show()
-	            $('#modal').modal('show')
-       	 		
-	       	 	$('#modalOKBtn').off('click').on('click', function() {
-			        $.ajax({
-			            url: 'getask/add',
-			            type: 'put',
-			            contentType: 'application/json',
-			            data: JSON.stringify(answer),
-			            success: move()
-			        });
-	       	 	})
-       	 	} else {
-	       	 	$('#modalMsg').empty()
-	            $('#modalMsg').text('답변내용이 없습니다.')
-	            $('#modalBtn').hide()
-	            $('#modal').modal('show')
-       	 	}
-	    });
-        
-        // 문의사항 삭제
-        $('#delAskBtn').on('click', function() {
-        	$('#modalMsg').empty()
-            $('#modalMsg').text('해당 게시글을 삭제하시겠습니까?')
-            $('#modalBtn').show()
-            $('#modal').modal('show')
-            
-        	$('#modalOKBtn').off('click').on('click', function() {
-	            $.ajax({
-	                url: 'getask/del/' + askNo,
-	                method: 'delete',
-	                success: move()
-	            });
-        	})
-        });
-    })
+	function mp_check() {
+		if(session != '') {
+			show_logout()
+		} else {
+			show_login()
+		}
+	}
 </script>
 <style>
-    .askMent {
-        font-size: .8rem;
-    }
-
     input {
         width: 100%;
-        padding: .2rem;
+        padding: .3rem;
         border: .1rem solid;
-        border-radius: .5rem;
+        border-radius: .2rem;
     }
 
     textarea {
@@ -145,69 +100,44 @@
         height: 10rem;
     }
 
-    .ask {
-        padding-top: 4rem !important;
-    }
 </style>
 </head>
 <body>
 <div class='container'>
     <div class='row header'></div>
     <div class='row mt-5'>
-        <div class='col-2 snb'></div>
+        <div class='col text-center'>
+            <h2><b>문의사항</b></h2>
+        </div>
+    </div>
+    <div class='row pt-3'>
+        <div class='col text-center'>
+            <p>문의를 남겨주시면 하나웍스 전문가가 빠른 해결을 도와드리겠습니다.</p><hr>
+        </div>
+    </div>
+    <div class='row pt-1'>
         <div class='col'>
-            <div class='row'>
-                <div class='col mt-4'>
-                    <h2><b>문의사항</b></h2>
-                </div>
-            </div>
-            <div class='row pt-3'>
-                <div class='col'>
-                    <p>문의를 남겨주시면 하나웍스 전문가가 빠른 해결을 도와드리겠습니다.</p><hr>
-                </div>
-            </div>
-            <div class='row pt-1'>
-                <div class='col'>
-                    <table class='table' id='asks'>
+            <table class='table' id='asks'>
                 
-           			</table>
-                </div>
-            </div>
-            <div class='row'>
-                <div class='col'>
-                    <h5>답변</h5>
-                    <textarea id='answerContent'>
+            </table>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col'>
+            <h5>답변</h5>
+            <textarea id='answerContent' readOnly>
 </textarea>
-                </div>
-            </div>
-            <div class='row pt-2'>
-                <div class='col d-flex justify-content-end'>
-                    <button type='button' class='btn me-3 btn-blue' id='addAnswer'>답변저장</button>
-                    <button type='button' class='btn me-3 btn-secondary' onclick="window.location.href='asklist'">목록</button>
-                    <button type='button' class='btn btn-red' id='delAskBtn'>삭제</button>
-                </div>
-            </div>
+        </div>
+    </div>
+    <div class='row pt-2'>
+        <div class='col d-flex justify-content-end'>
+            <button type='button' class='btn btn-secondary' id='listBtn' onclick="window.location.href='asklist'">목록</button>
         </div>
     </div>
     <div class='row mt-5'>
         <div class='col footer'></div>
     </div>
 </div>
-<div class='modal fade' id='modal'>
-    <div class='modal-dialog'>
-        <div class='modal-content'>
-            <div class='modal-header'>
-                <button type='button' class='btn-close' data-bs-dismiss='modal'></button>
-            </div>
-            <div class='modal-body'>
-                <p id='modalMsg'></p>
-            </div>
-            <div class='modal-footer' id='modalBtn'>
-                <button type='button' class='btn m-2 btn-lightgray' id='modalCancelBtn' data-bs-dismiss='modal'>취소</button>
-                <button type='button' class='btn btn-blue' id='modalOKBtn' onclick="window.location.href='04.html'">확인</button>
-            </div>
-        </div>
-    </div>
-</div>
 </body>
 </html>
+

@@ -1,0 +1,20 @@
+package com.my.attendance.service;
+
+import com.my.attendance.domain.Admin;
+import com.my.attendance.domain.Company;
+import com.my.attendance.domain.Employee;
+
+public interface UserService {
+	// admin
+	Admin admLoginCheck(String adminId, String adminPw);
+	
+	// company
+	Company comLoginCheck(String companyId, String companyPw);
+	String comFindId(String companyName, int companyRegno);
+	String comFindPw(String companyId, String companyEmail);
+	
+	// employee
+	Employee loginCheck(String employeeId, String employeePw);
+	String findId(String employeeName, String employeePh);
+	String findPw(String employeeId, String employeePino);
+}

@@ -12,13 +12,23 @@
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <script src='<c:url value="/res/common.js"/>'></script>
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
-<title>전체 문의사항 목록</title>
+<title>문의사항 목록</title>
 <script>
+	let session = '${sessionScope.comId}'
+	
+	$(() => {
+	    input_company_header()
+	    btn_click()
+	    input_footer()
+	    listAsks()
+	    mp_check()
+	})
+	
 	function listAsks() {
-	    $('#asks').empty();
+	    $('#asks').empty()
 	
 	    $.ajax({
-	        url: '/company/ask/asklist/get',
+	        url: 'asklist/get',
 	        dataType: 'json',
 	        success: asks => {
 	            if (asks.length) {
@@ -33,24 +43,24 @@
 	                            <td>\${ask.askDate}</td>
 	                            <td>\${ask.answerDate ? `\${ask.answerDate}` : ''}</td>
 	                        </tr>
-	                    `);
-	                });
+	                    `)
+	                })
 	
-	                $('#asks').append(askArr.join(''));
+	                $('#asks').append(askArr.join(''))
 	            } else {
-	                $('#asks').append('<tr><td colspan=5 class=text-center>문의사항이 없습니다.</td></tr>');
+	                $('#asks').append('<tr><td colspan=5 class=text-center>문의사항이 없습니다.</td></tr>')
 	            }
 	        }
-	    });
+	    })
 	}
-
-    $(() => {
-    	input_admin_header()
-        input_admin_sidebar()
-        btn_click()
-        input_footer()
-        listAsks()
-    })
+	
+	function mp_check() {
+		if(session != '') {
+			show_logout()
+		} else {
+			show_login()
+		}
+	}
 </script>
 <style>
     .table {
@@ -86,50 +96,42 @@
 </head>
 <body>
 <div class='container'>
-	<div class='row header'></div>
+    <div class='row header'></div>
     <div class='row mt-5'>
-        <div class='col-2 snb'></div>
-        <div class='col'>
-            <div class='row'>
-                <div class='col mt-4'>
-                    <h2><b>문의사항</b></h2>
-                </div>
-            </div>
-            <div class='row pt-3'>
-                <div class='col'>
-                    <p>문의를 남겨주시면 하나웍스 전문가가 빠른 해결을 도와드리겠습니다.</p>
-                    <hr>
-                </div>
-            </div>
-            <div class='row pt-4'>
-		        <div class='col'>
-		            <table class='table table-ellipsis'>
-		                <thead>
-		                    <tr>
-		                        <th>글 번호</th>
-		                        <th>제목</th>
-		                        <th>글쓴이</th>
-		                        <th>등록일</th>
-		                        <th>답변일</th>
-		                    </tr>
-		                </thead>
-		                <tbody id='asks'>
-		                    <tr>
-		                        <td>2</td>
-		                        <td><a href='03.html'>비밀번호는 어떻게 찾나요?</a></td>
-		                        <td>최서영</td>
-		                        <td>2023-03-16</td>
-		                        <td></td>
-		                    </tr>
-		                </tbody>
-		            </table>
-		        </div>
-	    	</div>
+        <div class='col text-center'>
+            <h2><b>문의사항</b></h2>
         </div>
     </div>
-    <div class='row mt-5'>
-        <div class='col footer'></div>
+    <div class='row pt-3'>
+        <div class='col text-center'>
+            <p>문의를 남겨주시면 하나웍스 전문가가 빠른 해결을 도와드리겠습니다.</p>
+            <hr>
+        </div>
     </div>
+    <div class='row pt-2'>
+        <div class='col d-flex justify-content-end'>
+            <button type='button' class='btn btn-blue' id='addAskBtn' onclick="location.href='addask'">글쓰기</button>
+        </div>
+    </div>
+    <div class='row pt-4'>
+        <div class='col'>
+            <table class='table table-ellipsis'>
+                <thead>
+                    <tr>
+                        <th>글 번호</th>
+                        <th>제목</th>
+                        <th>글쓴이</th>
+                        <th>등록일</th>
+                        <th>답변일</th>
+                    </tr>
+                </thead>
+                <tbody id='asks'>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class='footer'></div>
 </div>
 </body>
 </html>
