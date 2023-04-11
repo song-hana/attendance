@@ -139,11 +139,6 @@ let employeeHireDate = "${sessionScope.hireDate}"
 	                    data: JSON.stringify(holiday),
 	                    success: listHolidays
 	                });
-	
-	                $('#modalMsg').empty()
-	                $('#modalMsg').text('연차 수정 되었습니다.')
-	                $('#modalBtn').hide()
-	                $('#modal').modal('show')
            		}
        		})
         });
@@ -161,11 +156,6 @@ let employeeHireDate = "${sessionScope.hireDate}"
                     method: 'delete',
                     success: listHolidays
                 })
-                
-                $('#modalMsg').empty()
-                $('#modalMsg').text('연차 삭제 되었습니다.')
-                $('#modalBtn').hide()
-                $('#modal').modal('show')
             })
         });
         // 연차 추가
@@ -188,11 +178,6 @@ let employeeHireDate = "${sessionScope.hireDate}"
 	                    },
 	                    success: listHolidays
 	                });
-	                
-	                $('#modalMsg').empty()
-	                $('#modalMsg').text('연차 신청 되었습니다.')
-	                $('#modalBtn').hide()
-	                $('#modal').modal('show')
             	}
             })
         })
@@ -202,15 +187,12 @@ let employeeHireDate = "${sessionScope.hireDate}"
     table > caption {
         font-size: .8rem;
     }
-
     table {
         table-layout: fixed;
     }
-
     th:last-child {
         padding-left: 1rem;
     }
-
     @media (max-width: 699px) {
         .row.pt-2 .col ul {
             padding-left: 0;
@@ -278,7 +260,7 @@ let employeeHireDate = "${sessionScope.hireDate}"
             </div>
             <div class='modal-footer' id='modalBtn'>
                 <button type='button' class='btn btn-lightgray' id='modalCancelBtn' data-bs-dismiss='modal'>취소</button>
-                <button type='button' class='btn btn-blue' id='modalOKBtn'>확인</button>
+                <button type='button' class='btn btn-blue' id='modalOKBtn' data-bs-dismiss='modal'>확인</button>
             </div>
         </div>
     </div>
