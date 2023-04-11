@@ -14,8 +14,18 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title>문의사항 작성</title>
 <script>
-	const urlParams = new URLSearchParams(window.location.search);
-	const askNo = urlParams.get('askNo');
+	const urlParams = new URLSearchParams(window.location.search)
+	const askNo = urlParams.get('askNo')
+	let session = '${sessionScope.comId}'
+
+    $(() => {
+        input_company_header()
+        btn_click()
+        input_footer()
+        listAsk()
+        mp_check()
+        console.log(session)
+    })
 	
 	function listAsk() {
 	    $.ajax({
@@ -26,7 +36,7 @@
 	        },
 	        success: asks => {
 	            if (asks.length) {
-	                const askArr = [];
+	                const askArr = []
 	                
 	                $.each(asks, (i, ask) => {
 	                    askArr.unshift(`
@@ -41,29 +51,24 @@
 	                        		<td>\${ask.askContent}</td>
 	                        	</tr>
 	                        </tbody>
-	                    `);
+	                    `)
 	                    $('#answerContent').append(`\${ask.answerContent ? `\${ask.answerContent}` : ''}`)
-	                });
+	                })
 	
-	                $('#asks').append(askArr.join(''));
+	                $('#asks').append(askArr.join(''))
 	                
 	            }
 	        }
-	    });
+	    })
 	}
-
-    $(() => {
-        input_company_header()
-        btn_click()
-        input_footer()
-        listAsk()
-
-        $('#delBtn').click(() => {
-            $('#modalMsg').empty()
-            $('#modalMsg').text('게시글을 삭제하시겠습니까?')
-            $('#modal').modal('show')
-        })
-    })
+	
+	function mp_check() {
+		if(session != '') {
+			show_logout()
+		} else {
+			show_login()
+		}
+	}
 </script>
 <style>
     input {

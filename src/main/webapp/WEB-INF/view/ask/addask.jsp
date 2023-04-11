@@ -14,6 +14,44 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title>문의사항 작성</title>
 <script>
+	let session = ${sessionScope.empNo}
+	
+	$(() => {
+		input_user_header()
+	    btn_click()
+	    mp_check()
+	    
+	    $('#askAddBtn').click(() => {
+	    	if(isVal($('#askTitle')) && isVal($('#askName')) && isVal($('#askContent'))) {
+	    		$.ajax({
+	                url: '/company/ask/addask/add',
+	                type: 'post',
+	                data: {
+	                    askTitle: $('#askTitle').val(),
+	                    askName: $('#askName').val(),
+	                    askContent: $('#askContent').val()
+	                },
+	                success: move()
+	            });
+	    	}
+	    })
+	
+	    $('#askListBtn').click(() => {
+	    	if($('#askTitle').val() || $('#askName').val() || $('#askContent').val()) {
+	            $('#modalMsg').empty()
+	            $('#modalMsg').append(`<p>작성중인 문서가 있습니다.<br>
+	                            화면을 나가시겠습니까?</p>`)
+	            $('#modal').modal('show')
+	            $('#modalBtn').show()
+	            $('#modalOKBtn').click(() => {
+	            	move()
+	            })
+	    	} else {
+	    		move()
+	    	}
+	    })
+	})
+
 	function move() {
 		window.location.href = 'asklist'
 	}
@@ -34,44 +72,6 @@
 	    return isGood
 	}
 	
-	let session = ${sessionScope.empNo}
-
-    $(() => {
-    	input_user_header()
-        btn_click()
-        mp_check()
-        
-        $('#askAddBtn').click(() => {
-        	if(isVal($('#askTitle')) && isVal($('#askName')) && isVal($('#askContent'))) {
-        		$.ajax({
-                    url: '/company/ask/addask/add',
-                    type: 'post',
-                    data: {
-                        askTitle: $('#askTitle').val(),
-                        askName: $('#askName').val(),
-                        askContent: $('#askContent').val()
-                    },
-                    success: move()
-                });
-        	}
-        })
-
-        $('#askListBtn').click(() => {
-        	if($('#askTitle').val() || $('#askName').val() || $('#askContent').val()) {
-                $('#modalMsg').empty()
-                $('#modalMsg').append(`<p>작성중인 문서가 있습니다.<br>
-                                화면을 나가시겠습니까?</p>`)
-                $('#modal').modal('show')
-                $('#modalBtn').show()
-                $('#modalOKBtn').click(() => {
-                	move()
-                })
-        	} else {
-        		move()
-        	}
-        })
-    })
-    
     function mp_check() {
 		if(session > 0) {
 			show_logout()

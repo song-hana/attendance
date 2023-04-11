@@ -14,8 +14,18 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title>문의사항 목록</title>
 <script>
+	let session = '${sessionScope.comId}'
+	
+	$(() => {
+	    input_company_header()
+	    btn_click()
+	    input_footer()
+	    listAsks()
+	    mp_check()
+	})
+	
 	function listAsks() {
-	    $('#asks').empty();
+	    $('#asks').empty()
 	
 	    $.ajax({
 	        url: 'asklist/get',
@@ -33,23 +43,24 @@
 	                            <td>\${ask.askDate}</td>
 	                            <td>\${ask.answerDate ? `\${ask.answerDate}` : ''}</td>
 	                        </tr>
-	                    `);
-	                });
+	                    `)
+	                })
 	
-	                $('#asks').append(askArr.join(''));
+	                $('#asks').append(askArr.join(''))
 	            } else {
-	                $('#asks').append('<tr><td colspan=5 class=text-center>문의사항이 없습니다.</td></tr>');
+	                $('#asks').append('<tr><td colspan=5 class=text-center>문의사항이 없습니다.</td></tr>')
 	            }
 	        }
-	    });
+	    })
 	}
-
-    $(() => {
-        input_company_header()
-        btn_click()
-        input_footer()
-        listAsks()
-    })
+	
+	function mp_check() {
+		if(session != '') {
+			show_logout()
+		} else {
+			show_login()
+		}
+	}
 </script>
 <style>
     .table {
