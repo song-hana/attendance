@@ -86,43 +86,50 @@
 </head>
 <body>
 <div class='container'>
-    <div class='row header'></div>
+	<div class='row header'></div>
     <div class='row mt-5'>
-        <div class='col text-center'>
-            <h2><b>문의사항</b></h2>
-        </div>
-    </div>
-    <div class='row pt-3'>
-        <div class='col text-center'>
-            <p>문의를 남겨주시면 하나웍스 전문가가 빠른 해결을 도와드리겠습니다.</p>
-            <hr>
-        </div>
-    </div>
-    <div class='row pt-4'>
+        <div class='col-2 snb'></div>
         <div class='col'>
-            <table class='table table-ellipsis'>
-                <thead>
-                    <tr>
-                        <th>글 번호</th>
-                        <th>제목</th>
-                        <th>글쓴이</th>
-                        <th>등록일</th>
-                        <th>답변일</th>
-                    </tr>
-                </thead>
-                <tbody id='asks'>
-                    <tr>
-                        <td>2</td>
-                        <td><a href='03.html'>비밀번호는 어떻게 찾나요?</a></td>
-                        <td>최서영</td>
-                        <td>2023-03-16</td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class='row'>
+                <div class='col mt-4'>
+                    <h2><b>문의사항</b></h2>
+                </div>
+            </div>
+            <div class='row pt-3'>
+                <div class='col'>
+                    <p>문의를 남겨주시면 하나웍스 전문가가 빠른 해결을 도와드리겠습니다.</p>
+                    <hr>
+                </div>
+            </div>
+            <div class='row pt-4'>
+		        <div class='col'>
+		            <table class='table table-ellipsis'>
+		                <thead>
+		                    <tr>
+		                        <th>글 번호</th>
+		                        <th>제목</th>
+		                        <th>글쓴이</th>
+		                        <th>등록일</th>
+		                        <th>답변일</th>
+		                    </tr>
+		                </thead>
+		                <tbody id='asks'>
+		                    <tr>
+		                        <td>2</td>
+		                        <td><a href='03.html'>비밀번호는 어떻게 찾나요?</a></td>
+		                        <td>최서영</td>
+		                        <td>2023-03-16</td>
+		                        <td></td>
+		                    </tr>
+		                </tbody>
+		            </table>
+		        </div>
+	    	</div>
         </div>
     </div>
-    <div class='footer'></div>
+    <div class='row mt-5'>
+        <div class='col footer'></div>
+    </div>
 </div>
 </body>
 </html>
