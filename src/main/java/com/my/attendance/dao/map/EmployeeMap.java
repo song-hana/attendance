@@ -7,5 +7,5 @@ public interface EmployeeMap {
 	String selectEmployeeId(String employeeName, String employeePh);
 	String selectEmployeePw(String employeeId, String employeePino);
 	int insertEmployee(Employee employee);
-	int checkEmployee(String employeeId);
+	int checkEmployee(String empId);
 }

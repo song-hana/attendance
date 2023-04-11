@@ -31,7 +31,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 	
 	@Override
-	public int checkEmployee(String employeeId) {
-		return employeeDao.checkEmployee(employeeId);
+	public int checkEmployee(String empId) {
+		return employeeDao.checkEmployee(empId);
 	}
 }

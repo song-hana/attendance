@@ -86,9 +86,9 @@ public class CompanyController {
 	}
 	
 	@GetMapping
-	@RequestMapping("company/user/member")
-	public ModelAndView member(ModelAndView mv) {
-		mv.setViewName("company/user/member");
+	@RequestMapping("company/user/addcom")
+	public ModelAndView addcom(ModelAndView mv) {
+		mv.setViewName("company/user/addcom");
 		return mv;
 	}
 	@GetMapping
@@ -98,19 +98,19 @@ public class CompanyController {
 		return mv;				
 	}
 	
-	@PostMapping("company/user/member/add")
+	@PostMapping("company/user/addcom/add")
 	public ResponseEntity<String> addCompany(@RequestBody Company company) {
 	    companyService.addCompany(company);
 	    return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
-	@GetMapping("company/user/member/check")
+	@GetMapping("company/user/addcom/check")
 	@ResponseBody
 	public int checkCompany(String companyId) {
 	    return companyService.checkCompany(companyId);
 	}
 	
-	@PutMapping("company/user/member/fix")
+	@PutMapping("company/user/addcom/fix")
 	public ResponseEntity<String> fixCompany(@RequestBody Company company){
 		companyService.fixCompany(company);
 		return new ResponseEntity<>(HttpStatus.CREATED);

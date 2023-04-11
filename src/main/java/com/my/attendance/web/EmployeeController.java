@@ -104,7 +104,7 @@ public class EmployeeController {
 	
 	@GetMapping("company/emp/addemp/check")
 	@ResponseBody
-	public int checkEmployee(String employeeId) {
-		return employeeService.checkEmployee(employeeId);
+	public int checkEmployee(String empId) {
+		return employeeService.checkEmployee(empId);
 	}
 }

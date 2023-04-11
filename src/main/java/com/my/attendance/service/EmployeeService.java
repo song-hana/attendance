@@ -7,5 +7,5 @@ public interface EmployeeService {
 	String findId(String employeeName, String employeePh);
 	String findPw(String employeeId, String employeePino);
 	void addEmployee(Employee employee);
-	int checkEmployee(String employeeId);
+	int checkEmployee(String empId);
 }

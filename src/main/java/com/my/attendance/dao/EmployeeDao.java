@@ -7,5 +7,5 @@ public interface EmployeeDao {
 	String selectEmployeeId(String employeeName, String employeePh);
 	String selectEmployeePw(String employeeId, String employeePino);
 	int insertEmployee(Employee employee);
-	int checkEmployee(String companyId);
+	int checkEmployee(String empId);
 }

@@ -52,7 +52,8 @@ function isVal(field, errMsgElement, errMsg) {
 			const empPino = $('#empPino')
 			const empRank = $('#empRank')
 			const empDate = $('#empDate')
-			const empProfile = $('#empfile')
+			
+			
 			
 	        const isEmpId = isVal(empId, $('#idErrMsg'), 'ID를 입력하세요.')
 	        const isEmpPw = isVal(empPw, $('#pwErrMsg'), '비밀번호를 입력하세요.')
@@ -64,12 +65,13 @@ function isVal(field, errMsgElement, errMsg) {
 	        const isInputEmail = isVal(inputEmail, $('#emailErrMsg'), '이메일을 입력하세요.')
 	        const isSubEmail = isVal(subEmail, $('#emailErrMsg'), '이메일을 입력하세요.')
 	        const isEmpPh = isVal(empPh, $('#empPhErrMsg'), '전화번호를 입력하세요.')
-	        const isEmpDate = isVal(empDate,$('empdateErrMsg'),'입사일을 입력하세요')
+	        const isEmpDate = isVal(empDate,$('#empdateErrMsg'),'입사일을 입력하세요')
+	        
 	        
 	        
 	        if (isEmpId && isEmpPw && isEmpDate && isEmpPwCheck && isEmpName && isEmpPino && isEmpAddr && isEmpRank && isInputEmail && isSubEmail && isEmpPh) {
 	            let employee = {
-	                empId: empeId.val(),
+	                empId: empId.val(),
 	                empPw: empPw.val(),
 	                empName: empName.val(),
 	                empPino: empPino.val(),
@@ -81,13 +83,13 @@ function isVal(field, errMsgElement, errMsg) {
 	                empPh: empPh.val()
 	            }
 	            
-	            if(checkId != 0 && checkIdVal == $('#employeeId').val()) {
+	            if(checkId != 0 && checkIdVal == $('#empId').val()) {
 		            if(empPw.val() == empPwCheck.val()) {
 			        	$.ajax({
-			                url: '../../company/addemp/add',
+			                url: '../../company/emp/addemp/add',
 			                type: 'post',
 			                contentType: 'application/json',
-			                data: JSON.stringify(company),
+			                data: JSON.stringify(employee),
 			                success: function() {
 			                    $('#modalMsg').text('직원등록이 완료되었습니다.')
 			                    $('#modalBtn').hide()
@@ -110,13 +112,13 @@ function isVal(field, errMsgElement, errMsg) {
 	        }
         })
         
-        $('.form_box').on('click', '#employeeIdCheck', function() {
-            const employeeId = $('#employeeId').val();
+        $('.form_box').on('click', '#empIdCheck', function() {
+            const empId = $('#empId').val();
 			
             if(empId) {
             	
 	            $.ajax({
-	                url: '../../company/emp/check',
+	                url: '../../company/emp/addemp/check',
 	                type: 'get',
 	                data: {empId: empId},
 	                success: function(result) {
@@ -157,7 +159,7 @@ function isVal(field, errMsgElement, errMsg) {
 
     function DaumPostcode() {
         new daum.Postcode({
-            onEmpplete: function(data) {
+            oncomplete: function(data) {
                 var addr = '';
                 var extraAddr = '';
 
@@ -299,10 +301,10 @@ function isVal(field, errMsgElement, errMsg) {
                 <div class='form-group'>
                 <label for='profil'>프로필</label>
                 <div class='input-group'>
-                <input type='text' class='form-control' id='profil' name='profil'>
+                <input type='text' class='form-control' id='profil' name='profil'>               
                 <div class='input-group-append'>
                     <button type='button' class='btn' id='empProfile' name='file'>파일 첨부</button>
-                </div>
+                </div>                
                 </div>
                 </div>
                 <span id='fileErrMsg'></span><br>
