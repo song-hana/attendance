@@ -52,8 +52,7 @@ function isVal(field, errMsgElement, errMsg) {
 			const empPino = $('#empPino')
 			const empRank = $('#empRank')
 			const empDate = $('#empDate')
-			
-			
+			const empProfile = $('#empfile')						
 			
 	        const isEmpId = isVal(empId, $('#idErrMsg'), 'ID를 입력하세요.')
 	        const isEmpPw = isVal(empPw, $('#pwErrMsg'), '비밀번호를 입력하세요.')
@@ -74,13 +73,16 @@ function isVal(field, errMsgElement, errMsg) {
 	                empId: empId.val(),
 	                empPw: empPw.val(),
 	                empName: empName.val(),
-	                empPino: empPino.val(),
-	                empPostcode: empPostcode.val(),
 	                empAddr: empAddr.val(),
 	                empDetailAddr: empDetailAddr.val(),
-	                empRank: empRank.val(),
+	                empPostcode: empPostcode.val(),
+	                empPh: empPh.val(),
 	                empEmail: empEmail,
-	                empPh: empPh.val()
+	                hireDate
+	                empRank: empRank.val(),//포지션
+	                empPino: empPino.val(),
+	                profileName
+	                companyId
 	            }
 	            
 	            if(checkId != 0 && checkIdVal == $('#empId').val()) {
@@ -118,7 +120,7 @@ function isVal(field, errMsgElement, errMsg) {
             if(empId) {
             	
 	            $.ajax({
-	                url: '../../company/emp/addemp/check',
+	                url: '/company/emp/addemp/check',
 	                type: 'get',
 	                data: {empId: empId},
 	                success: function(result) {
@@ -138,6 +140,8 @@ function isVal(field, errMsgElement, errMsg) {
             	$('#idErrMsg').text('ID를 입력하세요.').css('color', 'red')
             }
         })
+        
+        
     })
     
     function selfChoice() {
