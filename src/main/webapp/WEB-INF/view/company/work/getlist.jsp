@@ -139,47 +139,28 @@
 	                    	plusWorkHour = 0
 	                    }
 	                    
-	                    let holDate = `\${work.holDate}`
-	                    
-	                    console.log(holDate)
-	                    
-	                    if(holDate == null) {
-	                    	workArr.unshift(`
-	    	                        <tr>
-	    	                            <td>\${today}</td>
-	    	                            <td>\${work.empName}</td>
-	    	                            <td>\${work.empPosition}</td>
-	    	                            <td>\${startHour}:\${startMinute}</td>
-	    	                            <td>\${endHour}:\${endMinute}</td>
-	    	                            <td>\${workHour}h</td>
-	    	                            <td>\${plusWorkHour}h</td>
-	    	                            <td></td>
-	    	                        </tr>
-	    	                    `)
-	                    } else {
-	                    	workArr.unshift(`
-	    	                        <tr>
-	    	                            <td>\${today}</td>
-	    	                            <td>\${work.empName}</td>
-	    	                            <td>\${work.empPosition}</td>
-	    	                            <td>00:00</td>
-	    	                            <td>00:00</td>
-	    	                            <td>0</td>
-	    	                            <td>0</td>
-	    	                            <td>연차</td>
-	    	                        </tr>
-	    	                    `)
-	                    }
+                    	workArr.unshift(`
+                   			<tr>
+   	                            <td>\${today}</td>
+   	                            <td>\${work.empName}</td>
+   	                            <td>\${work.empPosition}</td>
+   	                            <td>\${startHour}:\${startMinute}</td>
+   	                            <td>\${endHour}:\${endMinute}</td>
+   	                            <td>\${workHour}h</td>
+   	                            <td>\${plusWorkHour}h</td>
+   	                            <td></td>
+   	                        </tr>
+   	                    `)
+   	                    
+   	                    $('#works').append(workArr.join(''));
 	                });
-
-	                $('#works').append(workArr.join(''));
 	            } else {
 	                $('#works').append('<tr><td colspan=8 class=text-center>출근내역이 없습니다.</td></tr>');
 	            }
 	        }
 	    })
 	}
-
+	
 
     $(() => {
         input_company_header()
@@ -187,7 +168,7 @@
         input_footer()
         btn_click()
         show_logout()
-        listWorks()
+        
     })
 </script>
 <style>

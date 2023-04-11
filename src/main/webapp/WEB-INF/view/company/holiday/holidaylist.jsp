@@ -149,11 +149,6 @@
 	                    data: JSON.stringify(holiday),
 	                    success: listHolidays
 	                });
-	
-	                $('#modalMsg').empty()
-	                $('#modalMsg').text('연차 수정 되었습니다.')
-	                $('#modalBtn').hide()
-	                $('#modal').modal('show')
             	}
             })
         });
@@ -173,11 +168,6 @@
                     method: 'delete',
                     success: listHolidays
                 })
-                
-                $('#modalMsg').empty()
-                $('#modalMsg').text('연차 삭제 되었습니다.')
-                $('#modalBtn').hide()
-                $('#modal').modal('show')
             })
         });
     })
@@ -262,7 +252,7 @@
                         <tbody id='holidays'>
                         
                         </tbody>
-                        <caption class="text-end">*연차 사용일로부터 3일 전까지 수정, 취소가 가능합니다.</caption>
+                        <caption class="text-end">*연차 사용일로부터 3일 전까지 수정, 삭제가 가능합니다.</caption>
                     </table>
                 </div>
             </div>
@@ -281,7 +271,7 @@
             </div>
             <div class='modal-footer' id='modalBtn'>
                 <button type='button' class='btn btn-lightgray' id='modalCancelBtn' data-bs-dismiss='modal'>취소</button>
-                <button type='button' class='btn btn-blue' id='modalOKBtn'>확인</button>
+                <button type='button' class='btn btn-blue' id='modalOKBtn' data-bs-dismiss='modal'>확인</button>
             </div>
         </div>
     </div>

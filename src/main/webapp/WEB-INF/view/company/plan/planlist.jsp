@@ -142,7 +142,7 @@
                 $('#modalBtn1').empty()
                 $('#modalMsg').append(`<p>제목: <input type='text' id='planTitle' placeholder='제목'/> </p>`)
                                 .append(`<p>내용: <input type='text' class='pb-3'id='planDescription' placeholder='내용'/></p>`)
-                $('#modalBtn1').append(`<button type='button' class='btn btn-blue m-2' id='addPlanBtn'>추가</button>`)
+                $('#modalBtn1').append(`<button type='button' class='btn btn-blue m-2' id='addPlanBtn' data-bs-dismiss='modal'>추가</button>`)
                 $('#modalBtn1').show()
                 $('#modalBtn').hide()
                 $('#modal').modal('show')
@@ -171,13 +171,6 @@
 				                });
 				            }
 	                    });
-	
-	                    $('#modalMsg').empty()
-	                    $('#modalBtn1').empty()
-	                    $('#modalMsg').text('일정이 추가 되었습니다.')
-	                    $('#modalBtn').hide()
-	                    $('#modal').modal('show')
-	
 	                    calendar.unselect()
                 	}
                 })
@@ -231,11 +224,6 @@
 				                });
 				            }
 				        });
-				
-				        $('#modalMsg').empty();
-				        $('#modalMsg').text('일정이 수정 되었습니다.');
-				        $('#modalBtn').hide();
-				        $('#modal').modal('show');
                	 	}
 			    });
 
@@ -253,11 +241,6 @@
 			                });
 			            }
                     });
-
-                    $('#modalMsg').empty();
-                    $('#modalMsg').text('일정이 삭제 되었습니다.');
-                    $('#modalBtn').hide();
-                    $('#modal').modal('show');
                 });
             },
             editable: false,
@@ -350,8 +333,8 @@
                 <p id='modalMsg'></p>
             </div>
             <div class='modal-footer' id='modalBtn'>
-                <button type='button' class='btn btn-white' id='fixPlanBtn'>수정</button>
-                <button type='button' class='btn btn-red' id='delPlanBtn'>삭제</button>
+                <button type='button' class='btn btn-white' id='fixPlanBtn' data-bs-dismiss='modal'>수정</button>
+                <button type='button' class='btn btn-red' id='delPlanBtn' data-bs-dismiss='modal'>삭제</button>
             </div>
             <div class='modal-footer' id='modalBtn1'>
             </div>

@@ -24,12 +24,10 @@
 	</select>
 	
 	<select id='selectChoiceDay' resultType='Work'>
-	    select e.emp_name, e.emp_position, w.start_time, w.end_time, h.hol_date
+	    select e.emp_name, e.emp_position, w.start_time, w.end_time
 	    from works w
 	    join employees e
 	    on e.employee_no = w.employee_no
-	    left join holidays h
-	    on e.employee_no = h.employee_no
 	    where to_char(start_time, 'YYYY-MM-DD') = #{choiceDay}
 	    and e.company_id = #{companyId}
 	</select>
