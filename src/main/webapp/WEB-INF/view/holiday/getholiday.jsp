@@ -14,9 +14,9 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title>연차</title>
 <script>
-let employeeNo = ${sessionScope.empNo}
-let employeeName = "${sessionScope.empName}"
-let employeeHireDate = "${sessionScope.hireDate}"
+	let employeeNo = ${sessionScope.empNo}
+	let employeeName = "${sessionScope.empName}"
+	let employeeHireDate = "${sessionScope.hireDate}"
 
 	function isVal(field) {
 	    let isGood = false

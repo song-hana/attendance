@@ -38,4 +38,9 @@ public class WorkServiceImpl implements WorkService {
 	public List<Work> getChoiceDay(LocalDate choiceDay, String companyId) {
 		return workDao.selectChoiceDay(choiceDay, companyId);
 	}
+	
+	@Override
+	public List<Work> getworkHoliday(LocalDate choiceDay, String companyId) {
+		return workDao.selectworkHoliday(choiceDay, companyId);
+	}
 }

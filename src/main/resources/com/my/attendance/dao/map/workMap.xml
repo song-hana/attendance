@@ -28,7 +28,16 @@
 	    from works w
 	    join employees e
 	    on e.employee_no = w.employee_no
-	    where to_char(start_time, 'YYYY-MM-DD') = #{choiceDay}
+	    where to_char(w.start_time, 'YYYY-MM-DD') = #{choiceDay}
 	    and e.company_id = #{companyId}
+	</select>
+	
+	<select id='selectworkHoliday' resultType='Work'>
+	    select e.emp_name, e.emp_position, h.hol_date
+		from employees e
+		join holidays h
+		on e.employee_no = h.employee_no
+		where to_char(h.hol_date, 'YYYY-MM-DD') = #{choiceDay}
+		and e.company_id = #{companyId}
 	</select>
 </mapper>

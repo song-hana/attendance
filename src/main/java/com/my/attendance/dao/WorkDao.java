@@ -12,4 +12,5 @@ public interface WorkDao {
 	void updateEndTime(int workNo);
 	Work selectInsertEnd(int workNo);
 	List<Work> selectChoiceDay(LocalDate choiceDay, String companyId);
+	List<Work> selectworkHoliday(LocalDate choiceDay, String companyId);
 }	

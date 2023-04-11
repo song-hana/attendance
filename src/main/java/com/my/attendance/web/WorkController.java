@@ -77,4 +77,10 @@ public class WorkController {
 	public List<Work> getChoiceDay(@RequestParam("choiceDay") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate choiceDay, String companyId) {
 	    return workService.getChoiceDay(choiceDay, companyId);
 	}
+	
+	@GetMapping("company/work/getlist/getworkHoliday")
+	@ResponseBody
+	public List<Work> getworkHoliday(@RequestParam("choiceDay") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate choiceDay, String companyId) {
+		return workService.getworkHoliday(choiceDay, companyId);
+	}
 }

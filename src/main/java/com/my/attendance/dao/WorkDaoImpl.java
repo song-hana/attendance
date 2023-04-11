@@ -38,4 +38,9 @@ public class WorkDaoImpl implements WorkDao {
 	public List<Work> selectChoiceDay(LocalDate choiceDay, String companyId) {
 		return workMap.selectChoiceDay(choiceDay, companyId);
 	}
+	
+	@Override
+	public List<Work> selectworkHoliday(LocalDate choiceDay, String companyId) {
+		return workMap.selectworkHoliday(choiceDay, companyId);
+	}
 }

@@ -1,6 +1,5 @@
 <%@ page language='java' contentType='text/html; charset=utf-8' pageEncoding='utf-8'%>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset='utf-8'>
@@ -100,15 +99,13 @@
 	    $.ajax({
 	        url: 'getlist/get',
 	        dataType: 'json',
-	        data: { 
+	        data: {
 	            choiceDay: today,
 	            companyId: companyId
 	        },
 	        success: works => {
 	            if (works.length) {
 	                const workArr = [];
-	                let plusWorkHour = 0
-	                let workHour = 0
 
 	                $.each(works, (i, work) => {
 	                	const startTime = new Date(work.startTime);
@@ -118,7 +115,9 @@
 	                    const startMinute = startTime.getMinutes().toString().padStart(2, '0');
 	                    const endHour = endTime.getHours().toString().padStart(2, '0');
 	                    const endMinute = endTime.getMinutes().toString().padStart(2, '0');
-	                	
+	                    let plusWorkHour = 0
+		                let workHour = 0
+		                
 	                    // 일찍 출근하면.
 	                    if(startHour < 9) {
 	                    	workHour = endHour - 9
@@ -139,7 +138,7 @@
 	                    	plusWorkHour = 0
 	                    }
 	                    
-                    	workArr.unshift(`
+                    	workArr.push(`
                    			<tr>
    	                            <td>\${today}</td>
    	                            <td>\${work.empName}</td>
@@ -151,24 +150,66 @@
    	                            <td></td>
    	                        </tr>
    	                    `)
-   	                    
-   	                    $('#works').append(workArr.join(''));
 	                });
+	                $('#works').append(workArr.join(''));
+	                listHolidays()
 	            } else {
-	                $('#works').append('<tr><td colspan=8 class=text-center>출근내역이 없습니다.</td></tr>');
+	            	listHolidays()
 	            }
 	        }
 	    })
 	}
 	
+	function listHolidays() {
+	    let today = $('#toDay').text();
+	    today = today.split('.').map(Number);
+	    today[1] = today[1] < 10 ? '0' + today[1] : today[1];
+	    today[2] = today[2] < 10 ? '0' + today[2] : today[2];
+	    today = today.join('-');
 
+	    $.ajax({
+	        url: 'getlist/getworkHoliday',
+	        dataType: 'json',
+	        data: {
+	            choiceDay: today,
+	            companyId: companyId
+	        },
+	        success: works => {
+	            const workArr = [];
+
+	            if (works.length) {
+	                $.each(works, (i, work) => {
+	                    workArr.push(`
+	                        <tr>
+	                            <td>\${today}</td>
+	                            <td>\${work.empName}</td>
+	                            <td>\${work.empPosition}</td>
+	                            <td>00:00</td>
+	                            <td>00:00</td>
+	                            <td>0</td>
+	                            <td>0</td>
+	                            <td>연차</td>
+	                        </tr>
+	                    `);
+	                });
+	            } else {
+	            	if ($('#works').find('tr').length === 0) {
+	                    $('#works').append('<tr><td colspan=8 class=text-center>출근내역이 없습니다.</td></tr>');
+	                }
+	            }
+	            $('#works').append(workArr.join(''));
+	        }
+	    });
+	}
+
+	
     $(() => {
         input_company_header()
         input_company_sidebar()
         input_footer()
         btn_click()
         show_logout()
-        
+        listWorks()
     })
 </script>
 <style>

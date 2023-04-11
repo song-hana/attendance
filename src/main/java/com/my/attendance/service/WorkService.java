@@ -12,4 +12,5 @@ public interface WorkService {
 	void fixEndTime(int workNo);
 	Work getAddEnd(int workNo);
 	List<Work> getChoiceDay(LocalDate choiceDay, String companyId);
+	List<Work> getworkHoliday(LocalDate choiceDay, String companyId);
 }
