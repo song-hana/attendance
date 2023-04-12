@@ -3,8 +3,6 @@ package com.my.attendance.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,16 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.my.attendance.domain.PublicNotice;
-import com.my.attendance.service.PublicNoticeService;
+import com.my.attendance.service.NoticeService;
 
-@RestController("PublicNoticeController")
-public class PublicNoticeController { 
-	@Autowired private PublicNoticeService publicNoticeService;
-
-	//공지사항 목록
-	@GetMapping()
+@RestController("NoticeController")
+public class NoticeController {
+	@Autowired private NoticeService noticeService;
+	
+	//admin 전체 공지사항 목록
+	@GetMapping
 	@RequestMapping("admin/notice/ntclist")
-	public ModelAndView publicNoticeList(ModelAndView mv) {
+	public ModelAndView getPublicNoticeLists(ModelAndView mv) {
 		mv.setViewName("admin/notice/ntclist");
 		return mv;
 	}
@@ -34,11 +32,11 @@ public class PublicNoticeController {
 	@GetMapping("admin/notice/ntclist/get")
 	@ResponseBody
 	public List<PublicNotice> getPublicNoticeLists() {
-		//System.out.println(publicNoticeService.getPublicNoticeLists().size());
-		return publicNoticeService.getPublicNoticeLists();
+		//System.out.println(noticeService.getPublicNoticeLists().size());
+		return noticeService.getPublicNoticeLists();
 	}
 	
-	//공지사항 작성
+	//admin 전체 공지사항 추가
 	@GetMapping
 	@RequestMapping("admin/notice/addntc")
 	public ModelAndView addPublicNotice(ModelAndView mv) {
@@ -47,12 +45,11 @@ public class PublicNoticeController {
 	}
 	
 	@PostMapping("admin/notice/addntc/add")
-	public ResponseEntity<String> addPublicNotice(String pubntcTitle, String pubntcContent) {
-		publicNoticeService.addPublicNotice(pubntcTitle, pubntcContent);
-		return new ResponseEntity<>(HttpStatus.CREATED);
+	public void addPublicNotice(String pubntcTitle, String pubntcContent) {
+		noticeService.addPublicNotice(pubntcTitle, pubntcContent);
 	}
-
-	//공지사항 상세 조회
+	
+	//admin 공지사항 상세 조회
 	@GetMapping
 	@RequestMapping("admin/notice/getntc")
 	public ModelAndView getPublicNotice(ModelAndView mv) {
@@ -60,13 +57,13 @@ public class PublicNoticeController {
 		return mv;
 	}
 	
-	@GetMapping("admin/notice/ntclist/getNtc")
+	@GetMapping("admin/notice/getntc/get")
 	@ResponseBody
-	public List<PublicNotice> getPublicNoticeDetail(int publicNoticeNo){
-		return publicNoticeService.getPublicNoticeDetail(publicNoticeNo);
+	public List<PublicNotice> getPublicNotice(int publicNoticeNo) {
+		return noticeService.getPublicNotice(publicNoticeNo);
 	}
 	
-	//공지사항 수정
+	//admin 공지사항 수정
 	@GetMapping
 	@RequestMapping("admin/notice/fixntc")
 	public ModelAndView fixPublicNotice(ModelAndView mv) {
@@ -74,18 +71,16 @@ public class PublicNoticeController {
 		return mv;
 	}
 	
-	@PutMapping("admin/notice/ntclist/fixNtc")
+	@PutMapping("admin/notice/fixntc/fix")
 	@ResponseBody
 	public void fixPublicNotice(@RequestBody PublicNotice publicNotice) {
-		publicNoticeService.fixPublicNotice(publicNotice);
+		noticeService.fixPublicNotice(publicNotice);
 	}
-
-
 	
-	//공지사항 삭제
+	//admin 공지사항 삭제
 	@DeleteMapping("admin/notice/getntc/del/{publicNoticeNo}")
 	public void delPublicNotice(@PathVariable int publicNoticeNo) {
-		publicNoticeService.delPublicNotice(publicNoticeNo);
+		noticeService.delPublicNotice(publicNoticeNo);
 	}
 
 }

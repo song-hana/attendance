@@ -14,15 +14,38 @@
 <title></title>
 <title>ADMIN.NOTICE.08 전체 공지사항 작성 </title>
 <script>
+	function isVal(field) {
+	    let isGood = false
+	    let errMsg
+	
+	    if(!field.val()) {
+	    	errMsg = '제목 또는 내용을 입력하세요.'
+	    } else {
+	    	isGood = true;
+	    }
+	    
+	    if (!isGood) {
+	        $('#modalMsg').text(errMsg);
+	        $('#closeBtn').show();
+	        $('#modalCancelBtn').hide();
+	        $('#modalOKBtn').attr('onclick', '').attr('data-bs-dismiss', 'modal');
+	        $('#modal').modal('show');
+	    }
+	    return isGood;
+	}
+	
+	function move() {
+		window.location.href="../notice/ntclist"
+	}
+	
     $(() => {
         input_admin_header()
         input_admin_sidebar()
         input_footer()
         btn_click()
         show_logout()
-
-    	
-    	$('#addPublicNoticeBtn').click(() => {
+		
+		$('#addPublicNoticeBtn').click(() => {
 			if(isVal($('#publicNoticeTitle')) && isVal($('#publicNoticeContent'))) {
 				$.ajax({
 					url:'addntc/add',
@@ -31,10 +54,11 @@
 						pubntcTitle: \$('#publicNoticeTitle').val(),
 						pubntcContent: \$('#publicNoticeContent').val()
 					},
-					success : window.location.href = '../notice/ntclist'
+					success : move
 				});
 			}
 		})
+
 		
 		$('#addNoBtn').click(() => {
 			if($('#publicNoticeTitle').val() || $('#publicNoticeContent').val()) {
@@ -42,33 +66,11 @@
 				$('#modalMsg').append(`<p>이 페이지를 벗어나면 기존 작성된 글이 삭제됩니다.</p>`)
 				$('#modal').modal('show')
 				$('modalBtn').show()
-				$('#modalOkBtn').click(() => {
-					window.location.href = '../notice/ntclist'
-				})
-			} else {(window.location.href = '../notice/ntclist')}
+				$('#modalOkBtn').click(() => move())
+			} else move()
 		})
-    })
-  
-    function isVal(field) {
-        let isGood = false
-        let errMsg
 
-        if(!field.val()) {
-        	errMsg = '제목 또는 내용을 입력하세요.'
-        } else {
-        	isGood = true;
-        }
-        
-        if (!isGood) {
-            $('#modalMsg').text(errMsg);
-            $('#closeBtn').show();
-            $('#modalCancelBtn').hide();
-            $('#modalOKBtn').attr('onclick', '').attr('data-bs-dismiss', 'modal');
-            $('#modal').modal('show');
-        }
-        return isGood;
-    }
-   
+    })
 </script>
 <style>
     #publicNoticeTitle {
@@ -113,29 +115,6 @@
                     <h4 class='pt-3'>내용</h4>
                     <textarea id='publicNoticeContent' placeholder='내용을 입력하세요.'></textarea>
                 </div>
-
-                <!--  
-				<tbody>
-						<tr>
-							<th class="active" >제목</th>
-							<td>
-								${boardContents.board_title }
-							</td>
-						</tr>
-						<tr>
-							<th class="active">작성자</th>
-							<td>
-								${boardContents.board_writer }
-							</td>
-						</tr>
-						<tr>
-							<th class="active" >내용</th>
-							<td>
-								${boardContents.board_content }
-							</td>
-						</tr>
-				</tbody>
-                -->
             </div>
             <div class='row'>
                 <div class='col d-flex justify-content-end mt-3'>

@@ -18,7 +18,7 @@
 	
 	function PublicNoticeDetail() {
 		$.ajax({
-			url: 'ntclist/getNtc',
+			url: 'getntc/get',
 			dataType: 'json',
 			data : {
 				publicNoticeNo: publicNoticeNo
@@ -46,6 +46,10 @@
 			}
 		});
 	}
+	
+    function move() {
+    	window.location.href="../notice/ntclist"
+    }
 
     $(() => {
         input_admin_header()
@@ -64,9 +68,9 @@
         			url: 'getntc/del/' + publicNoticeNo,
         			method:'delete',
         			success: window.location.href='../notice/ntclist' 
-        		});
+        		})
         	})
-        });
+        })
     })
 </script>
 <style>
@@ -95,6 +99,14 @@
 
     ul {
         padding: 1rem;
+    }
+    
+    tbody tr {
+    	width: 100%;
+        height: 15rem;
+        padding: 10px;
+        border-color: black;
+        border-radius: .2rem;
     }
 </style>
 </head>

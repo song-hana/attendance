@@ -9,7 +9,7 @@ import com.my.attendance.dao.PublicNoticeDao;
 import com.my.attendance.domain.PublicNotice;
 
 @Service
-public class PublicNoticeServiceImpl implements PublicNoticeService { 
+public class NoticeServiceImpl implements NoticeService {
 	@Autowired private PublicNoticeDao publicNoticeDao;
 	
 	@Override
@@ -18,22 +18,22 @@ public class PublicNoticeServiceImpl implements PublicNoticeService {
 	}
 	
 	@Override
-	public List<PublicNotice> getPublicNoticeDetail(int publicNoticeNo) {
-		return publicNoticeDao.selectPublicNoticeDetail(publicNoticeNo);
+	public List<PublicNotice> getPublicNotice(int publicNoticeNo) {
+		return publicNoticeDao.selectPublicNotice(publicNoticeNo);
 	}
 	
 	@Override
 	public void addPublicNotice(String pubntcTitle, String pubntcContent) {
-		 publicNoticeDao.insertPublicNotice(pubntcTitle, pubntcContent);
+		publicNoticeDao.insertPublicNotice(pubntcTitle, pubntcContent);
 	}
 	
 	@Override
 	public void fixPublicNotice(PublicNotice publicNotice) {
-		 publicNoticeDao.updatePublicNotice(publicNotice);
+		publicNoticeDao.updatePublicNotice(publicNotice);
 	}
 	
 	@Override
 	public void delPublicNotice(int publicNoticeNo) {
-		 publicNoticeDao.deletePublicNotice(publicNoticeNo);
+		publicNoticeDao.deletePublicNotice(publicNoticeNo);
 	}
 }

@@ -8,7 +8,7 @@
 		order by public_notice_no
 	</select> 
 	
-	<select id='selectPublicNoticeDetail' resultType='PublicNotice'>
+	<select id='selectPublicNotice' resultType='PublicNotice'>
 		select *
 		from attendance.public_notices
 		where public_notice_no = #{publicNoticeNo}	

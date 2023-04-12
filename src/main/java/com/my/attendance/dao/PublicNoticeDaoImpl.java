@@ -9,7 +9,7 @@ import com.my.attendance.dao.map.PublicNoticeMap;
 import com.my.attendance.domain.PublicNotice;
 
 @Repository
-public class PublicNoticeDaoImpl implements PublicNoticeDao { 
+public class PublicNoticeDaoImpl implements PublicNoticeDao{
 	@Autowired private PublicNoticeMap publicNoticeMap;
 	
 	@Override
@@ -18,8 +18,8 @@ public class PublicNoticeDaoImpl implements PublicNoticeDao {
 	}
 	
 	@Override
-	public List<PublicNotice> selectPublicNoticeDetail(int publicNoticeNo) {
-		return publicNoticeMap.selectPublicNoticeDetail(publicNoticeNo);
+	public List<PublicNotice> selectPublicNotice(int publicNoticeNo) {
+		return publicNoticeMap.selectPublicNotice(publicNoticeNo);
 	}
 	
 	@Override
@@ -36,4 +36,5 @@ public class PublicNoticeDaoImpl implements PublicNoticeDao {
 	public void deletePublicNotice(int publicNoticeNo) {
 		publicNoticeMap.deletePublicNotice(publicNoticeNo);
 	}
+
 }

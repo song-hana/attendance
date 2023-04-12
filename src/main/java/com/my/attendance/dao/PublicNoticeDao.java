@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.my.attendance.domain.PublicNotice;
 
-public interface PublicNoticeDao { 
+public interface PublicNoticeDao {
 	List<PublicNotice> selectPublicNoticeLists();
-	List<PublicNotice> selectPublicNoticeDetail(int publicNoticeNo);
+	List<PublicNotice> selectPublicNotice(int publicNoticeNo);
 	void insertPublicNotice(String pubntcTitle, String pubntcContent);
 	void updatePublicNotice(PublicNotice publicNotice);
 	void deletePublicNotice(int publicNoticeNo);
