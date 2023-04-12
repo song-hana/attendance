@@ -36,4 +36,15 @@
 	  	from companys
 	  	where company_id = #{companyId}
 	</select>
+	
+	<delete id='deleteCompany'>
+		delete companys
+		where company_id = #{companyId}
+	</delete>
+	
+	<select id='selectCompanys' resultType='company'>
+		select *
+		from companys
+		where company_id = #{company_Id}
+	</select>
 </mapper>

@@ -1,5 +1,7 @@
 package com.my.attendance.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -23,6 +25,21 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	@Override
 	public String selectEmployeePw(String employeeId, String employeePino) {
 		return employeeMap.selectEmployeePw(employeeId, employeePino);
+	}
+	
+	@Override
+	public List<Employee> selectEmployees(String companyId) {
+		return employeeMap.selectEmployees(companyId);
+	}
+	
+	@Override
+	public List<Employee> selectEmployeeInfo(int employeeNo){
+		return employeeMap.selectEmployeeInfo(employeeNo);
+	}
+	
+	@Override
+	public void deleteEmployee(int employeeNo) {
+		employeeMap.deleteEmployee(employeeNo);
 	}
 
 }

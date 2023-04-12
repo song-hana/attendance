@@ -1,10 +1,17 @@
 package com.my.attendance.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.my.attendance.domain.Admin;
 import com.my.attendance.domain.Company;
@@ -117,6 +124,25 @@ public class UserController {
 		return pw;
 	}
 	
+	@DeleteMapping("admin/user/getinfo/del/{companyId}")
+	public ResponseEntity<String> delCompany(@PathVariable String companyId) {
+	    userService.delCompany(companyId);
+	    return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@GetMapping
+	@RequestMapping("admin/user/comlist")
+	public ModelAndView Companylist(ModelAndView mv) {
+		mv.setViewName("admin/user/comlist");
+		return mv;
+	}
+	
+	@ResponseBody
+	@GetMapping("admin/user/comlist/get/")
+	public List<Company> getCompanys(String companyId) {
+		return userService.getCompanys(companyId);
+	}
+	
 	//employee--------------------------------
 	@GetMapping("user/loginEmp")
 	public String getLoginEmployee(String employeeId, String employeePw, HttpSession session) {
@@ -162,6 +188,31 @@ public class UserController {
 	public String getEmployeePw( String employeeId, String employeePino) {
 		String pw = userService.findPw(employeeId, employeePino);
 		return pw;
+	}
+	
+	@GetMapping
+	@RequestMapping("admin/user/emplist")
+	public ModelAndView listEmployee(ModelAndView mv) {
+		mv.setViewName("company/emp/emplist");
+		return mv;
+	}
+	
+	@ResponseBody
+	@GetMapping("admin/user/emplist/get")
+	public List<Employee> getEmployees(String companyId) {
+		return userService.getEmployees(companyId);
+	}
+	
+	@DeleteMapping("admin/user/emplist/del/{employeeNo}")
+	public ResponseEntity<String> delEmployee(@PathVariable int employeeNo) {
+	    userService.delEmployee(employeeNo);
+	    return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@ResponseBody
+	@GetMapping("admin/user/emplist/getInfo/{employeeNo}")
+	public List<Employee> getEmployeeInfo(@PathVariable int employeeNo) {
+		return userService.getEmployeeInfo(employeeNo);
 	}
 	
 }

@@ -1,5 +1,7 @@
 package com.my.attendance.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +40,16 @@ public class UserServiceImpl implements UserService {
 		return companyDao.selectCompanyPw(companyId, companyEmail);
 	}
 	
+	@Override
+	public void delCompany(String companyId) {
+		companyDao.deleteCompany(companyId);
+	}
+	
+	@Override
+	public List<Company> getCompanys(String companyId) {
+		return companyDao.selectCompanys(companyId);
+	}
+	
 	// employee
 	@Override
 	public Employee loginCheck(String employeeId, String employeePw) {
@@ -52,5 +64,20 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String findPw(String employeeId, String employeePino) {
 		return employeeDao.selectEmployeePw(employeeId, employeePino);
+	}
+	
+	@Override
+	public List<Employee> getEmployees(String companyId) {
+		return employeeDao. selectEmployees(companyId);
+	}
+	
+	@Override
+	public List<Employee> getEmployeeInfo(int employeeNo) {
+		return employeeDao.selectEmployeeInfo(employeeNo);
+	}
+	
+	@Override
+	public void delEmployee(int employeeNo) {
+		employeeDao.deleteEmployee(employeeNo);
 	}
 }

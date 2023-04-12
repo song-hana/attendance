@@ -1,5 +1,7 @@
 package com.my.attendance.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -34,4 +36,14 @@ public class CompanyDaoImpl implements CompanyDao {
     public int checkCompany(String companyId) {
         return companyMap.checkCompany(companyId);
     }
+	
+	@Override
+	public void deleteCompany(String companyId) {
+		companyMap.deleteCompany(companyId);
+	}
+	
+	@Override
+	public List<Company> selectCompanys(String companyId) {
+		return companyMap.selectCompanys(companyId);
+	}
 }
