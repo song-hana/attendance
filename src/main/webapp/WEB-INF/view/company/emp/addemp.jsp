@@ -70,7 +70,7 @@ function isVal(field, errMsgElement, errMsg) {
 	        const isHireDate = isVal(hireDate,$('#hireDateErrMsg'),'입사일을 입력하세요')
 	        const isProfileName = isVal(profileName,$('#profileNameErrMsg'),'프로필을 추가하세요')
 	        
-	        if (isEmpId && isEmpPw && isHireDate && isEmpPwCheck && isEmpName && isEmpPino && isEmpAddr && isPosition && isInputEmail && isSubEmail && isEmpPh) {
+	        if (isEmpId && isEmpPw && isHireDate && isEmpPwCheck && isEmpName && isEmpPino && isEmpAddr && isEmpPosition && isInputEmail && isSubEmail && isEmpPh) {
 	            let employee = {
 	                empId: empId.val(),
 	                empPw: empPw.val(),
@@ -79,7 +79,7 @@ function isVal(field, errMsgElement, errMsg) {
 	                empDetailAddr: empDetailAddr.val(),
 	                empPostcode: empPostcode.val(),
 	                empPh: empPh.val(),
-	                empEmail: empEmail.val(),
+	                empEmail: empEmail,
 	                hireDate:hireDate.val(),
 	                empPosition: empPosition.val(),
 	                empPino: empPino.val(),
@@ -227,17 +227,13 @@ function isVal(field, errMsgElement, errMsg) {
     #dropdown{
       margin-left: 0.5rem;
     }
-    #empProfile{
-        background-color: lightgray;
-        color: black;
-        margin-left: 1rem;
-    }
     
     input[type=number]::-webkit-outer-spin-button,
 	input[type=number]::-webkit-inner-spin-button {
 	    -webkit-appearance: none;
 	    margin: 0;
 	}
+	
 </style>
 </head>
 <body>
@@ -266,7 +262,7 @@ function isVal(field, errMsgElement, errMsg) {
                 <span id='pwCheckErrMsg'></span><br>
                 <div class='form-group'>
                     <label for='input-email'>이메일주소</label>
-                    <div class='input-group' id='empEmail'>
+                    <div class='input-group'>
                         <input type='text' class='form-control' id='inputEmail'>
                         <h4>&nbsp; @ &nbsp;</h4>
                         <input type='text' class='form-control' id='subEmail'>
@@ -302,13 +298,10 @@ function isVal(field, errMsgElement, errMsg) {
                 <label for='date of employment'>입사일</label>
                 <input type='date' class='form-control' id='hireDate'>
                 <span id='hireDateErrMsg'></span><br>
-                <div class='form-group'>
+                <div class='filebox'>
                 <label for='profil'>프로필</label>
                 <div class='input-group'>
-                <input type='text' class='form-control' id='profileName' name='profil'>               
-                <div class='input-group-append'>
-                    <button type='button' class='btn' id='empProfile' name='file'>파일 첨부</button>
-                </div>                           
+                <input type='file' class='form-control' id='profileName' name='profil'>                                                          
                 </div>
                 </div>
                 <span id='profileNameErrMsg'></span><br>                
