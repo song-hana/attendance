@@ -18,7 +18,7 @@
 	    $('#asks').empty();
 	
 	    $.ajax({
-	        url: '/company/ask/asklist/get',
+	        url: '/admin/ask/asklist/get',
 	        dataType: 'json',
 	        success: asks => {
 	            if (asks.length) {

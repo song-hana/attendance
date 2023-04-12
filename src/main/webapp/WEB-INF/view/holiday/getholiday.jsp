@@ -25,9 +25,11 @@ let employeeHireDate = "${sessionScope.hireDate}"
 	    else isGood = true
 	
 	    if(!isGood) {            
-	        $('#modalMsg').text(errMsg)
-	        $('#modalBtn').hide()
-	        $('#modal').modal('show')           
+	    	setTimeout(function() {
+             $('#modalMsg').text(errMsg)
+             $('#modalBtn').hide()
+             $('#modal').modal('show')
+           }, 300)        
 	    }
 	
 	    return isGood
@@ -133,7 +135,7 @@ let employeeHireDate = "${sessionScope.hireDate}"
 	                }
 	                
 	                $.ajax({
-	                    url: '/company/holiday/holidaylist/fix',
+	                    url: '/admin/holiday/holidaylist/fix',
 	                    type: 'put',
 	                    contentType: 'application/json',
 	                    data: JSON.stringify(holiday),
@@ -152,7 +154,7 @@ let employeeHireDate = "${sessionScope.hireDate}"
             $('#modal').modal('show')
             $('#modalOKBtn').off('click').on('click', function() {
                 $.ajax({
-                    url: '/company/holiday/holidaylist/del/' + holidayNo,
+                    url: '/admin/holiday/holidaylist/del/' + holidayNo,
                     method: 'delete',
                     success: listHolidays
                 })

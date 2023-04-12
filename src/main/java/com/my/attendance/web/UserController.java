@@ -69,7 +69,7 @@ public class UserController {
 	@GetMapping(value = {"logoutAdmin", "*/logoutAdmin"})
 	public String admLogout(HttpSession session) {
 		session.invalidate();
-		return "redirect:admin";
+		return "redirect:/admin";
 	}
 	
 	//company--------------------------------

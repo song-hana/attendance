@@ -19,7 +19,7 @@
 	
 	function listAsk() {
 	    $.ajax({
-	        url: '/company/ask/asklist/getAsk',
+	        url: '/admin/ask/asklist/getAsk',
 	        dataType: 'json',
 	        data: {
 	        	askNo: askNo

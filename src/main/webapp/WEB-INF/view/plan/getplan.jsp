@@ -66,7 +66,7 @@
     
     function listHolidays(successCallback) {
         $.ajax({
-            url: '/company/plan/planlist/getHoliday',
+            url: '/admin/plan/planlist/getHoliday',
             method: 'get',
             dataType: 'json',
             contentType: 'application/json',
@@ -147,7 +147,7 @@
             dayMaxEvents: false,
             events: (info, successCallback) => {
                 $.ajax({
-                    url: '/company/plan/planlist/getPlan',
+                    url: '/admin/plan/planlist/getPlan',
                     method: 'get',
                     dataType: 'json',
                     contentType: 'application/json',

@@ -32,10 +32,12 @@
 	    else isGood = true
 	
 	    if(!isGood) {            
-	        $('#modalMsg').text(errMsg)
-	        $('#modalBtn').hide()
-	        $('#modalBtn1').hide()
-	        $('#modal').modal('show')           
+	    	setTimeout(function() {
+             $('#modalMsg').text(errMsg)
+             $('#modalBtn').hide()
+             $('#modalBtn1').hide()
+             $('#modal').modal('show')
+           }, 300)
 	    }
 	
 	    return isGood

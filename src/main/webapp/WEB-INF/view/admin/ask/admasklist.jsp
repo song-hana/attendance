@@ -18,7 +18,7 @@
 	    $('#asks').empty();
 	
 	    $.ajax({
-	        url: '/company/ask/asklist/get',
+	        url: '/admin/ask/asklist/get',
 	        dataType: 'json',
 	        success: asks => {
 	            if (asks.length) {
@@ -26,7 +26,7 @@
 	                
 	                $.each(asks, (i, ask) => {
 	                    askArr.unshift(`
-                    		<tr onclick="window.location.href='getask?askNo=\${ask.askNo}'">
+                    		<tr onclick="window.location.href='admgetask?askNo=\${ask.askNo}'">
 	                            <td>\${ask.askNo}</td>
 	                            <td>\${ask.askTitle}</td>
 	                            <td>\${ask.askName}</td>
@@ -114,13 +114,7 @@
 		                    </tr>
 		                </thead>
 		                <tbody id='asks'>
-		                    <tr>
-		                        <td>2</td>
-		                        <td><a href='03.html'>비밀번호는 어떻게 찾나요?</a></td>
-		                        <td>최서영</td>
-		                        <td>2023-03-16</td>
-		                        <td></td>
-		                    </tr>
+		                    
 		                </tbody>
 		            </table>
 		        </div>

@@ -5,6 +5,7 @@
 	<select id='selectAsks' resultType='ask'>
 		select *
 		from attendance.asks
+		order by ask_no
 	</select>
 
 	<select id='selectAsk' resultType='ask'>
