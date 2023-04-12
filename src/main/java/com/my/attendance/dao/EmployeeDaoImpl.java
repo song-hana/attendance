@@ -31,7 +31,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	}
 	
 	@Override
-	public int checkEmployee(String employeeId) {
-		return employeeMap.checkEmployee(employeeId);
+	public int checkEmployee(String empId) {
+		return employeeMap.checkEmployee(empId);
 	}
 }

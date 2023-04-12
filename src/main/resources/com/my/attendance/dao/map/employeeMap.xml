@@ -5,22 +5,22 @@
 	<select id='selectEmployee' resultType='employee'>
 		select *
 		from employees
-		where emp_id = '${employeeId}'
-		and emp_pw = '${employeePw}'
+		where emp_id = '${empId}'
+		and emp_pw = '${empPw}'
 	</select>
 	
 	<select id='selectEmployeeId' resultType='String'>
 		select emp_id
 		from employees
-		where emp_name = '${employeeName}'
-		and emp_ph = '${employeePh}'
+		where emp_name = '${empName}'
+		and emp_ph = '${empPh}'
 	</select>
 	
 	<select id='selectEmployeePw' resultType='String'>
 		select emp_pw
 		from employees
-		where emp_id = '${employeeId}'
-		and emp_pino = '${employeePino}'
+		where emp_id = '${emId}'
+		and emp_pino = '${empPino}'
 	</select>
 	
 	<insert id='insertEmployee'>
@@ -29,12 +29,12 @@
 		emp_pino, profile_name, company_id)
 		values(attendance.emp_empno_seq.nextval, #{empId}, #{empPw}, #{empName}, #{empAddr},
 		#{empDetailAddr}, #{empPostcode}, #{empPh}, #{empEmail}, #{hireDate},
-		#{empPostition}, #{empPino}, #{profileName}, #{companyId})
+		#{empPosition}, #{empPino}, #{profileName}, #{companyId})
 	</insert>
 	
 	<select id='checkEmployee' resultType='Int'>
 		select count(*)
 		from employees
-		where emp_id = ${employeeId}
+		where emp_id = #{empId}
 	</select>
 </mapper>

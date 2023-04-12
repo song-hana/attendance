@@ -14,11 +14,11 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title>직원 추가</title>
 <script>
-// let companyId = "${sessionScope.comId}"
+ //let companyId = "${sessionScope.comId}"
 let companyId = "company"
 
 function errMsgClear() {
-    $('#idErrMsg, #pwErrMsg, #pwCheckErrMsg, #nameCheckErrMsg, #fileErrMsg, #addrErrMsg, #empPositionErrMsg, #emailErrMsg, #empPhErrMsg,#hireDateErrMsg,#empPinoCheckErrMsg').empty()
+    $('#idErrMsg, #pwErrMsg, #pwCheckErrMsg, #nameCheckErrMsg, #addrErrMsg, #empPositionErrMsg, #emailErrMsg, #empPhErrMsg,#hireDateErrMsg,#empPinoCheckErrMsg,#profileNameErrMsg').empty()
 }
 
 function isVal(field, errMsgElement, errMsg) {
@@ -67,9 +67,10 @@ function isVal(field, errMsgElement, errMsg) {
 	        const isInputEmail = isVal(inputEmail, $('#emailErrMsg'), '이메일을 입력하세요.')
 	        const isSubEmail = isVal(subEmail, $('#emailErrMsg'), '이메일을 입력하세요.')
 	        const isEmpPh = isVal(empPh, $('#empPhErrMsg'), '전화번호를 입력하세요.')
-	        const isHireDate = isVal(hireDate,$('#hireDateErrMsg'),'입사일을 입력하세요')	        	        
+	        const isHireDate = isVal(hireDate,$('#hireDateErrMsg'),'입사일을 입력하세요')
+	        const isProfileName = isVal(profileName,$('#profileNameErrMsg'),'프로필을 추가하세요')
 	        
-	        if (isEmpId && isEmpPw && isHireDate && isEmpPwCheck && isEmpName && isEmpPino && isEmpAddr && isEmpRank && isInputEmail && isSubEmail && isEmpPh) {
+	        if (isEmpId && isEmpPw && isHireDate && isEmpPwCheck && isEmpName && isEmpPino && isEmpAddr && isPosition && isInputEmail && isSubEmail && isEmpPh) {
 	            let employee = {
 	                empId: empId.val(),
 	                empPw: empPw.val(),
@@ -94,7 +95,7 @@ function isVal(field, errMsgElement, errMsg) {
 			                contentType: 'application/json',
 			                data: JSON.stringify(employee),
 			                success: function() {
-			                    $('#modalMsg').text('직원등록이 완료되었습니다.')
+			                    $('#modalMsg').text('등록이 완료되었습니다.')
 			                    $('#modalBtn').hide()
 			                    $('#modal').modal('show')
 			                    setTimeout(function() {
@@ -140,9 +141,7 @@ function isVal(field, errMsgElement, errMsg) {
             } else {
             	$('#idErrMsg').text('ID를 입력하세요.').css('color', 'red')
             }
-        })
-        
-        
+        })          
     })
     
     function selfChoice() {
@@ -309,10 +308,10 @@ function isVal(field, errMsgElement, errMsg) {
                 <input type='text' class='form-control' id='profileName' name='profil'>               
                 <div class='input-group-append'>
                     <button type='button' class='btn' id='empProfile' name='file'>파일 첨부</button>
-                </div>                
+                </div>                           
                 </div>
                 </div>
-                <span id='fileErrMsg'></span><br>
+                <span id='profileNameErrMsg'></span><br>                
                 <label for='empPosition'>직급</label>
                   <input type='text' class='form-control' id='empPosition'>
                  <span id='empPositionErrMsg'></span> <br>

@@ -81,7 +81,7 @@
 	            if(checkId != 0 && checkIdVal == $('#companyId').val()) {
 		            if(comPw.val() == comPwCheck.val()) {
 			        	$.ajax({
-			                url: '../../company/user/addcom/add',
+			                url: '/company/user/addcom/add',
 			                type: 'post',
 			                contentType: 'application/json',
 			                data: JSON.stringify(company),
@@ -113,7 +113,7 @@
             if(companyId) {
             	
 	            $.ajax({
-	                url: '../../company/user/addcom/check',
+	                url: '/company/user/addcom/check',
 	                type: 'get',
 	                data: {companyId: companyId},
 	                success: function(result) {
