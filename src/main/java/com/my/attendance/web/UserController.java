@@ -209,5 +209,19 @@ public class UserController {
 	public List<Company> choiceCompany(String companyId) {
 	    return userService.getCompany(companyId);
 	}
+
+//--------------- employee
 	
+	@GetMapping
+	@RequestMapping("user/fixpw")
+	public ModelAndView fixPw(ModelAndView mv) {
+		mv.setViewName("user/fixpw");
+		return mv;				
+	}
+	
+	@GetMapping("user/fixpw/check")
+	@ResponseBody
+	public int checkEmployeePw(int employeeNo, String employeePw) {
+	    return userService.checkEmployeePw(employeeNo, employeePw);
+	}
 }

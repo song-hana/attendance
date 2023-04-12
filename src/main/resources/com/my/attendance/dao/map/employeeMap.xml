@@ -22,4 +22,11 @@
 		where emp_id = '${employeeId}'
 		and emp_pino = '${employeePino}'
 	</select>
+	
+	<select id='checkEmployeePw' resultType='Int'>
+		select count(*)
+		from attendance.employees
+		where employee_no = #{employeeNo}
+		and emp_pw = #{employeePw}
+	</select>
 </mapper>
