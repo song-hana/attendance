@@ -18,21 +18,21 @@
         
         $('#login').click(e => {
         	e.preventDefault()
-        	if(isVal($('#empId')) && isVal($('#empPw'))) {
-        		checkEmp($('#empId').val(), $('#empPw').val())
+        	if(isVal($('#adminId')) && isVal($('#adminPw'))) {
+        		checkAdmin($('#adminId').val(), $('#adminPw').val())
         	}
         })
     })
     
-    function checkEmp(id, pw) {
+    function checkAdmin(id, pw) {
     	$.ajax({
-    		url: 'loginEmp',
+    		url: 'loginAdmin',
     		data: ({
-    			employeeId: id,
-    			employeePw: pw
+    			adminId: id,
+    			adminPw: pw
     		}),
-    		success: employee => {
-    			if(employee.length > 0) {
+    		success: admin => {
+    			if(admin.length > 0) {
     				move()
     			}
     		}
@@ -41,7 +41,7 @@
     }
     
     function move() {
-    	window.location.href = '/'
+    	window.location.href = '/admin/ask/admasklist'
     }
     
     function error() {
@@ -65,7 +65,12 @@
         return isGood
     }
 </script>
+<title></title>
 <style>
+    .btn {
+        margin-top: 3rem;
+    }
+    
     input[type='submit'] {
         position: relative;
         width: 60%;
@@ -78,22 +83,19 @@
     <div class='row title'></div>
     <div class='row mt-5'>
         <div class='col'>
-            <form class='form_box' method='post'>
-                <input type='text' class='form-control' id='empId' name='empId' placeholder='아이디'/><br>
-                <input type='password' class='form-control' id='empPw' name='empPw' placeholder='비밀번호'/><br>
-                <div class='msgBox collapse'>
-	                <span id='msg'></span><br><br>
+            <div class='row'>
+                <div class='col'></div>
+                <div class='col-5'>
+                    <form class='form_box'>
+                        <input type='text' id='adminId' class='form-control' placeholder='아이디'/><br>
+                        <input type='password' id='adminPw' class='form-control' placeholder='비밀번호'/><br>
+                        <div class='msgBox collapse'>
+			                <span id='msg'></span><br><br>
+		                </div>
+                        <input type='submit' id='login' class='form-control btn btn-blue' value='로그인'/><br>
+                    </form>
                 </div>
-                <input type='submit' class='btn btn-blue text-center' id='login' value='로그인'/><br>
-            </form>
-        </div>
-        <div class='row mt-5'>
-            <div class='col text-center'>
-                <a href='findid'>아이디 찾기</a>
-            </div>
-            |
-            <div class='col text-center'>
-                <a href='findpw'>비밀번호 찾기</a>
+                <div class='col'></div>
             </div>
         </div>
     </div>

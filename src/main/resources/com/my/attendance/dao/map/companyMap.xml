@@ -13,7 +13,7 @@
 		select company_id
 		from companys
 		where com_name = '${companyName}'
-		and com_regno = '${companyRegno}'
+		and com_regno = ${companyRegno}
 	</select>
 	
 	<select id='selectCompanyPw' resultType='String'>

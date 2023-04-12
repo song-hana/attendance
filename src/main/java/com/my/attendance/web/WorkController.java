@@ -30,9 +30,9 @@ public class WorkController {
 	}
 	
 	@GetMapping
-	@RequestMapping("company/work/getlist")
+	@RequestMapping("admin/work/getlist")
 	public ModelAndView getlist(ModelAndView mv) {
-		mv.setViewName("company/work/getlist");
+		mv.setViewName("admin/work/getlist");
 		return mv;
 	}
 	
@@ -72,13 +72,13 @@ public class WorkController {
 		return result;
 	}
 	
-	@GetMapping("company/work/getlist/get")
+	@GetMapping("admin/work/getlist/get")
 	@ResponseBody
 	public List<Work> getChoiceDay(@RequestParam("choiceDay") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate choiceDay, String companyId) {
 	    return workService.getChoiceDay(choiceDay, companyId);
 	}
 	
-	@GetMapping("company/work/getlist/getworkHoliday")
+	@GetMapping("admin/work/getlist/getworkHoliday")
 	@ResponseBody
 	public List<Work> getworkHoliday(@RequestParam("choiceDay") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate choiceDay, String companyId) {
 		return workService.getworkHoliday(choiceDay, companyId);

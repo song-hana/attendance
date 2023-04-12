@@ -20,23 +20,51 @@
         $('#showID').click(e => {
         	e.preventDefault()
         	$('#modalMsg').empty()
-        	findId($('#name').val(), $('#ph').val())
-            $('#modal').modal('show')
+        	if(isVal($('#name')) && isVal($('#ph'))) {
+	        	findId($('#name').val(), $('#ph').val())
+	            $('#modal').modal('show')
+        	}
         })
     })
     
     function findId(name, ph) {
     	$.ajax({
     		url: 'findId',
-    		type: 'post',
     		data: ({
-    			empName: name,
-    			empPh: ph
+    			employeeName: name,
+    			employeePh: ph
     		}),
     		success: id => {
-    			$('#modalMsg').text('ID는 ' + id + ' 입니다.')
+    			if(id != '') {
+	    			$('#modalMsg').text('ID는 ' + id + ' 입니다.')
+	    			$('#modalLoginBtn').text('로그인').removeAttr('data-bs-dismiss').attr('onclick', 'location.href="/user/login"')
+	    			$('#modalPWBtn').show()
+    			} else error()
     		}
-    	})
+    	}).done(() => $('.msgBox').removeClass('show'))
+    }
+    
+    function error() {
+    	$('#modalMsg').empty()
+    	$('#modalLoginBtn').text('확인').removeAttr('onclick').attr('data-bs-dismiss', 'modal')
+    	$('#modalPWBtn').hide()
+    	$('#modalMsg').text('이름 혹은 전화번호가 잘못 입력되었습니다.')
+    	$('#modal').modal('show')
+    }
+    
+    function isVal(field) {
+        let isGood = false
+        let errMsg
+
+        if(!field.val()) errMsg = field.attr('placeholder') + ' 입력하세요.'
+           else isGood = true
+
+        if(!isGood) {
+        	$('.msgBox').addClass('show')
+            $('#msg').text(errMsg).css('color', 'red')
+        }
+        
+        return isGood
     }
 </script>
 <style>
@@ -59,6 +87,9 @@
         <form class='form_box'>
             <input type='text' id='name' class='form-control' placeholder='이름'/><br>
             <input type='text' id='ph' class='form-control' placeholder="전화번호('-'제외)"/><br>
+            <div class='msgBox collapse'>
+             	<span id='msg'></span><br><br>
+            </div>
             <input type='submit' id='showID' class='btn btn-blue text-center' value='아이디 찾기'/><br>
         </form>
     </div>
@@ -73,8 +104,8 @@
                 <p id='modalMsg'></p>
             </div>
             <div class='modal-footer' id='modalBtn'>
-                <button type='button' class='btn btn-blue' id='modalLoginBtn' onclick="location.href='login'">로그인</button>
-                <button type='button' class='btn btn-lightgray' id='modalPWBtn' onclick="location.href='findPw'">비밀번호 찾기</button>
+                <button type='button' class='btn btn-blue' id='modalLoginBtn' onclick='location.href="/user/login"'>로그인</button>
+                <button type='button' class='btn btn-lightgray' id='modalPWBtn' onclick='location.href="/user/findpw"'>비밀번호 찾기</button>
             </div>
         </div>
     </div>

@@ -14,10 +14,9 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title>연차</title>
 <script>
-	let employeeNo = ${sessionScope.empNo}
-	let employeeName = "${sessionScope.empName}"
-	let employeeHireDate = "${sessionScope.hireDate}"
-
+let employeeNo = ${sessionScope.empNo}
+let employeeName = "${sessionScope.empName}"
+let employeeHireDate = "${sessionScope.hireDate}"
 	function isVal(field) {
 	    let isGood = false
 	    let errMsg
@@ -26,15 +25,15 @@
 	    else isGood = true
 	
 	    if(!isGood) {            
-	        $('#modalMsg').text(errMsg)
-	        $('#modalBtn').hide()
-	        $('#modal').modal('show')           
+	    	setTimeout(function() {
+             $('#modalMsg').text(errMsg)
+             $('#modalBtn').hide()
+             $('#modal').modal('show')
+           }, 300)        
 	    }
 	
 	    return isGood
 	}
-
-
 	function listHolidays() {
 	    $('#holidays').empty();
 	    
@@ -113,14 +112,11 @@
 	        }
 	    });
 	}
-
-
     $(() => {
         input_user_header()
         btn_click()
         show_logout()
         listHolidays()
-
         // 연차 수정
         $('#holidays').on('click', '.fixHolidayBtn', function() {
             const holidayNo = $(this).closest('tr').attr('holidayNo');
@@ -139,7 +135,7 @@
 	                }
 	                
 	                $.ajax({
-	                    url: '/company/holiday/holidaylist/fix',
+	                    url: '/admin/holiday/holidaylist/fix',
 	                    type: 'put',
 	                    contentType: 'application/json',
 	                    data: JSON.stringify(holiday),
@@ -156,16 +152,14 @@
             $('#modalMsg').append(`<p>해당 연차를 삭제 하시겠습니까?<p>`)
             $('#modalBtn').show()
             $('#modal').modal('show')
-
             $('#modalOKBtn').off('click').on('click', function() {
                 $.ajax({
-                    url: '/company/holiday/holidaylist/del/' + holidayNo,
+                    url: '/admin/holiday/holidaylist/del/' + holidayNo,
                     method: 'delete',
                     success: listHolidays
                 })
             })
         });
-
         // 연차 추가
         $('#addHolidayBtn').click(() => {
             $('#modalMsg').empty()
@@ -173,7 +167,6 @@
                             .append(`<p>사유: <input type='text' class='pb-3' id='addHolidayContent' placeholder='사유' /></p>`)
             $('#modalBtn').show()
             $('#modal').modal('show')
-
             $('#modalOKBtn').off('click').on('click', function() {
             	if( isVal($('#addHolidayDate')) && isVal($('#addHolidayContent'))) {
             		
@@ -196,15 +189,12 @@
     table > caption {
         font-size: .8rem;
     }
-
     table {
         table-layout: fixed;
     }
-
     th:last-child {
         padding-left: 1rem;
     }
-
     @media (max-width: 699px) {
         .row.pt-2 .col ul {
             padding-left: 0;

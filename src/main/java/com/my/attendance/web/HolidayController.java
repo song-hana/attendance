@@ -28,9 +28,9 @@ public class HolidayController {
 	@Autowired private HolidayService holidayService;
 	
 	@GetMapping
-	@RequestMapping("company/holiday/holidaylist")
+	@RequestMapping("admin/holiday/holidaylist")
 	public ModelAndView holidaylist(ModelAndView mv) {
-		mv.setViewName("company/holiday/holidaylist");
+		mv.setViewName("admin/holiday/holidaylist");
 		return mv;
 	}
 	
@@ -47,7 +47,7 @@ public class HolidayController {
 	    return holidayService.getUserHoliday(employeeNo);
 	}
 	
-	@GetMapping("company/holiday/holidaylist/get")
+	@GetMapping("admin/holiday/holidaylist/get")
 	@ResponseBody
 	public List<Holiday> getHolidays(@RequestParam("yearMonth") @DateTimeFormat(pattern = "yyyy-MM") YearMonth yearMonth,
 										String companyId) {
@@ -60,13 +60,13 @@ public class HolidayController {
 	    return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
-	@PutMapping("company/holiday/holidaylist/fix")
+	@PutMapping("admin/holiday/holidaylist/fix")
 	public ResponseEntity<String> fixHoliday(@RequestBody Holiday holiday) {
 		holidayService.fixHoliday(holiday);
 	    return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@DeleteMapping("company/holiday/holidaylist/del/{holidayNo}")
+	@DeleteMapping("admin/holiday/holidaylist/del/{holidayNo}")
 	public ResponseEntity<String> delHoliday(@PathVariable int holidayNo) {
 		holidayService.delHoliday(holidayNo);
 	    return new ResponseEntity<>(HttpStatus.OK);

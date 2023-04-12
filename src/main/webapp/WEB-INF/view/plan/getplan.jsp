@@ -17,6 +17,7 @@
 <title>사내 일정 조회</title>
 <script>
 	let session = ${sessionScope.empNo}
+    let companyId = "${sessionScope.comId}"
 
     $(() => {
         input_user_header()
@@ -33,8 +34,6 @@
 		}
 	}
     
-    let companyId = "${sessionScope.comId}"
-    
     function listPlans(successCallback) {
 	    $.ajax({
 	        url: 'planlist/getPlan',
@@ -45,9 +44,9 @@
 	            companyId: companyId
 	        },
 	        success: function(response) {
-	            let events = [];
+	            let events = []
 	            for (let i = 0; i < response.length; i++) {
-	                let plan = response[i];
+	                let plan = response[i]
 	                let event = {
 	                    id: plan.planNo,
 	                    title: plan.planTitle,
@@ -56,28 +55,28 @@
 	                    extendedProps: {
 	                    	type: 'plan'
 	                    }
-	                };
-	                events.push(event);
+	                }
+	                events.push(event)
 	            }
-	            calendar.events = events;
-	            successCallback(events);
+	            calendar.events = events
+	            successCallback(events)
 	        },
-	    });
+	    })
 	}
     
     function listHolidays(successCallback) {
         $.ajax({
-            url: '/company/plan/planlist/getHoliday',
+            url: '/admin/plan/planlist/getHoliday',
             method: 'get',
             dataType: 'json',
             contentType: 'application/json',
 	        data: {
 	            companyId: companyId
 	        },
-            success: function(response) {
+            success: response => {
                 let events = [];
                 for (let i = 0; i < response.length; i++) {
-                    let holiday = response[i];
+                    let holiday = response[i]
                     let event = {
                         id: holiday.holNo,
                         title: holiday.empName + ' 연차',
@@ -86,17 +85,17 @@
                         extendedProps: {
 	                    	type: 'holiday'
 	                    }
-                    };
-                    events.push(event);
+                    }
+                    events.push(event)
                 }
-                calendar.events = events;
-                successCallback(events);
+                calendar.events = events
+                successCallback(events)
             },
-        });
+        })
     }
     
-    document.addEventListener('DOMContentLoaded', function() {
-        let calendarEl = document.getElementById('calendar');
+    document.addEventListener('DOMContentLoaded', () => {
+        let calendarEl = document.getElementById('calendar')
 
         let calendar = new FullCalendar.Calendar(calendarEl, {
             
@@ -107,7 +106,7 @@
             },
             initialView: 'dayGridMonth',
             navLinks: false, // can click day/week names to navigate views
-            titleFormat : function(date) { // title 설정
+            titleFormat : date => { // title 설정
                     return date.date.year +". "+(date.date.month +1); 
                     },
             buttonText: {
@@ -116,7 +115,7 @@
             height: 550,
             selectable: false,
             selectMirror: true,
-            select: function(arg) {
+            select: arg => {
                 let title = prompt('제목:');
                 if (title) {
                 calendar.addEvent({
@@ -130,7 +129,7 @@
             },
           	
             // 일정 클릭
-            eventClick: function(arg) {
+            eventClick: arg => {
                 $('#modalMsg').empty()
                 const eventType = arg.event.extendedProps.type
 
@@ -146,19 +145,19 @@
             },
             editable: true,
             dayMaxEvents: false,
-            events: function(info, successCallback) {
+            events: (info, successCallback) => {
                 $.ajax({
-                    url: '/company/plan/planlist/getPlan',
+                    url: '/admin/plan/planlist/getPlan',
                     method: 'get',
                     dataType: 'json',
                     contentType: 'application/json',
         	        data: {
         	            companyId: companyId
         	        },
-                    success: function(response) {
+                    success: response => {
                         let events = [];
                         for (let i = 0; i < response.length; i++) {
-                            let plan = response[i];
+                            let plan = response[i]
                             let event = {
                                 id: plan.planNo,
                                 title: plan.planTitle,
@@ -167,24 +166,24 @@
                                 extendedProps: {
         	                    	type: 'plan'
         	                    }
-                            };
-                            events.push(event);
+                            }
+                            events.push(event)
                         }
                         
-                        listHolidays(function(holidayEvents) {
-                            events = events.concat(holidayEvents);
-                            successCallback(events);
-                        });
+                        listHolidays(holidayEvents => {
+                            events = events.concat(holidayEvents)
+                            successCallback(events)
+                        })
                     },
-                });
+                })
             },
-            eventDrop: function(info) {
-                info.revert();
+            eventDrop: info => {
+                info.revert()
             }
-        });
+        })
         
-        calendar.render();
-  });
+        calendar.render()
+  })
 </script>
 <style>
     .fc .fc-button-primary {
@@ -201,6 +200,9 @@
         border-color:darkblue;
     }
 
+	#calendar {
+		margin-bottom: 3rem;
+	}
 </style>
 </head>
 <body>
