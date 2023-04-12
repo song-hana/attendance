@@ -41,7 +41,7 @@
     }
     
     function move() {
-    	window.location.href = '../main'
+    	window.location.href = '/'
     }
     
     function error() {

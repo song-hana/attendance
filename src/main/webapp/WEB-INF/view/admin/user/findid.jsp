@@ -29,7 +29,7 @@
     
     function findId(name, regno) {
     	$.ajax({
-    		url: 'findId',
+    		url: 'findIdCom',
     		data: ({
     			companyName: name,
     			companyRegno: regno
@@ -37,7 +37,7 @@
     		success: id => {
     			if(id != '') {
 	    			$('#modalMsg').text('ID는 ' + id + ' 입니다.')
-    				$('#modalLoginBtn').text('로그인').removeAttr('data-bs-dismiss').attr('onclick', 'location.href="/company/user/login"')
+    				$('#modalLoginBtn').text('로그인').removeAttr('data-bs-dismiss').attr('onclick', 'location.href="/admin/user/login"')
 	    			$('#modalPWBtn').show()
     			} else error()
     		}
@@ -112,8 +112,8 @@
                 <p id='modalMsg'></p>
             </div>
             <div class='modal-footer' id='modalBtn'>
-                <button type='button' class='btn btn-blue' id='modalLoginBtn' onclick="location.href='/company/user/login'">로그인</button>
-                <button type='button' class='btn btn-lightgray' id='modalPWBtn' onclick="location.href='/company/user/findpw'">비밀번호 찾기</button>
+                <button type='button' class='btn btn-blue' id='modalLoginBtn' onclick="location.href='/admin/user/login'">로그인</button>
+                <button type='button' class='btn btn-lightgray' id='modalPWBtn' onclick="location.href='/admin/user/findpw'">비밀번호 찾기</button>
             </div>
         </div>
     </div>

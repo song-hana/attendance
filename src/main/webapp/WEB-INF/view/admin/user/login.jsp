@@ -41,7 +41,7 @@
     }
     
     function move() {
-    	window.location.href = '../main'
+    	window.location.href = '/company'
     }
     
     function error() {
@@ -106,7 +106,7 @@
                     </div>
                     |
                     <div class='col'>
-                        <a href='member'>회원가입</a>
+                        <a href='addcom'>회원가입</a>
                     </div>
                 </div>
             </div>

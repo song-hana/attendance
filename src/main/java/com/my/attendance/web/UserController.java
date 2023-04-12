@@ -3,6 +3,7 @@ package com.my.attendance.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.my.attendance.domain.Admin;
@@ -14,11 +15,43 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UserController {
+	//company--------------------------------
+	@RequestMapping("admin/user/login")
+	public String loginCompany() {
+		return "admin/user/login";
+	}
+	
+	@RequestMapping("admin/user/findid")
+	public String findidCom() {
+		return "admin/user/findid";
+	}
+	
+	@RequestMapping("admin/user/findpw")
+	public String findpwCom() {
+		return "admin/user/findpw";
+	}
+	
+	//employee ------------------------------
+	@RequestMapping("user/login")
+	public String loginEmployee() {
+		return "user/login";
+	}
+	
+	@RequestMapping("user/findid")
+	public String findid() {
+		return "user/findid";
+	}
+	
+	@RequestMapping("user/findpw")
+	public String findpw() {
+		return "user/findpw";
+	}
+	
 	@Autowired private UserService userService;
 	
 	//admin--------------------------------
 	@ResponseBody
-	@GetMapping(value = {"loginAdmin", "*/loginAdmin"})
+	@GetMapping("loginAdmin")
 	public String getLoginAdmin(String adminId, String adminPw, HttpSession session) {
 		String result = "";
 		Admin adm = userService.admLoginCheck(adminId, adminPw);
@@ -33,14 +66,15 @@ public class UserController {
 		return result;
 	}
 	
-	@GetMapping("logout")
+	@GetMapping(value = {"logoutAdmin", "*/logoutAdmin"})
 	public String admLogout(HttpSession session) {
 		session.invalidate();
-		return "redirect:login";
+		return "redirect:admin";
 	}
 	
 	//company--------------------------------
-	@GetMapping("loginCom")
+	@ResponseBody
+	@GetMapping("admin/user/loginCom")
 	public String getLoginCompany(String companyId, String companyPw, 
 			HttpSession session) {
 		String result = "";
@@ -63,21 +97,21 @@ public class UserController {
 		return result;
 	}
 	
-	@GetMapping("logout")
+	@GetMapping(value = {"logoutCom", "*/logoutCom", "*/*/logoutCom"})
 	public String comLogout(HttpSession session) {
 		session.invalidate();
-		return "redirect:/company/main";
+		return "redirect:/company";
 	}
 	
 	@ResponseBody
-	@GetMapping("findId")
+	@GetMapping("admin/user/findIdCom")
 	public String getcompanyId(String companyName, int companyRegno) {
 		String id = userService.comFindId(companyName, companyRegno);
 		return id;
 	}
 	
 	@ResponseBody
-	@GetMapping("findPw")
+	@GetMapping("admin/user/findPwCom")
 	public String getcompanyPw(String companyId, String companyEmail) {
 		String pw = userService.comFindPw(companyId, companyEmail);
 		return pw;
@@ -113,7 +147,7 @@ public class UserController {
 	@GetMapping(value = {"logout", "*/logout"})
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:/main";
+		return "redirect:/";
 	}
 	
 	@ResponseBody

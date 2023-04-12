@@ -26,7 +26,7 @@
     
     function checkAdmin(id, pw) {
     	$.ajax({
-    		url: 'admin/loginAdmin',
+    		url: 'loginAdmin',
     		data: ({
     			adminId: id,
     			adminPw: pw
@@ -41,7 +41,7 @@
     }
     
     function move() {
-    	window.location.href = '/admin/ask/asklist'
+    	window.location.href = '/admin/ask/admasklist'
     }
     
     function error() {
