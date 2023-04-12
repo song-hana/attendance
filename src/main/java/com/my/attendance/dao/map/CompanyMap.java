@@ -11,6 +11,6 @@ public interface CompanyMap {
 	int insertCompany(Company company);
 	int checkCompany(String companyId);
 	int deleteCompany(String companyId);
-	List<Company> selectCompanys(String companyId);
-	List<Company> selectCompanyGetcom(String companyId);
+	List<Company> selectCompanys();
+	
 }

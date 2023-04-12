@@ -137,12 +137,20 @@ public class UserController {
 		return mv;
 	}
 	
-	@ResponseBody
-	@GetMapping("admin/user/comlist/get/")
-	public List<Company> getCompanys(String companyId) {
-		return userService.getCompanys(companyId);
+	@GetMapping
+	@RequestMapping("admin/user/getcom")
+	public ModelAndView Companyget(ModelAndView mv) {
+		mv.setViewName("admin/user/getcom");
+		return mv;
 	}
 	
+	@ResponseBody
+	@GetMapping("admin/user/comlist/get")
+	public List<Company> getCompanys() {
+		return userService.getCompanys();
+	}
+	
+
 	//employee--------------------------------
 	@GetMapping("user/loginEmp")
 	public String getLoginEmployee(String employeeId, String employeePw, HttpSession session) {
@@ -193,7 +201,7 @@ public class UserController {
 	@GetMapping
 	@RequestMapping("admin/user/emplist")
 	public ModelAndView listEmployee(ModelAndView mv) {
-		mv.setViewName("company/emp/emplist");
+		mv.setViewName("admin/user/emplist");
 		return mv;
 	}
 	

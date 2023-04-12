@@ -14,29 +14,12 @@
 <title>기업회원목록</title>
 <script>
 	
-	function isVal(field) {        
-	    let isGood = false
-	    let errMsg
-	
-	    if(!field.length) errMsg = '회원을 선택하세요.'
-	    else isGood = true
-	
-	    if(!isGood) {
-	    	$('#modalMsg').text(errMsg)
-	        $('#modalBtn').hide()
-	        $('#modal').modal('show')           
-	    }
-	
-	    return isGood
-	}
-	
 	function listCompanys() {
 		$('input').not(':button').val('')
 		$('#companys').empty();
 		
 		$.ajax({
-			url: 'comlist/get/',
-			method: 'get/{companyId}',
+			url: 'comlist/get',
 			dataType: 'json',
 			success: companys => {
 				if(companys.length) {
@@ -44,23 +27,23 @@
 					
 					$.each(companys, (i, company) => {
 						companyArr.unshift(`
-						   <tr class='company-info'>
-							    <td><input type='button' value='상세보기' onclick="location.href='/../getcom/${company.companyId}'""></td>
+						   <tr>
+							    <td><input type='button' value='상세보기' onclick="location.href='getcom ${company.companyId}'""></td>
 							    <td>\${company.comName}</td>
 							    <td>\${company.comPh}</td>
 								<td>\${company.president}</td>
 								<td>\${company.comAddr + ' ' + company.comDetailAddr}</td>
 								<td>\${company.comEmail}</td>
 						   </tr>	
-						`);
-					});
+						`)
+					})
 					
 					 $('#companys').append(companyArr.join(''));
 				} else {
 					 $('#companys').append('<tr><td colspan=7 class=text-center>회원이 없습니다.</td></tr>');
 				}
 			}
-		});
+		})
 	}
 	
 	 $(() => {

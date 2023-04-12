@@ -71,7 +71,7 @@
             
             $('#modalOKBtn').off('click').on('click', function() {
 	              $.ajax({
-	                 url: '/admin/user/getcom/del/',
+	                 url: 'admin/user/comlist/del/{companyId}',
 	                 method: 'delete'
        		    })
  		   	})   
