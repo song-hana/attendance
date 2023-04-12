@@ -11,14 +11,14 @@
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <script src='<c:url value="/res/common.js"/>'></script>
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'/>
-<title></title>
-<script>	
+<title>user 전체 공지사항 상세조회</title>
+<script>
 	const urlParams = new URLSearchParams(window.location.search);
 	const publicNoticeNo = urlParams.get('publicNoticeNo');
 	
-	function PublicNoticeDetail() {
+	function publicNoticeDetail() {
 		$.ajax({
-			url: 'getntc/get',
+			url: '../admin/notice/getntc/get',
 			dataType: 'json',
 			data : {
 				publicNoticeNo: publicNoticeNo
@@ -38,8 +38,7 @@
 								<tr>
 									<td>\${publicNotice.pubntcContent}</td>
 								</tr>
-							</tbody>`
-								
+							</tbody>`		
 						);
 					});
 					$('#publicNoticeDetail').append(publicNoticeArr.join(''));
@@ -49,30 +48,41 @@
 	}
 
     $(() => {
-        input_company_header()
-        input_footer()
+        input_user_header()
         btn_click()
+        show_logout()
         
-        PublicNoticeDetail()
+        publicNoticeDetail()
     })
 </script>
 <style>
     .table {
+        font-size: .8rem;
         border: .1rem solid;
     }
-
     table a {
         color: black;
     }
-    .lnb {
-        list-style-type: none;
+    #decimal {
+        list-style-type: decimal;
     }
+    #decimal li {
+        margin-bottom: 1rem;
+        margin-top: 1rem;
+    }
+
     .liNone {
         list-style-type: none;
     }
     
-    ul {
-        padding: 1rem;
+    hr {
+        width: 80%;
+        margin-left : auto;
+        margin-right : auto;
+    }
+
+    th {
+        font-size: 1rem;
     }
     
     tbody tr {
@@ -82,7 +92,7 @@
         border-color: black;
         border-radius: .2rem;
     }
-    
+
 	thead {
 		background-color: #f0f0f1;
 	}
@@ -93,27 +103,25 @@
     <div class='row header'></div>
     <div class='row mt-5'>
         <div class='col text-center'>
-            <h2><b>공지사항</b></h2>
+            <h1><b>공지사항</b></h1>
         </div>
     </div>
     <div class='row pt-3'>
         <div class='col text-center'>
-            <p>하나웍스 서비스 안내와 공지에 대한 소식을 전해드립니다.</p><hr>
+            <p>하나웍스 서비스 안내와 공지에 대한 소식을 전해드립니다.</p>
+            <hr>
         </div>
     </div>
-    <div class='row pt-2'>
+    <div class='row pt-4 mb-5'>
         <div class='col'>
-            <table class='table' id='publicNoticeDetail'>
-                
+            <table class='table mt-2' id='publicNoticeDetail'>
+               	
+                <caption class="text-end"><button type='button' class='btn btn-secondary' 
+                     onclick="window.location.href='ntclist'">목록</button></caption>
             </table>
         </div>
     </div>
-    <div class='row'>
-        <div class='col d-flex justify-content-end'>
-            <button type='button' class='btn btn-secondary' id='listBtn' onclick="window.location.href='ntclist'">목록</button>
-        </div>
-    </div>
-    <div class='footer'></div>
+    <div class='navigation'></div>
 </div>
 </body>
 </html>

@@ -12,7 +12,7 @@
 <script src='<c:url value="/res/common.js"/>'></script>
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'/>
 <title></title>
-<title>ADMIN.NOTICE.08 전체 공지사항 작성 </title>
+<title>admin 전체 공지사항 작성</title>
 <script>
 	function isVal(field) {
 	    let isGood = false
@@ -35,7 +35,7 @@
 	}
 	
 	function move() {
-		window.location.href="../notice/ntclist"
+		window.location.href="../notice/admntclist"
 	}
 	
     $(() => {
@@ -66,6 +66,7 @@
 				$('#modalMsg').append(`<p>이 페이지를 벗어나면 기존 작성된 글이 삭제됩니다.</p>`)
 				$('#modal').modal('show')
 				$('modalBtn').show()
+				$('#modalCancelBtn').show();
 				$('#modalOkBtn').click(() => move())
 			} else move()
 		})
@@ -137,7 +138,7 @@
             </div>
             <div class='modal-footer' id='modalBtn'>
                 <button type='button' class='btn m-2 btn-lightgray' id='modalCancelBtn' data-bs-dismiss='modal'>취소</button>
-                <button type='button' class='btn btn-blue' id='modalOKBtn' onclick="window.location.href='ntclist'">확인</button>
+                <button type='button' class='btn btn-blue' id='modalOKBtn' onclick="window.location.href='admntclist'">확인</button>
             </div>
         </div>
     </div>

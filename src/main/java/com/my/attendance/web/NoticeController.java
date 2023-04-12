@@ -23,9 +23,9 @@ public class NoticeController {
 	
 	//admin 전체 공지사항 목록
 	@GetMapping
-	@RequestMapping("admin/notice/ntclist")
-	public ModelAndView getPublicNoticeLists(ModelAndView mv) {
-		mv.setViewName("admin/notice/ntclist");
+	@RequestMapping("admin/notice/admntclist")
+	public ModelAndView getadmntclist(ModelAndView mv) {
+		mv.setViewName("admin/notice/admntclist");
 		return mv;
 	}
 	
@@ -49,11 +49,11 @@ public class NoticeController {
 		noticeService.addPublicNotice(pubntcTitle, pubntcContent);
 	}
 	
-	//admin 공지사항 상세 조회
+	//admin 전체 공지사항 상세 조회
 	@GetMapping
-	@RequestMapping("admin/notice/getntc")
-	public ModelAndView getPublicNotice(ModelAndView mv) {
-		mv.setViewName("admin/notice/getntc");
+	@RequestMapping("admin/notice/admgetntc")
+	public ModelAndView getadmgetntc(ModelAndView mv) {
+		mv.setViewName("admin/notice/admgetntc");
 		return mv;
 	}
 	
@@ -63,7 +63,7 @@ public class NoticeController {
 		return noticeService.getPublicNotice(publicNoticeNo);
 	}
 	
-	//admin 공지사항 수정
+	//admin 전체 공지사항 수정
 	@GetMapping
 	@RequestMapping("admin/notice/fixntc")
 	public ModelAndView fixPublicNotice(ModelAndView mv) {
@@ -77,10 +77,42 @@ public class NoticeController {
 		noticeService.fixPublicNotice(publicNotice);
 	}
 	
-	//admin 공지사항 삭제
+	//admin 전체 공지사항 삭제
 	@DeleteMapping("admin/notice/getntc/del/{publicNoticeNo}")
 	public void delPublicNotice(@PathVariable int publicNoticeNo) {
 		noticeService.delPublicNotice(publicNoticeNo);
 	}
+	
+	//company 전체 공지사항 목록
+	@GetMapping
+	@RequestMapping("admin/notice/ntclist")
+	public ModelAndView getntclist(ModelAndView mv) {
+		mv.setViewName("admin/notice/ntclist");
+		return mv;
+	}
 
+	//company 전체 공지사항 상세 조회
+	@GetMapping
+	@RequestMapping("admin/notice/getntc")
+	public ModelAndView getntc(ModelAndView mv) {
+		mv.setViewName("admin/notice/getntc");
+		return mv;
+	}
+	
+	//user 전체 공지사항 목록
+	@GetMapping
+	@RequestMapping("notice/ntclist")
+	public ModelAndView usergetntclist(ModelAndView mv) {
+		mv.setViewName("notice/ntclist");
+		return mv;
+	}
+	
+	//user 전체 공지사항 상세 조회
+	@GetMapping
+	@RequestMapping("notice/getntc")
+	public ModelAndView usergetntc(ModelAndView mv) {
+		mv.setViewName("notice/getntc");
+		return mv;
+	}
+	
 }

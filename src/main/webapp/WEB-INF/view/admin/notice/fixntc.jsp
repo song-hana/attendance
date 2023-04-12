@@ -11,7 +11,7 @@
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <script src='<c:url value="/res/common.js"/>'></script>
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'/>
-<title></title>
+<title>admin 전체 공지사항 수정</title>
 <script>
 	const urlParams = new URLSearchParams(window.location.search);
 	const publicNoticeNo = urlParams.get('publicNoticeNo');
@@ -66,7 +66,7 @@
     }
     
     function move() {
-    	window.location.href="../notice/getntc?publicNoticeNo=" + publicNoticeNo
+    	window.location.href="../notice/admgetntc?publicNoticeNo=" + publicNoticeNo
     }
   
     $(() => {
@@ -166,7 +166,7 @@
             </div>
             <div class='modal-footer' id='modalBtn'>
                 <button type='button' class='btn m-2 btn-lightgray' id='modalCancelBtn' data-bs-dismiss='modal'>취소</button>
-                <button type='button' class='btn btn-blue' id='modalOKBtn' onclick="window.location.href='ntclist'">확인</button>
+                <button type='button' class='btn btn-blue' id='modalOKBtn' onclick="window.location.href='admntclist'">확인</button>
             </div>
         </div>
     </div>

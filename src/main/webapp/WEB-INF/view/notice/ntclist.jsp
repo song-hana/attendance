@@ -11,13 +11,13 @@
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <script src='<c:url value="/res/common.js"/>'></script>
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'/>
-<title></title>
+<title>user 전체 공지사항 목록</title>
 <script>
 	function listPublicNotices() {
 		$('#publicNoticeList').empty();
 		
 		$.ajax({
-			url :'ntclist/get',
+			url :'../admin/notice/ntclist/get',
 			dataType: 'json',
 			success :publicNoticeList => {
 				if(publicNoticeList.length) {
@@ -40,30 +40,30 @@
 		})
 	}
 	
-
     $(() => {
-        input_company_header()
+        input_user_header()
         btn_click()
-        input_footer()
+        show_logout()
         
         listPublicNotices()
     })
 </script>
 <style>
-    .table {
-        border-top: .1rem solid;
+    table {
+        font-size: .8rem;
     }
-    
     table a {
         color: black;
     }
 
     hr {
-        opacity: 1;
+        width: 80%;
+        margin-left : auto;
+        margin-right : auto;
     }
 
     tr th:first-child {
-        width: 10%;
+        width: 13%;
         text-align: center;
     }
 
@@ -72,7 +72,7 @@
     }
 
     tr th:last-child {
-        width: 15%;
+        width: 20%;
         text-align: center;
     }
     
@@ -87,7 +87,7 @@
     <div class='row header'></div>
     <div class='row mt-5'>
         <div class='col text-center'>
-            <h2><b>공지사항</b></h2>
+            <h1><b>공지사항</b></h1>
         </div>
     </div>
     <div class='row pt-3'>
@@ -96,9 +96,9 @@
             <hr>
         </div>
     </div>
-    <div class='row pt-5'>
+    <div class='row pt-4 mb-5'>
         <div class='col'>
-            <table class='table'>
+            <table class='table table-ellipsis'>
                 <thead>
                     <tr>
                         <th>글 번호</th>
@@ -112,7 +112,7 @@
             </table>
         </div>
     </div>
-    <div class='footer'></div>
+    <div class='navigation'></div>
 </div>
 </body>
 </html>
