@@ -25,36 +25,37 @@
         $('#fixEmployeePwBtn').click(function() {
 			if(employeeNo) {
 				
-			const employeePw = $('#password').val()
-				
-			 $.ajax({
-			     url: 'fixpw/check',
-			     type: 'get',
-			     data: {
-			    	 employeeNo: employeeNo,
-			    	 employeePw: employeePw
-			   	 },
-			     success: function(result) {
-			         console.log(result)
-			         if (result == '1') {
-			        	 passwordCheck = true
-			         	
-			         	$('#pwErrMsg').text('비밀번호가 일치합니다.').css('color', 'green')
-			         } else {
-			        	 passwordCheck = false
-			         	checkIdVal = $('#companyId').val()
-			         	$('#pwErrMsg').text('비밀번호가 일치하지 않습니다.').css('color', 'red')
-			         }
-			     }
-			 })
+				const employeePw = $('#password').val()
+					
+				$.ajax({
+				     url: 'fixpw/check',
+				     type: 'get',
+				     data: {
+				    	 employeeNo: employeeNo,
+				    	 employeePw: employeePw
+				   	 },
+				     success: function(result) {
+				         console.log(result)
+				         if (result == '1') {
+				        	 passwordCheck = true
+				         	
+				         	$('#pwErrMsg').text('비밀번호가 일치합니다.').css('color', 'green')
+				         } else {
+				        	 passwordCheck = false
+				         	checkIdVal = $('#companyId').val()
+				         	$('#pwErrMsg').text('비밀번호가 일치하지 않습니다.').css('color', 'red')
+				         }
+				     }
+				})
 			 
-			 let newPassword = $('#newPassword')
+			 	let newPassword = $('#newPassword')
 			
 				if(6 <= newPassword.length && newPassword.length <= 15) {
 					
 				} else {
 					$('#newPwErrMsg').text('숫자,문자 포함 6자 이상 15자 이하로 입력하세요.').css('color', 'red')
 				}
+				
 			} else {
 				$('#pwErrMsg').text('비밀번호를 입력하세요.').css('color', 'red')
 			}
