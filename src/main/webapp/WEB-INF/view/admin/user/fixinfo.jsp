@@ -149,8 +149,8 @@
     function DaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
-                var addr = '';
-                var extraAddr = '';
+                let addr = '';
+                let extraAddr = '';
 
                 if (data.userSelectedType === 'R') {
                     addr = data.roadAddress;
