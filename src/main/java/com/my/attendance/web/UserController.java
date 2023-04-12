@@ -89,7 +89,7 @@ public class UserController {
 			session.setAttribute("comPostcode", com.getComPostcode());
 			session.setAttribute("comPh", com.getComPh());
 			session.setAttribute("comEmail", com.getComEmail());
-			session.setAttribute("profileName", com.getPresident());
+			session.setAttribute("president", com.getPresident());
 			result = "company";
 		} else {
 			result = "";
