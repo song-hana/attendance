@@ -250,7 +250,7 @@
                 <input type='password' class='form-control' id='comPwCheck' placeholder='비밀번호를 다시 입력하세요'>
                 <span id='pwCheckErrMsg'></span><br>
                 <label for='company_name'>회사명</label>
-                <input type='text' class='form-control' id='comName' placeholder='-제외'>
+                <input type='text' class='form-control' id='comName'>
                 <span id='nameCheckErrMsg'></span><br>
                 <label for='company_number'>사업자번호</label>
                 <input type='text' class='form-control' id='comRegno' placeholder='-제외'>

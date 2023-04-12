@@ -1,5 +1,7 @@
 package com.my.attendance.dao;
 
+import java.util.List;
+
 import com.my.attendance.domain.Employee;
 
 public interface EmployeeDao {
@@ -8,4 +10,6 @@ public interface EmployeeDao {
 	String selectEmployeePw(String employeeId, String employeePino);
 	int insertEmployee(Employee employee);
 	int checkEmployee(String empId);
+	void updateEmployee(Employee employee);
+	List<Employee> choiceEmployee(String empId);
 }

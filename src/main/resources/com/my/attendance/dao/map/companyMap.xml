@@ -24,7 +24,7 @@
 	</select>
 	
 	<insert id="insertCompany">
-        insert into  attendance.companys(company_Id,com_pw,com_name,
+        insert into  attendance.companys(company_id,com_pw,com_name,
         com_regno,com_addr,com_detailaddr,com_postcode,com_ph,com_email,president)    
         values (#{companyId}, #{comPw}, #{comName},
         #{comRegno},#{comAddr},#{comDetailAddr},#{comPostcode},#{comPh},

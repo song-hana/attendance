@@ -1,11 +1,14 @@
 package com.my.attendance.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -106,5 +109,24 @@ public class EmployeeController {
 	@ResponseBody
 	public int checkEmployee(String empId) {
 		return employeeService.checkEmployee(empId);
+	}	
+		    	    	
+	@GetMapping
+	@RequestMapping("company/emp/fixemp")
+	public ModelAndView fixEmployee(ModelAndView mv) {
+		mv.setViewName("company/emp/fixemp");
+		return mv;
+	}
+	
+	@PutMapping("company/emp/fixemp/fix")
+	public ResponseEntity<String> fixEmployee(@RequestBody Employee employee){
+		employeeService.fixEmployee(employee);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@GetMapping("company/emp/fixemp/get")
+	@ResponseBody
+	public List<Employee> choiceEmployee(String empId){
+		return employeeService.getEmployee(empId);
 	}
 }

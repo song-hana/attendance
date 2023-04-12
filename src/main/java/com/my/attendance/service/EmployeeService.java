@@ -1,5 +1,7 @@
 package com.my.attendance.service;
 
+import java.util.List;
+
 import com.my.attendance.domain.Employee;
 
 public interface EmployeeService {
@@ -8,4 +10,6 @@ public interface EmployeeService {
 	String findPw(String employeeId, String employeePino);
 	void addEmployee(Employee employee);
 	int checkEmployee(String empId);
+	void fixEmployee(Employee employee);
+	List<Employee> getEmployee(String empId);
 }

@@ -37,4 +37,29 @@
 		from employees
 		where emp_id = #{empId}
 	</select>
+	
+	<update id='updateEmployee'>
+	    update attendance.employees
+	    set emp_id = #{empId},
+	        emp_pw = #{empPw},
+	        emp_name = #{empName},
+	        emp_addr = #{empAddr},
+	        emp_detailaddr = #{empDetailAddr},
+	        emp_postcode = #{empPostcode},
+	        emp_ph = #{empPh},
+	        emp_email = #{empEmail},
+	        hire_date = #{hireDate},
+	        emp_position = #{empPosition},
+	        emp_pino = #{empPino},
+	        profile_name = #{profileName},
+	        company_id = #{companyId}
+	    	where emp_id = #{empId}
+	</update>	
+	
+	<select id='choiceEmployee' resultType='employee'>
+		select *
+		from employees
+		where emp_id = #{empId}
+	</select>
+
 </mapper>

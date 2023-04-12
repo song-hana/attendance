@@ -12,10 +12,10 @@
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css'/>
 <script src='<c:url value="/res/common.js"/>'></script>
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
-<title>직원 추가</title>
+<title>직원 수정</title>
 <script>
- //let companyId = "${sessionScope.comId}"
-let companyId = "company"
+ let companyId = "${sessionScope.comId}"
+
 
 function errMsgClear() {
     $('#idErrMsg, #pwErrMsg, #pwCheckErrMsg, #nameCheckErrMsg, #addrErrMsg, #empPositionErrMsg, #emailErrMsg, #empPhErrMsg,#hireDateErrMsg,#empPinoCheckErrMsg,#profileNameErrMsg').empty()
@@ -38,7 +38,7 @@ function isVal(field, errMsgElement, errMsg) {
 	
 	$(() => {
 	    input_form_header()
-	     $('.form_box').off('click').on('click', '#addEmpBtn', function() {
+	     $('.form_box').off('click').on('click', '#fixEmpBtn', function() {
       		errMsgClear()
       		
       		const empId = $('#empId')
@@ -86,16 +86,15 @@ function isVal(field, errMsgElement, errMsg) {
 	                profileName:profileName.val(),
 	                companyId: companyId
 	            }
-	            
 	            if(checkId != 0 && checkIdVal == $('#empId').val()) {
 		            if(empPw.val() == empPwCheck.val()) {
 			        	$.ajax({
-			                url: '/company/emp/addemp/add',
-			                type: 'post',
+			                url: 'fixemp/fix',
+			                type: 'put',
 			                contentType: 'application/json',
 			                data: JSON.stringify(employee),
 			                success: function() {
-			                    $('#modalMsg').text('등록이 완료되었습니다.')
+			                    $('#modalMsg').text('수정이 완료되었습니다.')
 			                    $('#modalBtn').hide()
 			                    $('#modal').modal('show')
 			                    setTimeout(function() {
@@ -143,6 +142,39 @@ function isVal(field, errMsgElement, errMsg) {
             }
         })          
     })
+	
+	function listEmployee() {
+	    $.ajax({
+	        url: 'fixemp/get',
+	        dataType: 'json',
+	        data: { 
+	            empId: empId
+	        },
+	        success: employees => {
+	            $.each(employees, (i, employee) => {
+	            	const emailParts = employee.empEmail.split('@');
+	                const inputEmail = emailParts[0];
+	                const subEmail = emailParts[1];
+	            	
+	                $('#empId').val(employee.empId)
+	                $('#empPw').val(employee.empPw)
+	                $('#empPwCheck').val(employee.empPw)
+	                $('#empName').val(employee.empName)	          
+	                $('#empPostcode').val(employee.empPostcode)
+	                $('#empAddr').val(employee.empAddr)
+	                $('#empDetailAddr').val(employee.empDetailAddr)
+	                $('#inputEmail').val(inputEmail)
+	                $('#subEmail').val(subEmail)	                
+	                $('#empPh').val(emppany.empPh)
+	                $('#empPino').val(employee.empPino)
+	                $('#empPosition').val(employee.empPosition)
+	                $('#hireDate').val(employee.hireDate)
+	                $('#profileName').val(employee.profileName)
+	            });
+	        },
+	    });
+	}
+
     
     function selfChoice() {
     	$('#subEmail').val('')
@@ -227,11 +259,13 @@ function isVal(field, errMsgElement, errMsg) {
     #dropdown{
       margin-left: 0.5rem;
     }
+    
     input[type=number]::-webkit-outer-spin-button,
 	input[type=number]::-webkit-inner-spin-button {
 	    -webkit-appearance: none;
 	    margin: 0;
 	}
+	
 </style>
 </head>
 <body>
@@ -307,7 +341,7 @@ function isVal(field, errMsgElement, errMsg) {
                   <input type='text' class='form-control' id='empPosition'>
                  <span id='empPositionErrMsg'></span> <br>
                 <br>
-                <button type='button' id='addEmpBtn' class='btn btn-blue text-center'>직 원 등 록</button><br>
+                <button type='button' id='fixEmpBtn' class='btn btn-blue text-center'>직 원 수 정</button><br>
             </form>
         </div>
         <div class='navigation'></div>
