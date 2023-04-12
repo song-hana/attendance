@@ -1,10 +1,18 @@
 package com.my.attendance.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.my.attendance.domain.Admin;
 import com.my.attendance.domain.Company;
@@ -162,6 +170,44 @@ public class UserController {
 	public String getEmployeePw( String employeeId, String employeePino) {
 		String pw = userService.findPw(employeeId, employeePino);
 		return pw;
+	}
+	
+	@GetMapping
+	@RequestMapping("admin/user/addcom")
+	public ModelAndView addcom(ModelAndView mv) {
+		mv.setViewName("admin/user/addcom");
+		return mv;
+	}
+	
+	@PostMapping("admin/user/addcom/add")
+	public ResponseEntity<String> addCompany(@RequestBody Company company) {
+	    userService.addCompany(company);
+	    return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+	
+	@GetMapping("admin/user/addcom/check")
+	@ResponseBody
+	public int checkCompany(String companyId) {
+	    return userService.checkCompany(companyId);
+	}
+	
+	@GetMapping
+	@RequestMapping("admin/user/fixinfo")
+	public ModelAndView fixCompany(ModelAndView mv) {
+		mv.setViewName("admin/user/fixinfo");
+		return mv;				
+	}
+	
+	@PutMapping("admin/user/fixinfo/fix")
+	public ResponseEntity<String> fixCompany(@RequestBody Company company){
+		userService.fixCompany(company);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@GetMapping("admin/user/fixinfo/get")
+	@ResponseBody
+	public List<Company> choiceCompany(String companyId) {
+	    return userService.getCompany(companyId);
 	}
 	
 }

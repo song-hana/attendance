@@ -1,5 +1,7 @@
 package com.my.attendance.dao;
 
+import java.util.List;
+
 import com.my.attendance.domain.Company;
 
 public interface CompanyDao {
@@ -8,4 +10,6 @@ public interface CompanyDao {
 	String selectCompanyPw(String companyId, String companyEmail);
 	int insertCompany(Company company);
 	int checkCompany(String companyId);
+	void updateCompany(Company company);
+	List<Company> choiceCompany(String companyId);
 }

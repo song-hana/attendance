@@ -7,7 +7,7 @@ public class Company {
 	private String companyId;
 	private String comPw;
 	private String comName;
-	private int comRegno;
+	private long comRegno;
 	private String comAddr;
 	private String comDetailAddr;
 	private int comPostcode;
