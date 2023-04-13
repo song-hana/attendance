@@ -1,5 +1,8 @@
 package com.my.attendance.dao;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -29,5 +32,15 @@ public class WorkDaoImpl implements WorkDao {
 	@Override
 	public Work selectInsertEnd(int workNo) {
 		return workMap.selectInsertEnd(workNo);
+	}
+
+	@Override
+	public List<Work> selectChoiceDay(LocalDate choiceDay, String companyId) {
+		return workMap.selectChoiceDay(choiceDay, companyId);
+	}
+	
+	@Override
+	public List<Work> selectworkHoliday(LocalDate choiceDay, String companyId) {
+		return workMap.selectworkHoliday(choiceDay, companyId);
 	}
 }

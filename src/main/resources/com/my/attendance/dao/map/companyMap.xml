@@ -50,6 +50,11 @@
 		  where company_Id = #{companyId}
 	</update>
 	
+	<delete id='deleteCompany'>
+		delete companys
+		where company_id = #{companyId}
+	</delete>
+	
 	<select id='choiceCompany' resultType='company'>
 	  	select *
 	  	from companys

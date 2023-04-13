@@ -1,13 +1,18 @@
 package com.my.attendance.web;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.my.attendance.domain.Work;
 import com.my.attendance.domain.WorkDto;
@@ -16,17 +21,23 @@ import com.my.attendance.service.WorkService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("work")
 public class WorkController {
 	@Autowired WorkService workService;
 	
-	@GetMapping("record")
+	@RequestMapping("work/record")
 	public String recordTime() {
 		return "work/record";
 	}
+
+	@GetMapping
+	@RequestMapping("admin/work/getlist")
+	public ModelAndView getlist(ModelAndView mv) {
+		mv.setViewName("admin/work/getlist");
+		return mv;
+	}
 	
 	@ResponseBody
-	@GetMapping("start")
+	@GetMapping("work/start")
 	public String recordStartTime(int employeeNo,
 			HttpSession session) {
 		String result = "";
@@ -43,7 +54,7 @@ public class WorkController {
 	}
 	
 	@ResponseBody
-	@GetMapping("end")
+	@GetMapping("work/end")
 	public String recordEndTime(int workNo,
 			HttpSession session) {
 		String result = "";
@@ -59,5 +70,17 @@ public class WorkController {
 		session.setAttribute("workNo", null);
 		
 		return result;
+	}
+	
+	@GetMapping("admin/work/getlist/get")
+	@ResponseBody
+	public List<Work> getChoiceDay(@RequestParam("choiceDay") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate choiceDay, String companyId) {
+	    return workService.getChoiceDay(choiceDay, companyId);
+	}
+	
+	@GetMapping("admin/work/getlist/getworkHoliday")
+	@ResponseBody
+	public List<Work> getworkHoliday(@RequestParam("choiceDay") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate choiceDay, String companyId) {
+		return workService.getworkHoliday(choiceDay, companyId);
 	}
 }

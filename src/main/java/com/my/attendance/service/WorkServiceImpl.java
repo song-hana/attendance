@@ -1,5 +1,8 @@
 package com.my.attendance.service;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +32,15 @@ public class WorkServiceImpl implements WorkService {
 	@Override
 	public Work getAddEnd(int workNo) {
 		return workDao.selectInsertEnd(workNo);
+	}
+
+	@Override
+	public List<Work> getChoiceDay(LocalDate choiceDay, String companyId) {
+		return workDao.selectChoiceDay(choiceDay, companyId);
+	}
+	
+	@Override
+	public List<Work> getworkHoliday(LocalDate choiceDay, String companyId) {
+		return workDao.selectworkHoliday(choiceDay, companyId);
 	}
 }

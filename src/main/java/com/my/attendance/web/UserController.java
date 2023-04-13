@@ -7,11 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.my.attendance.domain.Admin;
 import com.my.attendance.domain.Company;
@@ -63,6 +65,13 @@ public class UserController {
 	@RequestMapping("user/findpw")
 	public String findpw() {
 		return "user/findpw";
+	}
+	
+	@GetMapping
+	@RequestMapping("user/fixpw")
+	public ModelAndView fixPw(ModelAndView mv) {
+		mv.setViewName("user/fixpw");
+		return mv;				
 	}
 	
 	@Autowired private UserService userService;
@@ -207,4 +216,15 @@ public class UserController {
 		return pw;
 	}
 	
+	@GetMapping("user/fixpw/check")
+	@ResponseBody
+	public int checkEmployeePw(int employeeNo, String employeePw) {
+	    return userService.checkEmployeePw(employeeNo, employeePw);
+	}
+	
+	@PutMapping("user/fixpw/fix/{employeeNo}/{employeePw}")
+	public ResponseEntity<String> fixEmployeePw(@PathVariable int employeeNo, @PathVariable String employeePw){
+		userService.fixEmployeePw(employeeNo, employeePw);
+		 return new ResponseEntity<>(HttpStatus.OK);
+	}
 }

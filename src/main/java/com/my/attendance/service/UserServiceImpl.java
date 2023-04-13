@@ -75,4 +75,14 @@ public class UserServiceImpl implements UserService {
 	public String findPw(String employeeId, String employeePino) {
 		return employeeDao.selectEmployeePw(employeeId, employeePino);
 	}
+	
+	@Override
+	public int checkEmployeePw(int employeeNo, String employeePw) {
+		return employeeDao.checkEmployeePw(employeeNo, employeePw);
+	}
+
+	@Override
+	public void fixEmployeePw(int employeeNo, String employeePw) {
+		employeeDao.updateEmployeePw(employeeNo, employeePw);
+	}
 }

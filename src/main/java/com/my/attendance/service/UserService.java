@@ -23,4 +23,6 @@ public interface UserService {
 	Employee loginCheck(String employeeId, String employeePw);
 	String findId(String employeeName, String employeePh);
 	String findPw(String employeeId, String employeePino);
+	int checkEmployeePw(int employeeNo, String employeePw);
+	void fixEmployeePw(int employeeNo, String employeePw);
 }
