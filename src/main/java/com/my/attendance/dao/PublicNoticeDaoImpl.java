@@ -23,8 +23,8 @@ public class PublicNoticeDaoImpl implements PublicNoticeDao{
 	}
 	
 	@Override
-	public void insertPublicNotice(String pubntcTitle, String pubntcContent) {
-		publicNoticeMap.insertPublicNotice(pubntcTitle, pubntcContent);
+	public void insertPublicNotice(String publicNoticeTitle, String publicNoticeContent) {
+		publicNoticeMap.insertPublicNotice(publicNoticeTitle, publicNoticeContent);
 	}
 	
 	@Override

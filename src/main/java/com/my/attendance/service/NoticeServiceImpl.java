@@ -23,8 +23,8 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 	
 	@Override
-	public void addPublicNotice(String pubntcTitle, String pubntcContent) {
-		publicNoticeDao.insertPublicNotice(pubntcTitle, pubntcContent);
+	public void addPublicNotice(String publicNoticeTitle, String publicNoticeContent) {
+		publicNoticeDao.insertPublicNotice(publicNoticeTitle, publicNoticeContent);
 	}
 	
 	@Override

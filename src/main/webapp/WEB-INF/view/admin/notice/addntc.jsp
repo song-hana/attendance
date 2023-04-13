@@ -51,8 +51,8 @@
 					url:'addntc/add',
 					method:'post',
 					data: {
-						pubntcTitle: \$('#publicNoticeTitle').val(),
-						pubntcContent: \$('#publicNoticeContent').val()
+						publicNoticeTitle: \$('#publicNoticeTitle').val(),
+						publicNoticeContent: \$('#publicNoticeContent').val()
 					},
 					success : move
 				});

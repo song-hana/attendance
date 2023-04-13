@@ -32,7 +32,6 @@ public class NoticeController {
 	@GetMapping("admin/notice/ntclist/get")
 	@ResponseBody
 	public List<PublicNotice> getPublicNoticeLists() {
-		//System.out.println(noticeService.getPublicNoticeLists().size());
 		return noticeService.getPublicNoticeLists();
 	}
 	
@@ -45,8 +44,8 @@ public class NoticeController {
 	}
 	
 	@PostMapping("admin/notice/addntc/add")
-	public void addPublicNotice(String pubntcTitle, String pubntcContent) {
-		noticeService.addPublicNotice(pubntcTitle, pubntcContent);
+	public void addPublicNotice(String publicNoticeTitle, String publicNoticeContent) {
+		noticeService.addPublicNotice(publicNoticeTitle, publicNoticeContent);
 	}
 	
 	//admin 전체 공지사항 상세 조회
