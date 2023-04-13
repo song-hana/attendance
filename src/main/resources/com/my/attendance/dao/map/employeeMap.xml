@@ -29,4 +29,10 @@
 		where employee_no = #{employeeNo}
 		and emp_pw = #{employeePw}
 	</select>
+	
+	<update id='updateEmployeePw'>
+		update attendance.employees
+		set emp_pw = #{employeePw}
+		where employee_no = #{employeeNo}
+	</update>
 </mapper>
