@@ -60,7 +60,7 @@ function input_company_header() {
     header_txt += '             </ul>'
     header_txt += '          </div>'
     header_txt += '          <div class="col logo">'
-    header_txt += `             <div class="logo_img text-center" onclick='location.href="/admin"'>로고이미지</div>`
+    header_txt += `             <div class="logo_img text-center" onclick='location.href="/company"'>로고이미지</div>`
     header_txt += '          </div>'
     header_txt += '          <div class="col btns mt-1 text-end">'
     header_txt += '             <a href="/admin/user/login" class="collapse show">로그인</a>'
@@ -136,7 +136,7 @@ function input_company_sidebar() {
     sideBar += '         <li><a href="/admin/notice/comntclist">사내 공지</a></li><br>'
     sideBar += '         <li><a href="/admin/user/emplist">직원 조회</a></li><br>'
     sideBar += '         <li><a href="/admin/work/getlist">직원 근태 목록</a></li><br>'
-    sideBar += '         <li><a href="holidaylist">사내 일정</a></li><br>'
+    sideBar += '         <li><a href="/admin/plan/planlist">사내 일정</a></li><br>'
     sideBar += '         <li><a href="/admin/user/getinfo">회사 정보</a></li><br>'
     sideBar += '     </ul>'
 

@@ -129,6 +129,8 @@
 	                    	workHour = endHour - startHour - 1
 	                    }
 	                    
+	                    if(workHour < 0) workHour = 0
+	                    
 	                    // 추가근무시간
 	                    if (workHour >= 9) {
 	                    	plusWorkHour = (workHour - 9)

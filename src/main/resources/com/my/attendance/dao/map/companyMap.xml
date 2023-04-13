@@ -55,6 +55,11 @@
 		where company_id = #{companyId}
 	</delete>
 	
+	<select id='selectCompanys' resultType='company'>
+		select *
+		from companys
+	</select>
+		
 	<select id='choiceCompany' resultType='company'>
 	  	select *
 	  	from companys

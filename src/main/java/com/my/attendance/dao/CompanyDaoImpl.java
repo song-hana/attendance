@@ -43,6 +43,16 @@ public class CompanyDaoImpl implements CompanyDao {
 	}
 	
 	@Override
+	public void deleteCompany(String companyId) {
+		companyMap.deleteCompany(companyId);
+	}
+	
+	@Override
+	public List<Company> selectCompanys() {
+		return companyMap.selectCompanys();
+	}
+	
+	@Override
 	public List<Company> choiceCompany(String companyId) {
 		return companyMap.choiceCompany(companyId);
 	}

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +25,22 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UserController {
-	//company--------------------------------
+	//admin (set view)
+	@GetMapping
+	@RequestMapping("admin/user/comlist")
+	public ModelAndView Companylist(ModelAndView mv) {
+		mv.setViewName("admin/user/comlist");
+		return mv;
+	}
+	
+	@GetMapping
+	@RequestMapping("admin/user/getcom")
+	public ModelAndView Companyget(ModelAndView mv) {
+		mv.setViewName("admin/user/getcom");
+		return mv;
+	}
+	
+	//company (set view)
 	@RequestMapping("admin/user/login")
 	public String loginCompany() {
 		return "admin/user/login";
@@ -50,8 +66,21 @@ public class UserController {
 		return "admin/user/fixinfo";
 	}
 	
+	@GetMapping
+	@RequestMapping("admin/user/getinfo")
+	public ModelAndView getCompany(ModelAndView mv) {
+		mv.setViewName("admin/user/getinfo");
+		return mv;
+	}
 	
-	//employee ------------------------------
+	@GetMapping
+	@RequestMapping("admin/user/emplist")
+	public ModelAndView listEmployee(ModelAndView mv) {
+		mv.setViewName("admin/user/emplist");
+		return mv;
+	}
+	
+	//employee (set view)
 	@RequestMapping("user/login")
 	public String loginEmployee() {
 		return "user/login";
@@ -108,15 +137,6 @@ public class UserController {
 		Company com = userService.comLoginCheck(companyId, companyPw);
 		if(com != null) {
 			session.setAttribute("comId", com.getCompanyId());
-			session.setAttribute("comPw", com.getComPw());
-			session.setAttribute("comName", com.getComName());
-			session.setAttribute("comRegno", com.getComRegno());
-			session.setAttribute("comAddr", com.getComAddr());
-			session.setAttribute("comDetailAddr", com.getComDetailAddr());
-			session.setAttribute("comPostcode", com.getComPostcode());
-			session.setAttribute("comPh", com.getComPh());
-			session.setAttribute("comEmail", com.getComEmail());
-			session.setAttribute("president", com.getPresident());
 			result = "company";
 		} else {
 			result = "";
@@ -168,6 +188,19 @@ public class UserController {
 	public List<Company> choiceCompany(String companyId) {
 	    return userService.getCompany(companyId);
 	}
+
+	@ResponseBody
+	@GetMapping("admin/user/comlist/get")
+	public List<Company> getCompanys() {
+		return userService.getCompanys();
+	}
+	
+	@DeleteMapping("admin/user/getinfo/del/{companyId}")
+	public ResponseEntity<String> delCompany(@PathVariable String companyId) {
+	    userService.delCompany(companyId);
+	    return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
 	
 	//employee--------------------------------
 	@GetMapping("user/loginEmp")
@@ -176,18 +209,8 @@ public class UserController {
 		Employee emp = userService.loginCheck(employeeId, employeePw);
 		if(emp != null) {
 			session.setAttribute("empNo", emp.getEmployeeNo());
-			session.setAttribute("empId", emp.getEmpId());
-			session.setAttribute("empPw", emp.getEmpPw());
 			session.setAttribute("empName", emp.getEmpName());
-			session.setAttribute("empAddr", emp.getEmpAddr());
-			session.setAttribute("empDetailAddr", emp.getEmpDetailAddr());
-			session.setAttribute("empPostcode", emp.getEmpPostcode());
-			session.setAttribute("empPh", emp.getEmpPh());
-			session.setAttribute("empEmail", emp.getEmpEmail());
 			session.setAttribute("hireDate", emp.getHireDate());
-			session.setAttribute("empPosition", emp.getEmpPosition());
-			session.setAttribute("empPino", emp.getEmpPino());
-			session.setAttribute("profileName", emp.getProfileName());
 			session.setAttribute("comId", emp.getCompanyId());
 			result = "main";
 		} else {
@@ -226,5 +249,23 @@ public class UserController {
 	public ResponseEntity<String> fixEmployeePw(@PathVariable int employeeNo, @PathVariable String employeePw){
 		userService.fixEmployeePw(employeeNo, employeePw);
 		 return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@ResponseBody
+	@GetMapping("admin/user/emplist/get")
+	public List<Employee> getEmployees(String companyId) {
+		return userService.getEmployees(companyId);
+	}
+	
+	@DeleteMapping("admin/user/emplist/del/{employeeNo}")
+	public ResponseEntity<String> delEmployee(@PathVariable int employeeNo) {
+	    userService.delEmployee(employeeNo);
+	    return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@ResponseBody
+	@GetMapping("admin/user/emplist/getInfo/{employeeNo}")
+	public List<Employee> getEmployeeInfo(@PathVariable int employeeNo) {
+		return userService.getEmployeeInfo(employeeNo);
 	}
 }

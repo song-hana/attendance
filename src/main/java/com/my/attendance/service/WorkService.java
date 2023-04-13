@@ -1,6 +1,7 @@
 package com.my.attendance.service;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 
 import com.my.attendance.domain.Work;
@@ -13,4 +14,5 @@ public interface WorkService {
 	Work getAddEnd(int workNo);
 	List<Work> getChoiceDay(LocalDate choiceDay, String companyId);
 	List<Work> getworkHoliday(LocalDate choiceDay, String companyId);
+	List<Work> getWorkHolidays(YearMonth yearMonth, int employeeNo);
 }

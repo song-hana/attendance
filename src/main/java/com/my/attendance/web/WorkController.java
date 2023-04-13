@@ -2,6 +2,7 @@ package com.my.attendance.web;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -33,6 +34,13 @@ public class WorkController {
 	@RequestMapping("admin/work/getlist")
 	public ModelAndView getlist(ModelAndView mv) {
 		mv.setViewName("admin/work/getlist");
+		return mv;
+	}
+	
+	@GetMapping
+	@RequestMapping("work/getlist")
+	public ModelAndView getholiday(ModelAndView mv) {
+		mv.setViewName("work/getlist");
 		return mv;
 	}
 	
@@ -74,13 +82,19 @@ public class WorkController {
 	
 	@GetMapping("admin/work/getlist/get")
 	@ResponseBody
-	public List<Work> getChoiceDay(@RequestParam("choiceDay") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate choiceDay, String companyId) {
+	public List<Work> getChoiceDay(@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate choiceDay, String companyId) {
 	    return workService.getChoiceDay(choiceDay, companyId);
 	}
 	
 	@GetMapping("admin/work/getlist/getworkHoliday")
 	@ResponseBody
-	public List<Work> getworkHoliday(@RequestParam("choiceDay") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate choiceDay, String companyId) {
+	public List<Work> getworkHoliday(@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate choiceDay, String companyId) {
 		return workService.getworkHoliday(choiceDay, companyId);
+	}
+	
+	@GetMapping("work/getlist/get")
+	@ResponseBody
+	public List<Work> getWorkHolidays(@DateTimeFormat(pattern = "yyyy-MM") YearMonth yearMonth, int employeeNo) {
+	    return workService.getWorkHolidays(yearMonth, employeeNo);
 	}
 }

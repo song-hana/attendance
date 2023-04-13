@@ -54,6 +54,16 @@ public class UserServiceImpl implements UserService {
 	public void fixCompany(Company company) {
 		 companyDao.updateCompany(company);
 	}
+
+	@Override
+	public void delCompany(String companyId) {
+		companyDao.deleteCompany(companyId);
+	}
+	
+	@Override
+	public List<Company> getCompanys() {
+		return companyDao.selectCompanys();
+	}
 	
 	@Override
 	public List<Company> getCompany(String companyId) {
@@ -84,5 +94,20 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void fixEmployeePw(int employeeNo, String employeePw) {
 		employeeDao.updateEmployeePw(employeeNo, employeePw);
+	}
+	
+	@Override
+	public List<Employee> getEmployees(String companyId) {
+		return employeeDao. selectEmployees(companyId);
+	}
+	
+	@Override
+	public List<Employee> getEmployeeInfo(int employeeNo) {
+		return employeeDao.selectEmployeeInfo(employeeNo);
+	}
+	
+	@Override
+	public void delEmployee(int employeeNo) {
+		employeeDao.deleteEmployee(employeeNo);
 	}
 }

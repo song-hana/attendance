@@ -17,7 +17,9 @@ public interface UserService {
 	void addCompany(Company company);
 	int checkCompany(String companyId);
 	void fixCompany(Company company);
+	void delCompany(String companyId);
 	List<Company> getCompany(String companyId);
+	List<Company> getCompanys();
 	
 	// employee
 	Employee loginCheck(String employeeId, String employeePw);
@@ -25,4 +27,7 @@ public interface UserService {
 	String findPw(String employeeId, String employeePino);
 	int checkEmployeePw(int employeeNo, String employeePw);
 	void fixEmployeePw(int employeeNo, String employeePw);
+	List<Employee> getEmployees(String companyId);
+	List<Employee> getEmployeeInfo(int employeeNo);
+	void delEmployee(int employeeNo);
 }

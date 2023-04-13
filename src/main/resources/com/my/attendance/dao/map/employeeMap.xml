@@ -35,4 +35,21 @@
 		set emp_pw = #{employeePw}
 		where employee_no = #{employeeNo}
 	</update>
+	
+	<select id='selectEmployees' resultType='employee'>
+		select *
+		from employees
+		where company_id = #{companyId}
+	</select>
+	
+	<delete id='deleteEmployee'>
+		delete employees
+		where employee_no = #{employeeNo}
+	</delete>
+	
+	<select id='selectEmployeeInfo' resultType='employee'>
+		select *
+		from employees
+		where employee_no = #{employeeNo}
+	</select>
 </mapper>

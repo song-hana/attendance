@@ -1,6 +1,7 @@
 package com.my.attendance.service;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +43,10 @@ public class WorkServiceImpl implements WorkService {
 	@Override
 	public List<Work> getworkHoliday(LocalDate choiceDay, String companyId) {
 		return workDao.selectworkHoliday(choiceDay, companyId);
+	}
+
+	@Override
+	public List<Work> getWorkHolidays(YearMonth yearMonth, int employeeNo) {
+		return workDao.selectWorkHolidays(yearMonth, employeeNo);
 	}
 }

@@ -1,6 +1,7 @@
 package com.my.attendance.dao;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +43,10 @@ public class WorkDaoImpl implements WorkDao {
 	@Override
 	public List<Work> selectworkHoliday(LocalDate choiceDay, String companyId) {
 		return workMap.selectworkHoliday(choiceDay, companyId);
+	}
+	
+	@Override
+	public List<Work> selectWorkHolidays(YearMonth yearMonth, int employeeNo) {
+		return workMap.selectWorkHolidays(yearMonth, employeeNo);
 	}
 }
