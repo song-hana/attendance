@@ -65,7 +65,7 @@
 				$('#modalMsg').empty()
 				$('#modalMsg').append(`<p>이 페이지를 벗어나면 기존 작성된 글이 삭제됩니다.</p>`)
 				$('#modal').modal('show')
-				$('modalBtn').show()
+				$('#modalBtn').show()
 				$('#modalCancelBtn').show();
 				$('#modalOkBtn').click(() => move())
 			} else move()

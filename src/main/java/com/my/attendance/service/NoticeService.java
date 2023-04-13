@@ -2,6 +2,7 @@ package com.my.attendance.service;
 
 import java.util.List;
 
+import com.my.attendance.domain.CompanyNotice;
 import com.my.attendance.domain.PublicNotice;
 
 public interface NoticeService {
@@ -10,4 +11,10 @@ public interface NoticeService {
 	void addPublicNotice(String publicNoticeTitle, String publicNoticeContent);
 	void fixPublicNotice(PublicNotice publicNotice);
 	void delPublicNotice(int publicNoticeNo);
+	
+	List<CompanyNotice> getCompanyNoticeList();
+	List<CompanyNotice> getCompanyNotice(int companyNoticeNo);
+	void addCompanyNotice(String companyNoticeTitle, String companyNoticeContent);
+	void fixCompanyNotice(CompanyNotice companyNotice);
+	void delCompanyNotice(int companyNoticeNo);
 }

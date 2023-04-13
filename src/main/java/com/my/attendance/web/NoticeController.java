@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.my.attendance.domain.CompanyNotice;
 import com.my.attendance.domain.PublicNotice;
 import com.my.attendance.service.NoticeService;
 
@@ -114,4 +115,83 @@ public class NoticeController {
 		return mv;
 	}
 	
+	//CompanyNotice
+	
+	//Company 사내 공지사항 목록
+	@GetMapping
+	@RequestMapping("admin/notice/comntclist")
+	public ModelAndView getcomntclist(ModelAndView mv) {
+		mv.setViewName("admin/notice/comntclist");
+		return mv;
+	}
+	
+	@GetMapping("admin/notice/comntclist/get")
+	@ResponseBody
+	public List<CompanyNotice> getCompanyNoticeList() {
+		return noticeService.getCompanyNoticeList();
+	}
+	
+	//Company 사내 공지사항 추가
+	@GetMapping
+	@RequestMapping("admin/notice/addcomntc")
+	public ModelAndView addCompanyNotice(ModelAndView mv) {
+		mv.setViewName("admin/notice/addcomntc");
+		return mv;
+	}
+	
+	@PostMapping("admin/notice/addcomntc/add")
+	public void addCompanyNotice(String companyNoticeTitle, String companyNoticeContent) {
+		noticeService.addCompanyNotice(companyNoticeTitle, companyNoticeContent);
+	}
+	
+	//Company 사내 공지사항 상세 조회
+	@GetMapping
+	@RequestMapping("admin/notice/getcomntc")
+	public ModelAndView getCompanyNotice(ModelAndView mv) {
+		mv.setViewName("admin/notice/getcomntc");
+		return mv;
+	}
+	
+	@GetMapping("admin/notice/getcomntc/get")
+	@ResponseBody
+	public List<CompanyNotice> getCompanyNotice(int companyNoticeNo) {
+		return noticeService.getCompanyNotice(companyNoticeNo);
+	}
+	
+	//company 사내 공지사항 수정
+	@GetMapping
+	@RequestMapping("admin/notice/fixcomntc")
+	public ModelAndView fixCompanyNotice(ModelAndView mv) {
+		mv.setViewName("admin/notice/fixcomntc");
+		return mv;
+	}
+	
+	@PutMapping("admin/notice/fixcomntc/fix")
+	@ResponseBody
+	public void fixCompanyNotice(@RequestBody CompanyNotice companyNotice) {
+		noticeService.fixCompanyNotice(companyNotice);
+	}
+	
+	//company 사내 공지사항 삭제
+	@DeleteMapping("admin/notice/getcomntc/del/{companyNoticeNo}")
+	public void delCompanyNotice(@PathVariable int companyNoticeNo) {
+		noticeService.delCompanyNotice(companyNoticeNo);
+	}
+	
+	//user 사내 공지사항 목록
+	@GetMapping
+	@RequestMapping("notice/comntclist")
+	public ModelAndView usergetcomntclist(ModelAndView mv) {
+		mv.setViewName("notice/comntclist");
+		return mv;
+	}
+	
+	//user 사내 공지사항 상세 조회
+	@GetMapping
+	@RequestMapping("notice/getcomntc")
+	public ModelAndView usergetcomntc(ModelAndView mv) {
+		mv.setViewName("notice/getcomntc");
+		return mv;
+	}
+
 }

@@ -5,11 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.my.attendance.dao.CompanyNoticeDao;
 import com.my.attendance.dao.PublicNoticeDao;
+import com.my.attendance.domain.CompanyNotice;
 import com.my.attendance.domain.PublicNotice;
 
 @Service
 public class NoticeServiceImpl implements NoticeService {
+	//PublicNotice
 	@Autowired private PublicNoticeDao publicNoticeDao;
 	
 	@Override
@@ -35,5 +38,33 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public void delPublicNotice(int publicNoticeNo) {
 		publicNoticeDao.deletePublicNotice(publicNoticeNo);
+	}
+	
+	//CompanyNotice
+	@Autowired private CompanyNoticeDao companyNoticeDao;
+	
+	@Override
+	public List<CompanyNotice> getCompanyNoticeList(){
+		return companyNoticeDao.selectCompanyNoticeList();
+	}
+	
+	@Override
+	public List<CompanyNotice> getCompanyNotice(int companyNoticeNo){
+		return companyNoticeDao.selectCompanyNotice(companyNoticeNo);
+	}
+	
+	@Override
+	public void addCompanyNotice(String companyNoticeTitle, String companyNoticeContent) {
+		companyNoticeDao.insertCompanyNotice(companyNoticeTitle, companyNoticeContent);
+	}
+	
+	@Override
+	public void fixCompanyNotice(CompanyNotice companyNotice) {
+		companyNoticeDao.updateCompanyNotice(companyNotice);
+	}
+	
+	@Override
+	public void delCompanyNotice(int companyNoticeNo) {
+		companyNoticeDao.deleteCompanyNotice(companyNoticeNo);
 	}
 }
