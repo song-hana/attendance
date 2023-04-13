@@ -14,8 +14,7 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title>직원 추가</title>
 <script>
- //let companyId = "${sessionScope.comId}"
-let companyId = "company"
+ let companyId = "${sessionScope.comId}"
 
 function errMsgClear() {
     $('#idErrMsg, #pwErrMsg, #pwCheckErrMsg, #nameCheckErrMsg, #addrErrMsg, #empPositionErrMsg, #emailErrMsg, #empPhErrMsg,#hireDateErrMsg,#empPinoCheckErrMsg,#profileNameErrMsg').empty()
@@ -99,7 +98,7 @@ function isVal(field, errMsgElement, errMsg) {
 			                    $('#modalBtn').hide()
 			                    $('#modal').modal('show')
 			                    setTimeout(function() {
-			                        window.location.href = '/admin/user/login'
+			                        window.location.href = '/admin/user/emplist'
 			                    }, 2000)
 			                }
 			            });

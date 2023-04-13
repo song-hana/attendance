@@ -57,6 +57,6 @@
 	<select id='choiceEmployee' resultType='employee'>
 		select *
 		from employees
-		where emp_id = #{empId}
+		where employee_no = #{employeeNo}
 	</select>
 </mapper>

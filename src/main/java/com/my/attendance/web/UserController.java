@@ -48,6 +48,11 @@ public class UserController {
 		return "admin/user/fixinfo";
 	}
 	
+	@RequestMapping("admin/user/emplist")
+	public String empList() {
+		return "admin/user/emplist";
+	}
+	
 	
 	//employee ------------------------------
 	@RequestMapping("user/login")
@@ -238,7 +243,7 @@ public class UserController {
 	
 	@GetMapping("admin/user/fixemp/get")
 	@ResponseBody
-	public List<Employee> choiceEmployee(String empId){
-		return userService.getEmployee(empId);
+	public List<Employee> choiceEmployee(int employeeNo){
+		return userService.getEmployee(employeeNo);
 	}
 }

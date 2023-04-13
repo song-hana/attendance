@@ -43,7 +43,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	}
 	
 	@Override
-	public List<Employee> choiceEmployee(String empId){
-		return employeeMap.choiceEmployee(empId);
+	public List<Employee> choiceEmployee(int employeeNo){
+		return employeeMap.choiceEmployee(employeeNo);
 	}
 }

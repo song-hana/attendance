@@ -14,8 +14,14 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title>직원 수정</title>
 <script>
-	 let companyId = "${sessionScope.comId}"
-	 let empId = "${sessionScope.empId}"
+	 //const companyId = "${sessionScope.comId}"
+	 //const urlParams = new URLSearchParams(window.location.search)
+	 //const employeeNo = urlParams.get('employeeNo')
+	 let companyId = 'company'
+	 let employeeNo = 1
+	 
+	 
+
 	
 	
 	function errMsgClear() {
@@ -66,15 +72,17 @@
 	        const isEmpName = isVal(empName, $('#nameCheckErrMsg'), '이름을 입력하세요.')
 	        const isEmpPino = isVal(empPino, $('#empPinoCheckErrMsg'), '주민번호를 입력하세요.')
 	        const isEmpAddr = isVal(empAddr, $('#addrErrMsg'), '주소를 입력하세요.')
-	        const isEmpPosition = isVal(empPosition, $('#empPositionErrMsg'), '직급을 입력하세요.')
 	        const isInputEmail = isVal(inputEmail, $('#emailErrMsg'), '이메일을 입력하세요.')
 	        const isSubEmail = isVal(subEmail, $('#emailErrMsg'), '이메일을 입력하세요.')
 	        const isEmpPh = isVal(empPh, $('#empPhErrMsg'), '전화번호를 입력하세요.')
 	        const isHireDate = isVal(hireDate,$('#hireDateErrMsg'),'입사일을 입력하세요')
-	        const isProfileName = isVal(profileName,$('#profileNameErrMsg'),'프로필을 추가하세요')
 	        
-	        if (isEmpId && isEmpPw && isHireDate && isEmpPwCheck && isEmpName && isEmpPino && isEmpAddr && isEmpPosition && isInputEmail && isSubEmail && isEmpPh) {
-	            let employee = {
+	        if (isEmpId && isEmpPw && isHireDate && isEmpPwCheck && isEmpName && isEmpPino && isEmpAddr && isInputEmail && isSubEmail && isEmpPh) {
+	        	const strProfileName = profileName.val().split('fakepath\\');
+                const profile = strProfileName[1];
+	        	
+	        	let employee = {
+	            	employeeNo: employeeNo,
 	                empId: empId.val(),
 	                empPw: empPw.val(),
 	                empName: empName.val(),
@@ -83,32 +91,42 @@
 	                empPostcode: empPostcode.val(),
 	                empPh: empPh.val(),
 	                empEmail: empEmail,
-	                hireDate:hireDate.val(),
+	                hireDate: hireDate.val(),
 	                empPosition: empPosition.val(),
 	                empPino: empPino.val(),
-	                profileName:profileName.val(),
+	                profileName: profile,
 	                companyId: companyId
 	            }
-	            
-		            if(empPw.val() == empPwCheck.val()) {
-			        	$.ajax({
-			                url: 'fixemp/fix',
-			                type: 'put',
-			                contentType: 'application/json',
-			                data: JSON.stringify(employee),
-			                success: function() {
-			                    $('#modalMsg').text('수정이 완료되었습니다.')
-			                    $('#modalBtn').hide()
-			                    $('#modal').modal('show')
-			                    setTimeout(function(){
-			                    	window.location.href = '/admin/user/emplist'
-			                    },2000)
-			                }
-			            });
-		            } else {
-		        		$('#pwCheckErrMsg').text('비밀번호가 일치하지 않습니다.').css('color', 'red')
-		          }	            
-	         }	            	        
+
+	            if (empPw.val() == empPwCheck.val()) {
+	                if (6 <=  empPw.val().length && empPw.val().length <= 15) {
+	                    if(empPino.val().length == 13) {
+		                	$.ajax({
+		                        url: 'fixemp/fix',
+		                        type: 'put',
+		                        contentType: 'application/json',
+		                        data: JSON.stringify(employee),
+		                        success: function () {
+		                            $('#modalMsg').text('수정이 완료되었습니다.')
+		                            $('#modalBtn').hide()
+		                            $('#modal').modal('show')
+		                          	setTimeout(function () {
+		                            	window.location.href = 'emplist'
+		                          	}, 2000)
+		                        }
+		                    });
+	                    } else {
+	                    	$('#empPinoCheckErrMsg').text('주민등록번호는 13자리로 입력하세요.').css('color', 'red')
+	                    }
+	                    
+	                } else {
+	                    $('#pwErrMsg').text('비밀번호는 6자 이상, 15자 이하로 입력해주세요.').css('color', 'red')
+	                }
+	            } else {
+	                $('#pwCheckErrMsg').text('비밀번호가 일치하지 않습니다.').css('color', 'red')
+	            }
+	        }
+
         })              
     })
 	
@@ -117,7 +135,7 @@
 	        url: 'fixemp/get',
 	        dataType: 'json',
 	        data: { 
-	            empId: empId
+	            employeeNo: employeeNo
 	        },
 	        success: employees => {
 	            $.each(employees, (i, employee) => {
@@ -138,7 +156,6 @@
 	                $('#empPino').val(employee.empPino)
 	                $('#empPosition').val(employee.empPosition)
 	                $('#hireDate').val(employee.hireDate)
-	                $('#profileName').val(employee.profileName)
 	            });
 	        },
 	    });
@@ -247,11 +264,11 @@
                     <input type='text' class='form-control' id='empName'>
                 <span id='nameCheckErrMsg'></span><br>
                 <label for='empPino'>주민번호</label>
-                <input type='password' class='form-control'  id='empPino' placeholder='-제외'>
+                <input type='number' class='form-control'  id='empPino' placeholder='-제외'>
                 <span id ='empPinoCheckErrMsg'></span><br>
-                <label for='input-id'>아이디</label>
+                <label for='input-id' >아이디</label>
                 <div class='input-group'>
-                  <input type='text' class='form-control' id='empId'  name='id' placeholder='숫자, 문자 포함 12자이하로 입력하세요'>                  
+                  <input type='text' class='form-control' id='empId'  name='id' placeholder='숫자, 문자 포함 12자이하로 입력하세요' readOnly >                  
                 </div>
                 <span id='idErrMsg'></span><br>              
                 <label for='password'>비밀번호</label>
@@ -299,10 +316,10 @@
                 <input type='date' class='form-control' id='hireDate'>
                 <span id='hireDateErrMsg'></span><br>
                 <div class='filebox'>
-                <label for='profil'>프로필</label>
-                <div class='input-group'>
-                <input type='file' class='form-control' id='profileName' name='profil'>                                                          
-                </div>
+	                <label for='profil'>프로필</label>
+	                <div class='input-group'>
+	                	<input type='file' class='form-control' id='profileName' name='profil'>                                                          
+	                </div>
                 </div>
                 <span id='profileNameErrMsg'></span><br>                
                 <label for='empPosition'>직급</label>

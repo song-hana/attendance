@@ -11,5 +11,5 @@ public interface EmployeeDao {
 	int insertEmployee(Employee employee);
 	int checkEmployee(String empId);
 	void updateEmployee(Employee employee);
-	List<Employee> choiceEmployee(String empId);
+	List<Employee> choiceEmployee(int employeeNo);
 }
