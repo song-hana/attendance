@@ -1,5 +1,6 @@
 package com.my.attendance.domain;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 
@@ -12,4 +13,5 @@ public class Work {
 	private LocalDateTime endTime;
 	private int employeeNo;
 	private YearMonth yearMonth;
+	private LocalDate holDate;
 }

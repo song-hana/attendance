@@ -24,14 +24,15 @@
 	</select>
 	
 	<select id='selectWorkHolidays' resultType='Work'>
-		select start_time, end_time, null hol_date
+		select start_time, end_time, work_no
 		from attendance.works
 		where to_char(start_time, 'YYYY-MM') = #{yearMonth}
 		and employee_no = #{employeeNo}
 		union all
-		select null, null, hol_date
+		select hol_date, null, null
 		from attendance.holidays
 		where to_char(hol_date, 'YYYY-MM') = #{yearMonth}
 		and employee_no = #{employeeNo}
+		order by start_time 
 	</select>
 </mapper>
