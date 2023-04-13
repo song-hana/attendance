@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.my.attendance.domain.Admin;
 import com.my.attendance.domain.Company;
@@ -65,6 +66,43 @@ public class UserController {
 		return "user/findpw";
 	}
 	
+	@GetMapping
+	@RequestMapping("admin/user/addemp")
+	public ModelAndView addemp(ModelAndView mv) {
+		mv.setViewName("admin/user/addemp");
+		return mv;
+	}
+	
+	@PostMapping("admin/user/addemp/add")
+	public ResponseEntity<String> addEmployee(@RequestBody Employee employee){
+		userService.addEmployee(employee);
+		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+	
+	@GetMapping("admin/user/addemp/check")
+	@ResponseBody
+	public int checkEmployee(String empId) {
+		return userService.checkEmployee(empId);
+	}	
+		    	    	
+	@GetMapping
+	@RequestMapping("admin/user/fixemp")
+	public ModelAndView fixEmployee(ModelAndView mv) {
+		mv.setViewName("admin/user/fixemp");
+		return mv;
+	}
+	
+	@PutMapping("admin/user/fixemp/fix")
+	public ResponseEntity<String> fixEmployee(@RequestBody Employee employee){
+		userService.fixEmployee(employee);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@GetMapping("admin/user/fixemp/get")
+	@ResponseBody
+	public List<Employee> choiceEmployee(String empId){
+		return userService.getEmployee(empId);
+	}
 	@Autowired private UserService userService;
 	
 	//admin--------------------------------
