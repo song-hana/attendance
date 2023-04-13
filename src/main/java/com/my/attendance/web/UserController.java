@@ -124,18 +124,20 @@ public class UserController {
 		return pw;
 	}
 	
-	@DeleteMapping("admin/user/getinfo/del/{companyId}")
-	public ResponseEntity<String> delCompany(@PathVariable String companyId) {
-	    userService.delCompany(companyId);
-	    return new ResponseEntity<>(HttpStatus.OK);
-	}
-	
 	@GetMapping
 	@RequestMapping("admin/user/comlist")
 	public ModelAndView Companylist(ModelAndView mv) {
 		mv.setViewName("admin/user/comlist");
 		return mv;
 	}
+	
+	@GetMapping
+	@RequestMapping("admin/user/getinfo")
+	public ModelAndView getCompany(ModelAndView mv) {
+		mv.setViewName("admin/user/getinfo");
+		return mv;
+	}
+	
 	
 	@GetMapping
 	@RequestMapping("admin/user/getcom")
@@ -148,6 +150,18 @@ public class UserController {
 	@GetMapping("admin/user/comlist/get")
 	public List<Company> getCompanys() {
 		return userService.getCompanys();
+	}
+	
+	@ResponseBody
+	@GetMapping("admin/user/getinfo/get")
+	public List<Company> choiceCompany(String companyId) {
+		return userService.getCompany(companyId);
+	}
+	
+	@DeleteMapping("admin/user/getinfo/del/{companyId}")
+	public ResponseEntity<String> delCompany(@PathVariable String companyId) {
+	    userService.delCompany(companyId);
+	    return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 

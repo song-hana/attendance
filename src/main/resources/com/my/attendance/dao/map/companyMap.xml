@@ -45,6 +45,11 @@
 	<select id='selectCompanys' resultType='company'>
 		select *
 		from companys
-		where company_id = #{company_Id}
+	</select>
+		
+	<select id='choiceCompany' resultType='company'>
+	  	select *
+	  	from companys
+	  	where company_id = #{companyId}
 	</select>
 </mapper>

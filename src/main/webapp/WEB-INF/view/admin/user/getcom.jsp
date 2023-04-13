@@ -13,47 +13,60 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title>기업회원조회</title>
 <script>
-	let companyId = "${sessionScope.comId}"
-	let companyPw = "${sessionScope.comPw}"
-	let companyName = "${sessionScope.comName}"
-	let companyRegno = "${sessionScope.comRegno}"
-	let companyPostcode = "${sessionScope.comPostcode}"
-	let companyAddr = "${sessionScope.comAddr}"
-	let companyDetailAddr = "${sessionScope.comDetailAddr}"
-	let president = "${sessionScope.president}"
+	const urlParams = new URLSearchParams(window.location.search);
+	const companyId = urlParams.get('companyId');
 		
 	function listCompanys() {
-		const companyArr = [];
-		
-		companyArr.push(`
-			<tr>
-		        <td>아이디</td>
-		        <td>\${companyId}</td>
-		    </tr>
-		    <tr>
-		        <td>비밀번호</td>
-		        <td>\${companyPw}</td>
-		    </tr>
-		    <tr>
-		        <td>회사명</td>
-		        <td>\${companyName}</td>
-		    </tr>
-		    <tr>
-		        <td>사업자번호</td>
-		        <td>\${companyRegno}</td>
-		    </tr>
-		    <tr>
-				<td>주소</td>
-		        <td>\${companyPostcode +' '+ companyAddr +' '+ companyDetailAddr}</td>
-		    </tr>
-		    <tr>
-		        <td>대표자명</td>
-		        <td>\${president}</td>
-		    </tr>
-		`)
-		$('#companys').append(companyArr.join(''));
+		$.ajax({
+			url: 'getinfo/get',
+			method: 'get',
+			dataType: 'json',
+			data: {
+				companyId: companyId
+			},
+			success: companys => {
+				if (companys.length) {
+				const companyArr = [];
+				
+				$.each(companys, (i, company) => {
+					const passwordLength = company.comPw.length
+					  let password = ''
+					  for (let i = 0; i < passwordLength; i++) {
+					    password += '*'
+					  }
+				
+					companyArr.unshift(`
+						<tr>
+					        <td>아이디</td>
+					        <td>\${company.companyId}</td>
+					    </tr>
+					    <tr>
+					        <td>비밀번호</td>
+					        <td>\${password}</td>
+					    </tr>
+					    <tr>
+					        <td>회사명</td>
+					        <td>\${company.comName}</td>
+					    </tr>
+					    <tr>
+					        <td>사업자번호</td>
+					        <td>\${company.comRegno}</td>
+					    </tr>
+					    <tr>
+							<td>주소</td>
+					        <td>\${company.comPostcode}) \${company.comAddr} \${company.comDetailAddr}</td>
+					    </tr>
+					    <tr>
+					        <td>대표자명</td>
+					        <td>\${company.president}</td>
+					    </tr>
+					`)
+				  });	
+					$('#companys').append(companyArr.join(''));
+			  }
+			}
+	    });
 	}
- 	
 	   
     $(() => {
     	input_admin_header()
@@ -63,7 +76,7 @@
         show_logout()
         listCompanys()
         
- 		$('#companyDelBtn').click(() => {
+ 		$('#companyDelBtn').on('click', function() {
  			$('#modalMsg').empty()
             $('#modalMsg').text('삭제하시겠습니까?')
             $('#modalBtn').show()
@@ -71,20 +84,17 @@
             
             $('#modalOKBtn').off('click').on('click', function() {
 	              $.ajax({
-	                 url: 'admin/user/comlist/del/{companyId}',
-	                 method: 'delete'
+	                 url: '/admin/user/getinfo/del/' + companyId,
+	                 method: 'delete',
+	                 success: function() {
+	                	 window.location.href = 'comlist'
+	                 }
        		    })
- 		   	})   
-   	    }); 
+ 		   	})
+   	    })
     }) 
 </script>    
 <style>
-    #deluser {
-        width: 10rem;
-        height: 2rem;
-        padding: 0;
-    }
-
     tr th:last-child {
         padding-left: 25%;
     }
@@ -124,24 +134,23 @@
             <button type='button' class='btn btn-red' id='companyDelBtn'>삭제하기</button>
         </div>
         <div class='footer'></div>
-
-        <div class='modal fadel' id='delmodal'>
-            <div class='modal-dialog'>
-                <div class='modal-content'>
-                    <div class='modal-header'>
-                        <button type='button' class='btn-close' data-bs-dismiss='modal'></button>
-                    </div>
-                    <div class='modal-body'>
-                        <p id='modalMsg'></p>
-                    </div>
-                    <div class='modal-footer'>
-                    <button type='button' class='btn btn-lightgray' data-bs-dismiss='modal'>취소</button>
-                    <button type='button' class='btn btn-blue' onclick="location.href='./01.html'">확인</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
+</div>
+<div class='modal fadel' id='modal'>
+<div class='modal-dialog'>
+	<div class='modal-content'>
+	    <div class='modal-header'>
+	        <button type='button' class='btn-close' data-bs-dismiss='modal'></button>
+	    </div>
+	    <div class='modal-body'>
+	        <p id='modalMsg'></p>
+	    </div>
+	    <div class='modal-footer'>
+	    <button type='button' class='btn btn-lightgray' data-bs-dismiss='modal'>취소</button>
+	    <button type='button' class='btn btn-blue' id='modalOKBtn'>확인</button>
+	    </div>
+	</div>
+</div>
 </div>
 </body>
 </html>

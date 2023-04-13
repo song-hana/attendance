@@ -22,4 +22,16 @@
 		from works
 		where work_no = ${workNo}
 	</select>
+	
+	<select id='selectWorkHolidays' resultType='Work'>
+		select start_time, end_time, null hol_date
+		from attendance.works
+		where to_char(start_time, 'YYYY-MM') = #{yearMonth}
+		and employee_no = #{employeeNo}
+		union all
+		select null, null, hol_date
+		from attendance.holidays
+		where to_char(hol_date, 'YYYY-MM') = #{yearMonth}
+		and employee_no = #{employeeNo}
+	</select>
 </mapper>

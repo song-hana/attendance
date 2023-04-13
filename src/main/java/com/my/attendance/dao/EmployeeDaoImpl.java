@@ -1,7 +1,6 @@
 package com.my.attendance.dao;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -41,5 +40,4 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public void deleteEmployee(int employeeNo) {
 		employeeMap.deleteEmployee(employeeNo);
 	}
-
 }

@@ -15,6 +15,7 @@ public interface UserService {
 	String comFindId(String companyName, int companyRegno);
 	String comFindPw(String companyId, String companyEmail);
 	void delCompany(String companyId);
+	List<Company> getCompany(String companyId);
 	List<Company> getCompanys();
 	
 	// employee

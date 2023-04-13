@@ -46,4 +46,9 @@ public class CompanyDaoImpl implements CompanyDao {
 	public List<Company> selectCompanys() {
 		return companyMap.selectCompanys();
 	}
+	
+	@Override
+	public List<Company> choiceCompany(String companyId) {
+		return companyMap.choiceCompany(companyId);
+	}
 }

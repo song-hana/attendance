@@ -1,5 +1,9 @@
 package com.my.attendance.dao;
 
+import java.time.YearMonth;
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -29,5 +33,11 @@ public class WorkDaoImpl implements WorkDao {
 	@Override
 	public Work selectInsertEnd(int workNo) {
 		return workMap.selectInsertEnd(workNo);
+	}
+	
+	@Override
+	public List<Work> selectWorkHolidays(@Param("yearMonth")YearMonth yearMonth,
+										@Param("employeeNo") int employeeNo) {
+		return workMap.selectWorkHolidays(yearMonth, employeeNo);
 	}
 }

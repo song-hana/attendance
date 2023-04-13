@@ -1,13 +1,18 @@
 package com.my.attendance.web;
 
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.my.attendance.domain.Work;
 import com.my.attendance.domain.WorkDto;
@@ -59,5 +64,19 @@ public class WorkController {
 		session.setAttribute("workNo", null);
 		
 		return result;
+	}
+	
+	@GetMapping
+	@RequestMapping("getlist")
+	public ModelAndView getholiday(ModelAndView mv) {
+		mv.setViewName("work/getlist");
+		return mv;
+	}
+	
+	@GetMapping("getlist/get")
+	@ResponseBody
+	public List<Work> getWorkHolidays(@RequestParam("yearMonth") @DateTimeFormat(pattern = "yyyy-MM") YearMonth yearMonth,
+										int employeeNo) {
+	    return workService.getWorkHolidays(yearMonth, employeeNo);
 	}
 }

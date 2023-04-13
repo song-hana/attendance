@@ -26,7 +26,7 @@
 	<select id='selectEmployees' resultType='employee'>
 		select *
 		from employees
-		where company_id = #{company_id}
+		where company_id = #{companyId}
 	</select>
 	
 	<delete id='deleteEmployee'>

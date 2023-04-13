@@ -1,7 +1,6 @@
 package com.my.attendance.domain;
 
 import java.time.LocalDate;
-
 import lombok.Data;
 
 @Data

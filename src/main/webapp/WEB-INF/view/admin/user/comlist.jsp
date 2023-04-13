@@ -28,7 +28,7 @@
 					$.each(companys, (i, company) => {
 						companyArr.unshift(`
 						   <tr>
-							    <td><input type='button' value='상세보기' onclick="location.href='getcom ${company.companyId}'""></td>
+							    <td><input type='button' value='상세보기' onclick="location.href='getcom?companyId=\${company.companyId}'"></td>
 							    <td>\${company.comName}</td>
 							    <td>\${company.comPh}</td>
 								<td>\${company.president}</td>

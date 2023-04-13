@@ -50,6 +50,11 @@ public class UserServiceImpl implements UserService {
 		return companyDao.selectCompanys();
 	}
 	
+	@Override
+	public List<Company> getCompany(String companyId) {
+		return companyDao.choiceCompany(companyId);
+	}
+	
 	// employee
 	@Override
 	public Employee loginCheck(String employeeId, String employeePw) {
