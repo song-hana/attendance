@@ -43,7 +43,7 @@ public class CompanyDaoImpl implements CompanyDao {
 	}
 	
 	@Override
-	public List<Company> choiceCompany(String companyId) {
+	public Company choiceCompany(String companyId) {
 		return companyMap.choiceCompany(companyId);
 	}
 }

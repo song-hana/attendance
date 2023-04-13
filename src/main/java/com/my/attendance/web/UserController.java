@@ -208,7 +208,7 @@ public class UserController {
 	
 	@GetMapping("admin/user/fixinfo/get")
 	@ResponseBody
-	public List<Company> choiceCompany(String companyId) {
+	public Company choiceCompany(String companyId) {
 	    return userService.getCompany(companyId);
 	}
 

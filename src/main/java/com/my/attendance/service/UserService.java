@@ -17,7 +17,7 @@ public interface UserService {
 	void addCompany(Company company);
 	int checkCompany(String companyId);
 	void fixCompany(Company company);
-	List<Company> getCompany(String companyId);
+	Company getCompany(String companyId);
 	
 	// employee
 	Employee loginCheck(String employeeId, String employeePw);

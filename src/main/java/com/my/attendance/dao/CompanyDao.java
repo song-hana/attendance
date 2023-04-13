@@ -11,5 +11,5 @@ public interface CompanyDao {
 	int insertCompany(Company company);
 	int checkCompany(String companyId);
 	void updateCompany(Company company);
-	List<Company> choiceCompany(String companyId);
+	Company choiceCompany(String companyId);
 }

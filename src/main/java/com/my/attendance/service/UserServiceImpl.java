@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public List<Company> getCompany(String companyId) {
+	public Company getCompany(String companyId) {
 		return companyDao.choiceCompany(companyId);
 	}
 	
