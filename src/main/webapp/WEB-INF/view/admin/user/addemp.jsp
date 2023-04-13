@@ -99,7 +99,7 @@ function isVal(field, errMsgElement, errMsg) {
 			                    $('#modalBtn').hide()
 			                    $('#modal').modal('show')
 			                    setTimeout(function() {
-			                        window.location.href = '/company/main'
+			                        window.location.href = '/admin/user/login'
 			                    }, 2000)
 			                }
 			            });
@@ -253,7 +253,7 @@ function isVal(field, errMsgElement, errMsg) {
                 </div>
                 <span id='idErrMsg'></span><br>              
                 <label for='password'>비밀번호</label>
-                <input type='password' class='form-control' id='empPw' placeholder='숫자, 문자 포함 6자이상 15자이하로 입력하세요'>
+                <input type='password' class='form-control'  maxlength='15' id='empPw' placeholder='숫자, 문자 포함 6자이상 15자이하로 입력하세요'>
                 <span id='pwErrMsg'></span><br>
                 <label for='password_confirm'>비밀번호 확인</label>
                 <input type='password' class='form-control' id='empPwCheck' placeholder='비밀번호를 다시 입력하세요'>

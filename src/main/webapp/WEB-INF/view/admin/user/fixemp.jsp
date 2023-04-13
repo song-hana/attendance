@@ -14,30 +14,33 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title>직원 수정</title>
 <script>
- let companyId = "${sessionScope.comId}"
-
-
-function errMsgClear() {
-    $('#idErrMsg, #pwErrMsg, #pwCheckErrMsg, #nameCheckErrMsg, #addrErrMsg, #empPositionErrMsg, #emailErrMsg, #empPhErrMsg,#hireDateErrMsg,#empPinoCheckErrMsg,#profileNameErrMsg').empty()
-}
-
-function isVal(field, errMsgElement, errMsg) {
-    let isGood = false;
-
-    if (!field.val()) {
-        errMsgElement.empty().text(errMsg).css('color', 'red')
-    } else {
-        isGood = true
-    }
-
-    return isGood
-}
+	 let companyId = "${sessionScope.comId}"
+	 let empId = "${sessionScope.empId}"
+	
+	
+	function errMsgClear() {
+	    $('#idErrMsg, #pwErrMsg, #pwCheckErrMsg, #nameCheckErrMsg, #addrErrMsg, #empPositionErrMsg, #emailErrMsg, #empPhErrMsg,#hireDateErrMsg,#empPinoCheckErrMsg,#profileNameErrMsg').empty()
+	}
+	
+	function isVal(field, errMsgElement, errMsg) {
+	    let isGood = false;
+	
+	    if (!field.val()) {
+	        errMsgElement.empty().text(errMsg).css('color', 'red')
+	    } else {
+	        isGood = true
+	    }
+	
+	    return isGood
+	}
 
 	let checkId = 0;
 	let checkIdVal
 	
 	$(() => {
 	    input_form_header()
+	    listEmployee()
+	    
 	     $('.form_box').off('click').on('click', '#fixEmpBtn', function() {
       		errMsgClear()
       		
@@ -86,7 +89,7 @@ function isVal(field, errMsgElement, errMsg) {
 	                profileName:profileName.val(),
 	                companyId: companyId
 	            }
-	            if(checkId != 0 && checkIdVal == $('#empId').val()) {
+	            
 		            if(empPw.val() == empPwCheck.val()) {
 			        	$.ajax({
 			                url: 'fixemp/fix',
@@ -97,50 +100,16 @@ function isVal(field, errMsgElement, errMsg) {
 			                    $('#modalMsg').text('수정이 완료되었습니다.')
 			                    $('#modalBtn').hide()
 			                    $('#modal').modal('show')
-			                    setTimeout(function() {
-			                        window.location.href = '/company/main'
-			                    }, 2000)
+			                    setTimeout(function(){
+			                    	window.location.href = '/admin/user/emplist'
+			                    },2000)
 			                }
 			            });
 		            } else {
 		        		$('#pwCheckErrMsg').text('비밀번호가 일치하지 않습니다.').css('color', 'red')
-		            }
-	            } else {
-	            	$('#modalMsg').empty()
-	            	$('#modalMsg').text('아이디를 중복확인하세요.')
-                    $('#modalBtn').hide()
-                    $('#modal').modal('show')
-	            }
-	            
-	        }
-        })
-        
-        $('.form_box').on('click', '#empIdCheck', function() {
-            const empId = $('#empId').val();
-			
-            if(empId) {
-            	
-	            $.ajax({
-	                url: '/admin/user/addemp/check',
-	                type: 'get',
-	                data: {empId: empId},
-	                success: function(result) {
-	                    console.log(result)
-	                    if (result == '1') {
-	                    	checkId = 0;
-	                    	
-	                    	$('#idErrMsg').text('이미 사용중인 ID입니다.').css('color', 'red');
-	                    } else {
-	                    	checkId = 1;
-	                    	checkIdVal = $('#empId').val()
-	                    	$('#idErrMsg').text('사용 가능한 ID입니다.').css('color', 'green');
-	                    }
-	                }
-	            })
-            } else {
-            	$('#idErrMsg').text('ID를 입력하세요.').css('color', 'red')
-            }
-        })          
+		          }	            
+	         }	            	        
+        })              
     })
 	
 	function listEmployee() {
@@ -165,7 +134,7 @@ function isVal(field, errMsgElement, errMsg) {
 	                $('#empDetailAddr').val(employee.empDetailAddr)
 	                $('#inputEmail').val(inputEmail)
 	                $('#subEmail').val(subEmail)	                
-	                $('#empPh').val(emppany.empPh)
+	                $('#empPh').val(employee.empPh)
 	                $('#empPino').val(employee.empPino)
 	                $('#empPosition').val(employee.empPosition)
 	                $('#hireDate').val(employee.hireDate)
@@ -278,12 +247,11 @@ function isVal(field, errMsgElement, errMsg) {
                     <input type='text' class='form-control' id='empName'>
                 <span id='nameCheckErrMsg'></span><br>
                 <label for='empPino'>주민번호</label>
-                <input type='password' class='form-control' maxlength='13' id='empPino' placeholder='-제외'>
+                <input type='password' class='form-control'  id='empPino' placeholder='-제외'>
                 <span id ='empPinoCheckErrMsg'></span><br>
                 <label for='input-id'>아이디</label>
                 <div class='input-group'>
-                  <input type='text' class='form-control' id='empId' maxlength='12' name='id' placeholder='숫자, 문자 포함 12자이하로 입력하세요'>
-                  <button class='btn' type='button' id='empIdCheck'>중복확인</button>
+                  <input type='text' class='form-control' id='empId'  name='id' placeholder='숫자, 문자 포함 12자이하로 입력하세요'>                  
                 </div>
                 <span id='idErrMsg'></span><br>              
                 <label for='password'>비밀번호</label>
