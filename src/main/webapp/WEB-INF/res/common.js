@@ -14,7 +14,8 @@ function input_user_header() {
     header_txt += '             </ul>'
     header_txt += '          </div>'
     header_txt += '          <div class="col logo">'
-    header_txt += `             <div class="logo_img text-center" onclick='location.href="/"'>로고이미지</div>`
+    header_txt += `             <div class="logo_txt text-center collapse" onclick='location.href="/"'>로고이미지</div>`
+    header_txt += `             <img src="/attach/logo_m.png" class="logo_img collapse show" onclick='location.href="/"' onerror="no_img()" />`
     header_txt += '          </div>'
     header_txt += '          <div class="col mt-1 float-end lnb_btn">'
     header_txt += '             <a href="/user/login" class="float-end collapse show" id="login_btn"><i class="fa-solid fa-user"></i></a>'
@@ -60,7 +61,8 @@ function input_company_header() {
     header_txt += '             </ul>'
     header_txt += '          </div>'
     header_txt += '          <div class="col logo">'
-    header_txt += `             <div class="logo_img text-center" onclick='location.href="/company"'>로고이미지</div>`
+    header_txt += `             <div class="logo_txt text-center collapse" onclick='location.href="/company"'>로고이미지</div>`
+    header_txt += `             <img src="/attach/logo.png" class="logo_img collapse show" onclick='location.href="/company"' onerror="no_img()" />`
     header_txt += '          </div>'
     header_txt += '          <div class="col btns mt-1 text-end">'
     header_txt += '             <a href="/admin/user/login" class="collapse show">로그인</a>'
@@ -93,6 +95,13 @@ function show_login() {
     $('.navigation a').attr('href', '/user/login')
 }
 
+function no_img() {
+	$('.logo_txt').addClass('show')
+	$('.logo_img').removeClass('show')
+	$('.center_logo_txt').addClass('show')
+	$('.center_logo').removeClass('show')
+}
+
 // admin용 헤더
 function input_admin_header() {
     let header_txt = ''
@@ -101,7 +110,8 @@ function input_admin_header() {
     header_txt += '     <div class="row">'
     header_txt += '          <div class="col"></div>'
     header_txt += '          <div class="col logo">'
-    header_txt += '             <div class="logo_img text-center">로고이미지</div>'
+    header_txt += '             <div class="logo_txt text-center collapse">로고이미지</div>'
+    header_txt += `             <img src="/attach/logo.png" class="logo_img collapse show" onerror="no_img()"/>`
     header_txt += '          </div>'
     header_txt += '          <div class="col btns mt-1 text-end">'
     header_txt += '             <a href="/admin/logoutAdmin" class="collapse show">로그아웃</a>'
@@ -121,7 +131,8 @@ function input_admin_sidebar() {
     sideBar += '         <br>'
     sideBar += '         <li><a href="/admin/notice/ntclist">공지사항</a></li><br>'
     sideBar += '         <li><a href="/admin/ask/asklist">문의사항</a></li><br>'
-    sideBar += '         <li><a href="/admin/user/comlist">회원 조회</a></li>'
+    sideBar += '         <li><a href="/admin/user/comlist">회원 조회</a></li><br>'
+    sideBar += '         <li><a href="/admin/user/logo">이미지 등록</a></li>'
     sideBar += '     </ul>'
 
     $('.snb').append(sideBar)
@@ -148,7 +159,8 @@ function input_form_header() {
     let header_txt = ''
 
     header_txt += ' <div class="col">'
-    header_txt += `     <div class="center_logo text-center" onclick='location.href="/"'>로고이미지</div>`
+    header_txt += `     <div class="center_logo_txt text-center collapse" onclick='location.href="/"'>로고이미지</div>`
+    header_txt += `     <img src="/attach/logo.png" class="center_logo collapse show" onclick='location.href="/"' onerror="no_img()" />`
     header_txt += ' </div>'
 
     $('.title').append(header_txt)

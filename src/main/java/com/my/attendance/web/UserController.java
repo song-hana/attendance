@@ -1,5 +1,7 @@
 package com.my.attendance.web;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.my.attendance.domain.Admin;
@@ -25,22 +29,7 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UserController {
-	//admin (set view)
-	@GetMapping
-	@RequestMapping("admin/user/comlist")
-	public ModelAndView Companylist(ModelAndView mv) {
-		mv.setViewName("admin/user/comlist");
-		return mv;
-	}
-	
-	@GetMapping
-	@RequestMapping("admin/user/getcom")
-	public ModelAndView Companyget(ModelAndView mv) {
-		mv.setViewName("admin/user/getcom");
-		return mv;
-	}
-	
-	//company (set view)
+	//company--------------------------------
 	@RequestMapping("admin/user/login")
 	public String loginCompany() {
 		return "admin/user/login";
@@ -67,20 +56,13 @@ public class UserController {
 	}
 	
 	@GetMapping
-	@RequestMapping("admin/user/getinfo")
-	public ModelAndView getCompany(ModelAndView mv) {
-		mv.setViewName("admin/user/getinfo");
-		return mv;
-	}
-	
-	@GetMapping
 	@RequestMapping("admin/user/emplist")
 	public ModelAndView listEmployee(ModelAndView mv) {
 		mv.setViewName("admin/user/emplist");
 		return mv;
 	}
 	
-	//employee (set view)
+	//employee ------------------------------
 	@RequestMapping("user/login")
 	public String loginEmployee() {
 		return "user/login";
@@ -188,19 +170,24 @@ public class UserController {
 	public List<Company> choiceCompany(String companyId) {
 	    return userService.getCompany(companyId);
 	}
-
+	
 	@ResponseBody
-	@GetMapping("admin/user/comlist/get")
-	public List<Company> getCompanys() {
-		return userService.getCompanys();
+	@GetMapping("admin/user/emplist/get")
+	public List<Employee> getEmployees(String companyId) {
+		return userService.getEmployees(companyId);
 	}
 	
-	@DeleteMapping("admin/user/getinfo/del/{companyId}")
-	public ResponseEntity<String> delCompany(@PathVariable String companyId) {
-	    userService.delCompany(companyId);
+	@DeleteMapping("admin/user/emplist/del/{employeeNo}")
+	public ResponseEntity<String> delEmployee(@PathVariable int employeeNo) {
+	    userService.delEmployee(employeeNo);
 	    return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
+	@ResponseBody
+	@GetMapping("admin/user/emplist/getInfo/{employeeNo}")
+	public List<Employee> getEmployeeInfo(@PathVariable int employeeNo) {
+		return userService.getEmployeeInfo(employeeNo);
+	}
 	
 	//employee--------------------------------
 	@GetMapping("user/loginEmp")
@@ -251,21 +238,61 @@ public class UserController {
 		 return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@ResponseBody
-	@GetMapping("admin/user/emplist/get")
-	public List<Employee> getEmployees(String companyId) {
-		return userService.getEmployees(companyId);
-	}
-	
-	@DeleteMapping("admin/user/emplist/del/{employeeNo}")
-	public ResponseEntity<String> delEmployee(@PathVariable int employeeNo) {
-	    userService.delEmployee(employeeNo);
-	    return new ResponseEntity<>(HttpStatus.OK);
-	}
-	
-	@ResponseBody
-	@GetMapping("admin/user/emplist/getInfo/{employeeNo}")
-	public List<Employee> getEmployeeInfo(@PathVariable int employeeNo) {
-		return userService.getEmployeeInfo(employeeNo);
-	}
+	// img ----------------------------------
+	@RequestMapping("admin/user/logo")
+	   public String logoAdmin() {
+	      return "admin/user/logo";
+	   }
+	   
+   @PostMapping("admin/user/logo")
+   public String handleFileUpload(@RequestParam("file") MultipartFile file) {
+       String uploadFolder = "C:/dev/attach/";
+
+     try {
+       file.transferTo(new File(uploadFolder + "logo.png"));
+     } catch (IOException e) {
+       e.printStackTrace();
+     }
+
+     return "admin/user/logo";
+   }
+   
+   @PostMapping("admin/user/logo_m")
+   public String handleFileUpload2(@RequestParam("file") MultipartFile file) {
+       String uploadFolder = "C:/dev/attach/";
+
+     try {
+       file.transferTo(new File(uploadFolder + "logo_m.png"));
+     } catch (IOException e) {
+       e.printStackTrace();
+     }
+
+     return "admin/user/logo";
+   }
+   
+   @PostMapping("admin/user/intro")
+   public String handleFileUpload3(@RequestParam("file") MultipartFile file) {
+       String uploadFolder = "C:/dev/attach/";
+
+     try {
+       file.transferTo(new File(uploadFolder + "intro_img.png"));
+     } catch (IOException e) {
+       e.printStackTrace();
+     }
+
+     return "admin/user/logo";
+   }
+   
+   @PostMapping("admin/user/intro_m")
+   public String handleFileUpload4(@RequestParam("file") MultipartFile file) {
+       String uploadFolder = "C:/dev/attach/";
+
+     try {
+       file.transferTo(new File(uploadFolder + "intro_img_m.png"));
+     } catch (IOException e) {
+       e.printStackTrace();
+     }
+
+     return "admin/user/logo";
+   }
 }
