@@ -23,6 +23,24 @@
 		and emp_pino = '${employeePino}'
 	</select>
 	
+	
+	<select id='selectEmployees' resultType='employee'>
+		select *
+		from employees
+		where company_id = #{companyId}
+	</select>
+	
+	<delete id='deleteEmployee'>
+		delete employees
+		where employee_no = #{employeeNo}
+	</delete>
+	
+	<select id='selectEmployeeInfo' resultType='employee'>
+		select *
+		from employees
+		where employee_no = #{employeeNo}
+	</select>
+	
 	<insert id='insertEmployee'>
 		insert into attendance.employees
 		values(attendance.emp_empno_seq.nextval, #{empId}, #{empPw}, #{empName}, #{empAddr},

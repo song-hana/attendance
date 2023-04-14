@@ -27,4 +27,7 @@ public interface UserService {
 	int checkEmployee(String empId);
 	void fixEmployee(Employee employee);
 	List<Employee> getEmployee(int employeeNo);
+	List<Employee> getEmployees(String companyId);
+	List<Employee> getEmployeeInfo(int employeeNo);
+	void delEmployee(int employeeNo);
 }

@@ -14,31 +14,38 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title>직원 수정</title>
 <script>
-	 //const companyId = "${sessionScope.comId}"
-	 //const urlParams = new URLSearchParams(window.location.search)
-	 //const employeeNo = urlParams.get('employeeNo')
-	 let companyId = 'company'
-	 let employeeNo = 1
-	 
-	 
-
-	
+	 const companyId = "${sessionScope.comId}"
+	 const urlParams = new URLSearchParams(window.location.search)
+	 const employeeNo = urlParams.get('employeeNo')
 	
 	function errMsgClear() {
-	    $('#idErrMsg, #pwErrMsg, #pwCheckErrMsg, #nameCheckErrMsg, #addrErrMsg, #emailErrMsg, #empPhErrMsg,#hireDateErrMsg,#empPinoCheckErrMsg').empty()
+	    $('#idErrMsg, #pwErrMsg, #pwCheckErrMsg, #nameCheckErrMsg, #addrErrMsg, #emailErrMsg, #empPhErrMsg,#hireDateErrMsg').empty()
 	}
 	
-	function isVal(field, errMsgElement, errMsg) {
-	    let isGood = false;
-	
-	    if (!field.val()) {
-	        errMsgElement.empty().text(errMsg).css('color', 'red')
-	    } else {
-	        isGood = true
-	    }
-	
-	    return isGood
+	 const regex = {
+			 empName: /^[가-힣]+$/,
+			 empId: /^[a-zA-Z0-9]{6,15}$/,
+			 empPw: /^[a-zA-Z0-9!@#$%^&*()?_~]{6,15}$/,
+			 empPino: /^[0-9]{13}$/,
+			 inputEmail: /^[a-zA-Z0-9._%+-]+$/,
+			 subEmail: /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+			 empPh: /^[0-9]{7,12}$/,
 	}
+	 
+	 function isVal(field, errorElement, errMsg, pattern) {
+		  let isVal = false;
+
+		  if (!field.val()) {
+		    errorElement.empty().text(errMsg).css('color', 'red');
+		  } else if (pattern && !pattern.test(field.val())) {
+		    errorElement.empty().text('올바른 형식으로 입력해주세요.').css('color', 'red');
+		  } else {
+		    isVal = true;
+		  }
+
+		  return isVal;
+		}
+
 
 	let checkId = 0;
 	let checkIdVal
@@ -66,15 +73,15 @@
 			const hireDate = $('#hireDate')
 			const profileName = $('#profileName')						
 			
-	        const isEmpId = isVal(empId, $('#idErrMsg'), 'ID를 입력하세요.')
-	        const isEmpPw = isVal(empPw, $('#pwErrMsg'), '비밀번호를 입력하세요.')
+	        const isEmpId = isVal(empId, $('#idErrMsg'), 'ID를 입력하세요.',regex.empId)
+	        const isEmpPw = isVal(empPw, $('#pwErrMsg'), '비밀번호를 입력하세요.',regex.empPw)
 	        const isEmpPwCheck = isVal(empPwCheck, $('#pwCheckErrMsg'), '비밀번호 확인을 입력하세요.')
-	        const isEmpName = isVal(empName, $('#nameCheckErrMsg'), '이름을 입력하세요.')
-	        const isEmpPino = isVal(empPino, $('#empPinoCheckErrMsg'), '주민번호를 입력하세요.')
+	        const isEmpName = isVal(empName, $('#nameCheckErrMsg'), '이름을 입력하세요.', regex.empName)
+	        const isEmpPino = isVal(empPino, $('#empPinoCheckErrMsg'), '주민번호를 입력하세요.',regex.empPino)
 	        const isEmpAddr = isVal(empAddr, $('#addrErrMsg'), '주소를 입력하세요.')
-	        const isInputEmail = isVal(inputEmail, $('#emailErrMsg'), '이메일을 입력하세요.')
-	        const isSubEmail = isVal(subEmail, $('#emailErrMsg'), '이메일을 입력하세요.')
-	        const isEmpPh = isVal(empPh, $('#empPhErrMsg'), '전화번호를 입력하세요.')
+	        const isEmpEmail = isVal(inputEmail, $('#emailErrMsg'), '이메일을 입력하세요.', regex.inputEmail);
+			const isSubEmail = isVal(subEmail, $('#emailErrMsg'), '이메일을 입력하세요.', regex.subEmail);
+	        const isEmpPh = isVal(empPh, $('#empPhErrMsg'), '전화번호를 입력하세요.', regex.empPh)
 	        const isHireDate = isVal(hireDate,$('#hireDateErrMsg'),'입사일을 입력하세요')
 	        
 	        if (isEmpId && isEmpPw && isHireDate && isEmpPwCheck && isEmpName && isEmpPino && isEmpAddr && isInputEmail && isSubEmail && isEmpPh) {
@@ -320,11 +327,9 @@
 	                <div class='input-group'>
 	                	<input type='file' class='form-control' id='profileName' name='profil'>                                                          
 	                </div>
-                </div>
-                <span id='profileNameErrMsg'></span><br>                
+                </div>                               
                 <label for='empPosition'>직급</label>
-                  <input type='text' class='form-control' id='empPosition'>
-                 <span id='empPositionErrMsg'></span> <br>
+                  <input type='text' class='form-control' id='empPosition'>                 
                 <br>
                 <button type='button' id='fixEmpBtn' class='btn btn-blue text-center'>직 원 수 정</button><br>
             </form>

@@ -20,12 +20,14 @@ function errMsgClear() {
     $('#idErrMsg, #pwErrMsg, #pwCheckErrMsg, #nameCheckErrMsg, #addrErrMsg, #emailErrMsg, #empPhErrMsg,#hireDateErrMsg,#empPinoCheckErrMsg').empty()
 }
  const regex = {
-		  empId: /^[a-zA-Z0-9]{6,15}$/,
-		  empPw: /^[a-zA-Z0-9!@#$%^&*()?_~]{6,15}$/,
-		  empPino: /^[0-9]{6}\-[0-9]{7}$/,
-		  empEmail: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-		  empPh: /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/
-		}
+		 empName: /^[가-힣]+$/,
+		 empId: /^[a-zA-Z0-9]{6,15}$/,
+		 empPw: /^[a-zA-Z0-9!@#$%^&*()?_~]{6,15}$/,
+		 empPino: /^[0-9]{13}$/,
+		 inputEmail: /^[a-zA-Z0-9._%+-]+$/,
+		 subEmail: /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+		 empPh: /^[0-9]{7,12}$/,
+}
  
  function isVal(field, errorElement, errMsg, pattern) {
 	  let isVal = false;
@@ -68,15 +70,14 @@ function errMsgClear() {
 			
 	        const isEmpId = isVal(empId, $('#idErrMsg'), 'ID를 입력하세요.',regex.empId)
 	        const isEmpPw = isVal(empPw, $('#pwErrMsg'), '비밀번호를 입력하세요.',regex.empPw)
-	        const isEmpPwCheck = isVal(empPwCheck, $('#pwCheckErrMsg'), '비밀번호 확인을 입력하세요.')
-	        const isEmpName = isVal(empName, $('#nameCheckErrMsg'), '이름을 입력하세요.')
+	        const isEmpPwCheck = isVal(empPwCheck, $('#pwCheckErrMsg'), '비밀번호 확인을 입력하세요.',regex.empPw)
+	        const isEmpName = isVal(empName, $('#nameCheckErrMsg'), '이름을 입력하세요.', regex.empName)
 	        const isEmpPino = isVal(empPino, $('#empPinoCheckErrMsg'), '주민번호를 입력하세요.',regex.empPino)
 	        const isEmpAddr = isVal(empAddr, $('#addrErrMsg'), '주소를 입력하세요.')
-	        const isInputEmail = isVal(inputEmail, $('#emailErrMsg'), '이메일을 입력하세요.',regex.empEmail)
-	        const isSubEmail = isVal(subEmail, $('#emailErrMsg'), '이메일을 입력하세요.')
+	        const isInputEmail = isVal(inputEmail, $('#emailErrMsg'), '이메일을 입력하세요.', regex.inputEmail);
+			const isSubEmail = isVal(subEmail, $('#emailErrMsg'), '이메일을 입력하세요.', regex.subEmail);
 	        const isEmpPh = isVal(empPh, $('#empPhErrMsg'), '전화번호를 입력하세요.', regex.empPh)
 	        const isHireDate = isVal(hireDate,$('#hireDateErrMsg'),'입사일을 입력하세요')
-	        
 	        
 	        if (isEmpId && isEmpPw && isHireDate && isEmpPwCheck && isEmpName && isEmpPino && isEmpAddr  && isInputEmail && isSubEmail && isEmpPh) {
 	        	const strProfileName = profileName.val().split('fakepath\\');

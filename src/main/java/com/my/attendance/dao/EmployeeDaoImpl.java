@@ -46,4 +46,19 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public List<Employee> choiceEmployee(int employeeNo){
 		return employeeMap.choiceEmployee(employeeNo);
 	}
+	
+	@Override
+	public List<Employee> selectEmployees(String companyId) {
+		return employeeMap.selectEmployees(companyId);
+	}
+	
+	@Override
+	public List<Employee> selectEmployeeInfo(int employeeNo){
+		return employeeMap.selectEmployeeInfo(employeeNo);
+	}
+	
+	@Override
+	public void deleteEmployee(int employeeNo) {
+		employeeMap.deleteEmployee(employeeNo);
+	}
 }

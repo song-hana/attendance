@@ -94,4 +94,19 @@ public class UserServiceImpl implements UserService {
 	public List<Employee> getEmployee(int employeeNo){
 		return employeeDao.choiceEmployee(employeeNo);
 	}
+	
+	@Override
+	public List<Employee> getEmployees(String companyId) {
+		return employeeDao. selectEmployees(companyId);
+	}
+	
+	@Override
+	public List<Employee> getEmployeeInfo(int employeeNo) {
+		return employeeDao.selectEmployeeInfo(employeeNo);
+	}
+	
+	@Override
+	public void delEmployee(int employeeNo) {
+		employeeDao.deleteEmployee(employeeNo);
+	}
 }

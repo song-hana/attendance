@@ -13,45 +13,8 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title>직원목록</title>
 <script>
-	$(() => {
-	    input_company_header()
-	    input_company_sidebar()
-	    input_footer()
-	    btn_click()
-	    show_logout()
-	    listEmployees()
-	    
-	    $('#employeeDelBtn').click(() => {
-	    	if(isVal($('#employeeNo:checked'))) {
-	        	$('#modalMsg').empty()
-	            $('#modalMsg').text('삭제하시겠습니까?')
-	            $('#modalBtn').show()
-	            $('#modal').modal('show')
-	            
-	            $('#modalOKBtn').off('click').on('click', () => {
-	                $.ajax({
-	                    url: 'emplist/del/' + $('#employeeNo:checked').val(),
-	                    method: 'delete',
-	                    success: listEmployees
-	                })
-	                
-	                $('#modalMsg').empty()
-	                $('#modalMsg').text('삭제 되었습니다.')
-	                $('#modalBtn').hide()
-	                $('#modal').modal('show')
-	            })
-	    	}
-	    })
-	    
-	    $(document).on('click', '.employee-info td:not(:first-child)', () => {
-	        const employeeNo = $(this).siblings(':first-child').find('input[type="radio"]').val()
-	        $('#modalMsg').empty()
-	        $('#modalMsg').text('이름 ' + employeeNo + ' 회원정보를 조회합니다.')
-	        $('#modalBtn').hide()
-	        $('#modal').modal('show')
-	    })
-	})
-	
+	let companyId = "${sessionScope.comId}"
+
 	function isVal(field) {        
 	    let isGood = false
 	    let errMsg
@@ -70,12 +33,15 @@
 
 	function listEmployees() {
 		$('input').not(':radio').val('')
-	    $('#employees').empty()
+	    $('#employees').empty();
 	
 	    $.ajax({
 	        url: 'emplist/get',
 	        method: 'get',
 	        dataType: 'json',
+	        data: {
+	        	companyId: companyId
+	        },
 	        success: employees => {
 	            if (employees.length) {
 	                const employeeArr = [];
@@ -91,19 +57,98 @@
     							<td>\${employee.empEmail}</td>
     							<td>\${employee.hireDate}</td>
 	                        </tr>
-	                    `)
-	                })
+	                    `);
+	                });
 	
-	                $('#employees').append(employeeArr.join(''))
+	                $('#employees').append(employeeArr.join(''));
 	            } else {
-	                $('#employees').append('<tr><td colspan=7 class=text-center>직원이 없습니다.</td></tr>')
+	                $('#employees').append('<tr><td colspan=7 class=text-center>직원이 없습니다.</td></tr>');
 	            }
 	        }
-	    })
+	    });
 	}
+	
+	function fixMove() {
+		  const employeeNo = $('#employeeNo:checked').val();
+		  
+		  if(employeeNo > 1) {
+			  location.href = 'fixemp?employeeNo=' + employeeNo;  
+		  } else {
+			  $('#modalMsg').empty()
+              $('#modalMsg').text('수정하실 직원을 선택하세요.')
+              $('#modalBtn').hide()
+              $('#modal').modal('show')
+		  }
+	}
+
+    $(() => {
+        input_company_header()
+        input_company_sidebar()
+        input_footer()
+        btn_click()
+        show_logout()
+        listEmployees()
+
+        
+        $('#employeeDelBtn').click(() => {
+        	if(isVal($('#employeeNo:checked'))) {
+	        	$('#modalMsg').empty()
+	            $('#modalMsg').text('삭제하시겠습니까?')
+	            $('#modalBtn').show()
+	            $('#modal').modal('show')
+	            
+	            $('#modalOKBtn').off('click').on('click', function() {
+	                $.ajax({
+	                    url: 'emplist/del/' + $('#employeeNo:checked').val(),
+	                    method: 'delete',
+	                    success: listEmployees
+	                })
+	                
+	                $('#modalMsg').empty()
+	                $('#modalMsg').text('삭제 되었습니다.')
+	                $('#modalBtn').hide()
+	                $('#modal').modal('show')
+	            })
+        	}
+        });
+        
+        $(document).on('click', '.employee-info td:not(:first-child)', function() {
+            const employeeNo = $(this).siblings(':first-child').find('input[type="radio"]').val();
+
+            $.ajax({
+                url: 'emplist/getInfo/' + employeeNo,
+                method: 'get',
+                dataType: 'json',
+                success: employees => {
+                    if (employees.length) {
+                        const employee = employees[0];
+                        $('#modalMsg').empty();
+                        
+                        $('#modalMsg').append(`<img src='/res/\${employee.profileName ? `\${employee.profileName}` : "기본이미지.jpg"}' class='employeeImage'>`)
+                        				.append(`<p> 이름: \${employee.empName} </p>`)
+                        				.append(`<p> 전화번호: \${employee.empPh} </p>`)
+                        				.append(`<p> 주민등록번호: \${employee.empPino} </p>`)
+                        				.append(`<p> 직급: \${employee.empPosition} </p>`)
+                        				.append(`<p> 주소: \${employee.empAddr} </p>`)
+                        				.append(`<p> 상세주소: \${employee.empDetailAddr} </p>`)
+                        				.append(`<p> 우편번호: \${employee.empPostcode} </p>`)
+                        				.append(`<p> 이메일: \${employee.empEmail} </p>`)
+                        				.append(`<p> 입사일: \${employee.hireDate} </p>`)
+                        $('#modalBtn').hide();
+                        $('#modal').modal('show');
+                    }
+                }
+            });
+        });
+    })
 </script>
 <style>
-
+	.employeeImage {
+		width: 15rem; 
+		height: auto; 
+		margin: 0 auto;
+		display: block;
+	}
 </style>
 </head>
 <body>
@@ -118,12 +163,12 @@
                 </div>
                 <div class='col pt-3'>
                     <div class='gap-2 d-flex justify-content-end'>
-                        <button type='button' class='btn btn-blue' onclick="location.href='./08.html'">추가</button>
-                        <button type='button' class='btn btn-white' onclick="location.href='./09.html'">수정</button>
+                        <button type='button' class='btn btn-blue' onclick="location.href='addemp'">추가</button>
+                        <button type='button' class='btn btn-white' onclick="fixMove()">수정</button>
                         <button type='button' class='btn btn-red' id='employeeDelBtn'>삭제</button>
                     </div>
                 </div> 
-            </div>                 
+            </div>
             <div class='row'>
                 <div class='col'>
                     <table class='table'>
@@ -158,4 +203,3 @@
 </div>
 </body>
 </html>
-
