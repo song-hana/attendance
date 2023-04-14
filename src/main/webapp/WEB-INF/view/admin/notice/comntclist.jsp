@@ -13,12 +13,30 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'/>
 <title>company 사내 공지사항 목록</title>
 <script>
+	let companyId = "${sessionScope.comId}"
+	
+    $(() => {
+        input_company_header()
+        input_company_sidebar()
+        input_footer()
+        btn_click()
+        show_logout()        
+        listCompanyNotices()
+        
+        if(companyId != "${sessionScope.comId}") {
+        	location.href='/company'
+        }
+    })
+	
 	function listCompanyNotices() {
 		$('#companyNoticeList').empty();
 		
 		$.ajax({
 			url:'comntclist/get',
 			dataType:'json',
+			data: {
+				companyId: companyId
+			},
 			success: companyNoticeList => {
 				if(companyNoticeList.length) {
 					const companyNoticeArr = [];
@@ -39,16 +57,6 @@
 			}
 		})
 	}
-
-    $(() => {
-        input_company_header()
-        input_company_sidebar()
-        input_footer()
-        btn_click()
-        show_logout()
-        
-        listCompanyNotices()
-    })
 </script>
 <style>
     .table {

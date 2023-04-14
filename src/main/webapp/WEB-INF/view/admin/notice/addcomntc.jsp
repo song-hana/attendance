@@ -13,12 +13,18 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'/>
 <title>company 사내 공지사항 작성</title>
 <script>	
+	let companyId = "${sessionScope.comId}"
+	
 	$(() => {
 	    input_company_header()
 	    input_company_sidebar()
 	    input_footer()
 	    btn_click()
 	    show_logout()
+	    
+	    if(companyId != "${sessionScope.comId}") {
+        	location.href='/company'
+        }
 	    
 	    $('#addCompanyNoticeBtn').click(() => {
 	    	if(isVal($('#companyNoticeTitle')) && isVal($('#companyNoticeContent'))){
@@ -27,7 +33,8 @@
 	    			method: 'post',
 	    			data: {
 	    				companyNoticeTitle: \$('#companyNoticeTitle').val(),
-	    				companyNoticeContent: \$('#companyNoticeContent').val()
+	    				companyNoticeContent: \$('#companyNoticeContent').val(),
+	    				companyId: companyId
 	    			},
 	    			success: move
 	    		});

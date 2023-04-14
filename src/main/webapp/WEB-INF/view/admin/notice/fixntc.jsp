@@ -13,9 +13,48 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'/>
 <title>admin 전체 공지사항 수정</title>
 <script>
+	let adminId = "${sessionScope.adminId}"
+
 	const urlParams = new URLSearchParams(window.location.search);
 	const publicNoticeNo = urlParams.get('publicNoticeNo');
   
+    $(() => {
+    	input_admin_header()
+        input_admin_sidebar()
+        input_footer()
+        fixPublicNotice()     
+            
+		if(adminId != 'admin') {
+            location.href='/admin'
+    	}
+        
+        $('#fixOkBtn').click(() => {
+        	if(isVal($('#publicNoticeTitle')) && isVal($('#publicNoticeContent'))){
+        		let fixPublicNotice = {
+        			publicNoticeNo: publicNoticeNo,
+        			pubntcTitle : $('#publicNoticeTitle').val(),
+        			pubntcContent : $('#publicNoticeContent').val()
+        		}
+        		
+        		$.ajax({
+        			url: 'fixntc/fix',
+        			method:'put',
+        			contentType : 'application/json',
+        			data: JSON.stringify(fixPublicNotice),
+        			success: move()
+        		})
+        	}
+        })
+        
+        $('#fixNoBtn').click(() => {
+            $('#modalMsg').empty()
+            $('#modalMsg').append(`<p>이 페이지를 벗어나면 수정 중이던 글이 취소됩니다.<br>
+                            저장을 하실 경우 취소 버튼을 누르고 저장을 해주세요.<br>
+                            이미 저장한 경우에는 확인 버튼을 눌러주세요.</p>`)
+            $('#modal').modal('show')
+        })        
+    })
+	
     function fixPublicNotice() {
     	$('#fixPublicNotice').empty()
     	
@@ -37,8 +76,8 @@
                     							value='\${publicNotice.pubntcTitle}'>
                     		<h4 class='pt-3'>내용</h4>
                     			<textarea id='publicNoticeContent' placeholder='내용을 입력하세요.'>\${publicNotice.pubntcContent}</textarea>`
-    					);
-    				});
+    					)
+    				})
     				$('#fixPublicNotice').append(fixPublicNoticeArr.join(''));
     			}
     		}
@@ -68,42 +107,6 @@
     function move() {
     	window.location.href="../notice/admgetntc?publicNoticeNo=" + publicNoticeNo
     }
-  
-    $(() => {
-        input_admin_header()
-        input_admin_sidebar()
-        input_footer()
-        
-        fixPublicNotice()
-        
-        
-        $('#fixOkBtn').click(() => {
-        	if(isVal($('#publicNoticeTitle')) && isVal($('#publicNoticeContent'))){
-        		let fixPublicNotice = {
-        			publicNoticeNo: publicNoticeNo,
-        			pubntcTitle : $('#publicNoticeTitle').val(),
-        			pubntcContent : $('#publicNoticeContent').val()
-        		}
-        		
-        		$.ajax({
-        			url: 'fixntc/fix',
-        			method:'put',
-        			contentType : 'application/json',
-        			data: JSON.stringify(fixPublicNotice),
-        			success: move()
-        		})
-        	}
-        })
-        
-        $('#fixNoBtn').click(() => {
-            $('#modalMsg').empty()
-            $('#modalMsg').append(`<p>이 페이지를 벗어나면 수정 중이던 글이 취소됩니다.<br>
-                            저장을 하실 경우 취소 버튼을 누르고 저장을 해주세요.<br>
-                            이미 저장한 경우에는 확인 버튼을 눌러주세요.</p>`)
-            $('#modal').modal('show')
-        })
-            
-    })
 </script>
 <style>
     #publicNoticeTitle {

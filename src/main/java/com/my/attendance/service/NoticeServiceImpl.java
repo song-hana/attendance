@@ -44,8 +44,8 @@ public class NoticeServiceImpl implements NoticeService {
 	@Autowired private CompanyNoticeDao companyNoticeDao;
 	
 	@Override
-	public List<CompanyNotice> getCompanyNoticeList(){
-		return companyNoticeDao.selectCompanyNoticeList();
+	public List<CompanyNotice> getCompanyNoticeList(String companyId){
+		return companyNoticeDao.selectCompanyNoticeList(companyId);
 	}
 	
 	@Override
@@ -54,8 +54,8 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 	
 	@Override
-	public void addCompanyNotice(String companyNoticeTitle, String companyNoticeContent) {
-		companyNoticeDao.insertCompanyNotice(companyNoticeTitle, companyNoticeContent);
+	public void addCompanyNotice(String companyNoticeTitle, String companyNoticeContent, String companyId) {
+		companyNoticeDao.insertCompanyNotice(companyNoticeTitle, companyNoticeContent, companyId);
 	}
 	
 	@Override

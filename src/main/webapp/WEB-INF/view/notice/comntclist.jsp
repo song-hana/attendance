@@ -13,14 +13,51 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'/>
 <title>user 사내 공지사항 목록</title>
 <script>
+	let companyId = "${sessionScope.comId}"
+
     $(() => {
         input_user_header()
         btn_click()
-        show_logout()
+        show_logout()      
+        listCompanyNotice() 
+        
+        if(companyId != "${sessionScope.comId}") {
+			location.href='/user/login'
+		}
     })
+	    
+	function listCompanyNotice() {
+		$('#companyNoticeList').empty();
+		
+		$.ajax({
+			url: '../admin/notice/comntclist/get',
+			dataType: 'json',
+			data: {
+				companyId: companyId
+			},
+			success: companyNoticeList => {
+				if(companyNoticeList.length){
+					const companyNoticeArr = [];
+					
+					$.each(companyNoticeList,(i,companyNotice)=> {
+						companyNoticeArr.unshift(
+							`<tr onclick="window.location.href='getcomntc?companyNoticeNo=\${companyNotice.companyNoticeNo}'">
+								<td>\${companyNotice.companyNoticeNo}</td>
+								<td>\${companyNotice.comntcTitle}</td>
+								<td>\${companyNotice.comntcDate}</td>
+							</tr>`
+						)
+					})
+					$('#companyNoticeList').append(companyNoticeArr.join(''));
+				} else {
+					$('#companyNoticeList').append('<tr><td colspan=3 class=text-center>공지사항이 없습니다.</td></tr>')
+				}
+			}
+		})
+	}
 </script>
 <style>
-    table {
+    .table {
         font-size: .8rem;
         border-top: .1rem solid;
     }
@@ -28,13 +65,22 @@
     table a {
         color: black;
     }
-
+    
     tr th:first-child {
-        width: 14%;
+        width: 13%;
         text-align: center;
     }
 
-    tbody tr td:first-child  {
+    tr th:nth-child(2) {
+        padding-left: 1rem;
+    }
+
+    tr th:last-child {
+        width: 20%;
+        text-align: center;
+    }
+    
+    tbody tr td:first-child, tbody tr td:last-child {
         text-align: center;
     }
 </style>
@@ -42,37 +88,23 @@
 <body>
 <div class='container'>
     <div class='row header'></div>
-    <div class='row mt-5 mb-3'>
+    <div class='row mt-5 mb-5'>
         <div class='col text-center'>
-            <h1><b>사내 공지사항</b></h1>
+            <h2><b>사내 공지사항</b></h2>
         </div>
     </div>
-    
-    <div class='row pt-4 mt-5'>
+    <div class='row pt-4 mb-5'>
         <div class='col'>
             <table class='table table-ellipsis'>
                 <thead>
                     <tr>
                         <th>글 번호</th>
                         <th>제목</th>
+                        <th>등록일</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>3</td>
-                        <td><a href='04.html'>[안내] 연차 안내</a></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td><a href='04.html'>[안내] 신년 행사 안내</a></td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td><a href='04.html'>[안내] 2023년도 건강검진 안내</a></td>
-                    </tr>
-                    <tr><td><p></p></td><td></td><td></td></tr>
-                    <tr><td><p></p></td><td></td><td></td></tr>
-                    <tr><td><p></p></td><td></td><td></td></tr>
+                <tbody id='companyNoticeList'>
+
                 </tbody>
             </table>
         </div>

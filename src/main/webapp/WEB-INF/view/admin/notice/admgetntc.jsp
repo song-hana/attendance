@@ -13,9 +13,37 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'/>
 <title>admin 전체 공지사항 상세 조회</title>
 <script>
+	let adminId = "${sessionScope.adminId}"
+
 	const urlParams = new URLSearchParams(window.location.search);
 	const publicNoticeNo = urlParams.get('publicNoticeNo');
 	
+    $(() => {
+    	input_admin_header()
+        input_admin_sidebar()
+        input_footer()
+        PublicNoticeDetail()
+    	
+    	if(adminId != 'admin') {
+            location.href='/admin'
+    	}
+
+        $('#delPublicNoticeBtn').on('click', function() {
+        	$('#modalMsg').empty()
+        	$('#modalMsg').text('정말로 삭제하시겠습니까?')
+        	$('#modalBtn').show()
+        	$('#modal').modal("show")
+        	
+        	$('#modalOkBtn').off('click').on('click', function() {
+        		$.ajax({
+        			url: 'getntc/del/' + publicNoticeNo,
+        			method:'delete',
+        			success: move
+        		})
+        	})
+        })
+    })
+    
 	function PublicNoticeDetail() {
 		$.ajax({
 			url: 'getntc/get',
@@ -39,39 +67,17 @@
 									<td>\${publicNotice.pubntcContent}</td>
 								</tr>
 							</tbody>`
-						);
-					});
+						)
+					})
 					$('#publicNoticeDetail').append(publicNoticeArr.join(''));
 				}
 			}
-		});
+		})
 	}
 	
     function move() {
     	window.location.href="../notice/admntclist"
     }
-
-    $(() => {
-        input_admin_header()
-        input_admin_sidebar()
-        input_footer()
-        PublicNoticeDetail()
-
-        $('#delPublicNoticeBtn').on('click', function() {
-        	$('#modalMsg').empty()
-        	$('#modalMsg').text('정말로 삭제하시겠습니까?')
-        	$('#modalBtn').show()
-        	$('#modal').modal("show")
-        	
-        	$('#modalOkBtn').off('click').on('click', function() {
-        		$.ajax({
-        			url: 'getntc/del/' + publicNoticeNo,
-        			method:'delete',
-        			success: move
-        		})
-        	})
-        })
-    })
 </script>
 <style>
     .table {

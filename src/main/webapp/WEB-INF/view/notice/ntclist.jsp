@@ -13,6 +13,13 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'/>
 <title>user 전체 공지사항 목록</title>
 <script>
+	$(() => {
+	    input_user_header()
+	    btn_click()
+	    show_logout()       
+	    listPublicNotices()
+	})
+
 	function listPublicNotices() {
 		$('#publicNoticeList').empty();
 		
@@ -39,18 +46,11 @@
 			}
 		})
 	}
-	
-    $(() => {
-        input_user_header()
-        btn_click()
-        show_logout()
-        
-        listPublicNotices()
-    })
 </script>
 <style>
-    table {
+    .table {
         font-size: .8rem;
+        border-top: .1rem solid;
     }
     table a {
         color: black;

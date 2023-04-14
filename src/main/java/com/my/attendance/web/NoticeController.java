@@ -127,8 +127,8 @@ public class NoticeController {
 	
 	@GetMapping("admin/notice/comntclist/get")
 	@ResponseBody
-	public List<CompanyNotice> getCompanyNoticeList() {
-		return noticeService.getCompanyNoticeList();
+	public List<CompanyNotice> getCompanyNoticeList(String companyId) {
+		return noticeService.getCompanyNoticeList(companyId);
 	}
 	
 	//Company 사내 공지사항 추가
@@ -140,8 +140,8 @@ public class NoticeController {
 	}
 	
 	@PostMapping("admin/notice/addcomntc/add")
-	public void addCompanyNotice(String companyNoticeTitle, String companyNoticeContent) {
-		noticeService.addCompanyNotice(companyNoticeTitle, companyNoticeContent);
+	public void addCompanyNotice(String companyNoticeTitle, String companyNoticeContent, String companyId) {
+		noticeService.addCompanyNotice(companyNoticeTitle, companyNoticeContent, companyId);
 	}
 	
 	//Company 사내 공지사항 상세 조회

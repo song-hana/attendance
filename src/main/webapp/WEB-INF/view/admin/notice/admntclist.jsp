@@ -12,7 +12,20 @@
 <script src='<c:url value="/res/common.js"/>'></script>
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'/>
 <title>admin 전체 공지사항 목록</title>
-<script>     
+<script>
+	let adminId = "${sessionScope.adminId}"
+
+    $(() => {
+    	input_admin_header()
+        input_admin_sidebar()
+        input_footer()
+        listPublicNotices()
+    	
+    	if(adminId != 'admin') {
+            location.href='/admin'
+    	}  
+    })
+	    
     function listPublicNotices() {
     	$('#publicNoticeList').empty();
     	
@@ -39,15 +52,6 @@
     		}
     	})
     }
-    
-    $(() => {
-        input_admin_header()
-        input_admin_sidebar()
-        input_footer()
-        btn_click()
-        
-        listPublicNotices()
-    })
 </script>
 <style>
     .table {

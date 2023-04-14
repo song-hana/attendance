@@ -16,6 +16,13 @@
 	const urlParams = new URLSearchParams(window.location.search);
 	const publicNoticeNo = urlParams.get('publicNoticeNo');
 	
+    $(() => {
+        input_user_header()
+        btn_click()
+        show_logout()        
+        publicNoticeDetail()
+    })
+	
 	function publicNoticeDetail() {
 		$.ajax({
 			url: '../admin/notice/getntc/get',
@@ -36,24 +43,16 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td>\${publicNotice.pubntcContent}</td>
+									<td style="white-space:pre;">\${publicNotice.pubntcContent}</td>
 								</tr>
 							</tbody>`		
-						);
-					});
+						)
+					})
 					$('#publicNoticeDetail').append(publicNoticeArr.join(''));
 				}
 			}
 		})
 	}
-
-    $(() => {
-        input_user_header()
-        btn_click()
-        show_logout()
-        
-        publicNoticeDetail()
-    })
 </script>
 <style>
     .table {

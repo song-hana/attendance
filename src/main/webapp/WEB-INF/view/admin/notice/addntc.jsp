@@ -11,9 +11,45 @@
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <script src='<c:url value="/res/common.js"/>'></script>
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'/>
-<title></title>
 <title>admin 전체 공지사항 작성</title>
 <script>
+	let adminId = "${sessionScope.adminId}"
+
+    $(() => {
+    	input_admin_header()
+        input_admin_sidebar()
+        input_footer()
+        
+        if(adminId != 'admin') {
+            location.href='/admin'
+    	}
+		
+		$('#addPublicNoticeBtn').click(() => {
+			if(isVal($('#publicNoticeTitle')) && isVal($('#publicNoticeContent'))) {
+				$.ajax({
+					url:'addntc/add',
+					method:'post',
+					data: {
+						publicNoticeTitle: \$('#publicNoticeTitle').val(),
+						publicNoticeContent: \$('#publicNoticeContent').val()
+					},
+					success : move
+				});
+			}
+		})
+		
+		$('#addNoBtn').click(() => {
+			if($('#publicNoticeTitle').val() || $('#publicNoticeContent').val()) {
+				$('#modalMsg').empty()
+				$('#modalMsg').append(`<p>이 페이지를 벗어나면 기존 작성된 글이 삭제됩니다.</p>`)
+				$('#modal').modal('show')
+				$('#modalBtn').show()
+				$('#modalCancelBtn').show();
+				$('#modalOkBtn').click(() => move())
+			} else move()
+		})
+    })
+    
 	function isVal(field) {
 	    let isGood = false
 	    let errMsg
@@ -37,41 +73,6 @@
 	function move() {
 		window.location.href="../notice/admntclist"
 	}
-	
-    $(() => {
-        input_admin_header()
-        input_admin_sidebar()
-        input_footer()
-        btn_click()
-        show_logout()
-		
-		$('#addPublicNoticeBtn').click(() => {
-			if(isVal($('#publicNoticeTitle')) && isVal($('#publicNoticeContent'))) {
-				$.ajax({
-					url:'addntc/add',
-					method:'post',
-					data: {
-						publicNoticeTitle: \$('#publicNoticeTitle').val(),
-						publicNoticeContent: \$('#publicNoticeContent').val()
-					},
-					success : move
-				});
-			}
-		})
-
-		
-		$('#addNoBtn').click(() => {
-			if($('#publicNoticeTitle').val() || $('#publicNoticeContent').val()) {
-				$('#modalMsg').empty()
-				$('#modalMsg').append(`<p>이 페이지를 벗어나면 기존 작성된 글이 삭제됩니다.</p>`)
-				$('#modal').modal('show')
-				$('#modalBtn').show()
-				$('#modalCancelBtn').show();
-				$('#modalOkBtn').click(() => move())
-			} else move()
-		})
-
-    })
 </script>
 <style>
     #publicNoticeTitle {

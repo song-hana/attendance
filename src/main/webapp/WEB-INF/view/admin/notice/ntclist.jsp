@@ -13,6 +13,14 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'/>
 <title></title>
 <script>
+	$(() => {
+	    input_company_header()
+	    btn_click()
+	    show_logout()
+	    input_footer()   
+	    listPublicNotices()
+	})
+
 	function listPublicNotices() {
 		$('#publicNoticeList').empty();
 		
@@ -39,15 +47,6 @@
 			}
 		})
 	}
-	
-
-    $(() => {
-        input_company_header()
-        btn_click()
-        input_footer()
-        
-        listPublicNotices()
-    })
 </script>
 <style>
     .table {

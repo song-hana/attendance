@@ -5,6 +5,7 @@
 	<select id='selectCompanyNoticeList' resultType='companyNotice'>
 		select *
 		from attendance.company_notices
+		where company_id = #{companyId}
 		order by company_notice_no
 	</select> 
 	
@@ -15,8 +16,8 @@
 	</select>
 	
 	<insert id='insertCompanyNotice'>
-		insert into company_notices (company_notice_no, comntc_title, comntc_content, comntc_date)
-		values (attendance.comntc_comntcno_seq.nextval, #{companyNoticeTitle} , #{companyNoticeContent}, sysdate)
+		insert into company_notices (company_notice_no, comntc_title, comntc_content, comntc_date, company_id)
+		values (attendance.comntc_comntcno_seq.nextval, #{companyNoticeTitle} , #{companyNoticeContent}, sysdate, #{companyId})
 	</insert>
 	
 	<update id='updateCompanyNotice'>

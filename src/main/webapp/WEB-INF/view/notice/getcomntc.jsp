@@ -13,24 +13,51 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'/>
 <title>user 사내 공지사항 조회</title>
 <script>
+	let companyId = "${sessionScope.comId}"
+
+	const urlParams = new URLSearchParams(window.location.search);
+	const companyNoticeNo = urlParams.get('companyNoticeNo');
+	
     $(() => {
         input_user_header()
         btn_click()
-        show_logout()
+        show_logout()     
+        getCompanyNotice()
+                
+		if(companyId != "${sessionScope.comId}") {
+			location.href='/user/login'
+		}
     })
     
-    /*
     function getCompanyNotice() {
     	$.ajax({
-    		url: 'getcomntc/get',
+    		url: '../admin/notice/getcomntc/get',
     		dataType: 'json',
     		data : {
     			companyNoticeNo : companyNoticeNo
     		},
-    		success: companyNoticeDetail
+    		success: companyNoticeDetail => {
+    			if(companyNoticeDetail.length) {
+    				const companyNoticeArr = [];
+    				
+    				$.each(companyNoticeDetail, (i,companyNotice)=> {
+    					companyNoticeArr.unshift(
+    						`<thead>
+    							<tr>
+    								<th>\${companyNotice.comntcTitle}</th>
+    							</tr>
+    						</thead>
+    						<tbody>
+    							<tr>
+    								<td style="white-space:pre;">\${companyNotice.comntcContent}</td>
+    							</tr>
+    						</tbody>`
+    					)
+    				})
+    				$('#companyNoticeDetail').append(companyNoticeArr.join(''));
+    			}
+    		}
     	})
-    	
-    */
     }
 </script>
 <style>
@@ -54,6 +81,10 @@
     th {
         font-size: 1rem;
     }
+    
+	thead {
+		background-color: #f0f0f1;
+	}
 </style>
 </head>
 <body>

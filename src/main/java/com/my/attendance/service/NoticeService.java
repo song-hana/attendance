@@ -12,9 +12,9 @@ public interface NoticeService {
 	void fixPublicNotice(PublicNotice publicNotice);
 	void delPublicNotice(int publicNoticeNo);
 	
-	List<CompanyNotice> getCompanyNoticeList();
+	List<CompanyNotice> getCompanyNoticeList(String companyId);
 	List<CompanyNotice> getCompanyNotice(int companyNoticeNo);
-	void addCompanyNotice(String companyNoticeTitle, String companyNoticeContent);
+	void addCompanyNotice(String companyNoticeTitle, String companyNoticeContent, String companyId);
 	void fixCompanyNotice(CompanyNotice companyNotice);
 	void delCompanyNotice(int companyNoticeNo);
 }

@@ -16,6 +16,13 @@
 	const urlParams = new URLSearchParams(window.location.search);
 	const publicNoticeNo = urlParams.get('publicNoticeNo');
 	
+    $(() => {
+        input_company_header()
+        input_footer()
+        btn_click()        
+        PublicNoticeDetail()
+    })
+    
 	function PublicNoticeDetail() {
 		$.ajax({
 			url: 'getntc/get',
@@ -36,25 +43,17 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td>\${publicNotice.pubntcContent}</td>
+									<td style="white-space:pre;">\${publicNotice.pubntcContent}</td>
 								</tr>
 							</tbody>`
 								
-						);
-					});
+						)
+					})
 					$('#publicNoticeDetail').append(publicNoticeArr.join(''));
 				}
 			}
 		})
 	}
-
-    $(() => {
-        input_company_header()
-        input_footer()
-        btn_click()
-        
-        PublicNoticeDetail()
-    })
 </script>
 <style>
     .table {

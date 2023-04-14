@@ -13,6 +13,8 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'/>
 <title>company 사내 공지사항 수정</title>
 <script>
+	let companyId = "${sessionScope.comId}"
+	
 	const urlParams = new URLSearchParams(window.location.search);
 	const companyNoticeNo = urlParams.get('companyNoticeNo');
 
@@ -24,6 +26,10 @@
 	    show_logout()
 	    
 	    fixCompanyNotice()
+	    
+	    if(companyId != "${sessionScope.comId}") {
+        	location.href='/company'
+        }
 	    
 	    $('#fixOkBtn').click(() => {
 	    	if(isVal($('#companyNoticeTitle')) && isVal($('#companyNoticeContent'))) {
@@ -72,8 +78,8 @@
 							<h4 class='pt-3'>내용</h4>
 								<textarea id='companyNoticeContent' 
 										placeholder='내용을 입력하세요.'>\${companyNotice.comntcContent}</textarea>`
-						);
-					});
+						)
+					})
 					$('#fixCompanyNotice').append(fixCompanyNoticeArr.join(''));
 				}
 			}

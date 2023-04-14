@@ -13,6 +13,8 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'/>
 <title>company 사내 공지사항 상세 조회</title>
 <script>
+	let companyId = "${sessionScope.comId}"
+
 	const urlParams = new URLSearchParams(window.location.search);
 	const companyNoticeNo = urlParams.get('companyNoticeNo');
 	
@@ -21,9 +23,12 @@
 	    input_company_sidebar()
 	    input_footer()
 	    btn_click()
-	    show_logout()
-	    
+	    show_logout()	    
 	    getCompanyNotice()
+	    
+	    if(companyId != "${sessionScope.comId}") {
+        	location.href='/company'
+        }
 	    
 	    $('#delCompanyNoticeBtn').on('click', function() {
 	    	$('#modalMsg').empty()
@@ -64,12 +69,12 @@
 									<td style="white-space:pre;">\${companyNotice.comntcContent}</td>
 								</tr>
 							</tbody>`
-						);
-					});
+						)
+					})
 					$('#companyNoticeDetail').append(companyNoticeArr.join(''));
 				}
 			}
-		});
+		})
 	}
 	
 	function move() {

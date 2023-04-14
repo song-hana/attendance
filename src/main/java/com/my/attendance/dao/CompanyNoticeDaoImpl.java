@@ -13,8 +13,8 @@ public class CompanyNoticeDaoImpl implements CompanyNoticeDao {
 	@Autowired private CompanyNoticeMap companyNoticeMap;
 	
 	@Override
-	public List<CompanyNotice> selectCompanyNoticeList(){
-		return companyNoticeMap.selectCompanyNoticeList();
+	public List<CompanyNotice> selectCompanyNoticeList(String companyId){
+		return companyNoticeMap.selectCompanyNoticeList(companyId);
 	}
 	
 	@Override
@@ -23,8 +23,8 @@ public class CompanyNoticeDaoImpl implements CompanyNoticeDao {
 	}
 	
 	@Override
-	public void insertCompanyNotice(String companyNoticeTitle, String companyNoticeContent) {
-		companyNoticeMap.insertCompanyNotice(companyNoticeTitle, companyNoticeContent);
+	public void insertCompanyNotice(String companyNoticeTitle, String companyNoticeContent, String companyId) {
+		companyNoticeMap.insertCompanyNotice(companyNoticeTitle, companyNoticeContent, companyId);
 	}
 	
 	@Override
