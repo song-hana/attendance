@@ -25,7 +25,7 @@
 	
 	
 	function errMsgClear() {
-	    $('#idErrMsg, #pwErrMsg, #pwCheckErrMsg, #nameCheckErrMsg, #addrErrMsg, #empPositionErrMsg, #emailErrMsg, #empPhErrMsg,#hireDateErrMsg,#empPinoCheckErrMsg,#profileNameErrMsg').empty()
+	    $('#idErrMsg, #pwErrMsg, #pwCheckErrMsg, #nameCheckErrMsg, #addrErrMsg, #emailErrMsg, #empPhErrMsg,#hireDateErrMsg,#empPinoCheckErrMsg').empty()
 	}
 	
 	function isVal(field, errMsgElement, errMsg) {
@@ -268,7 +268,7 @@
                 <span id ='empPinoCheckErrMsg'></span><br>
                 <label for='input-id' >아이디</label>
                 <div class='input-group'>
-                  <input type='text' class='form-control' id='empId'  name='id' placeholder='숫자, 문자 포함 12자이하로 입력하세요' readOnly >                  
+                  <input type='text' class='form-control' id='empId' name='id' placeholder='숫자, 문자 포함 12자이하로 입력하세요' readOnly >                  
                 </div>
                 <span id='idErrMsg'></span><br>              
                 <label for='password'>비밀번호</label>
@@ -296,7 +296,7 @@
                 </div>
                 <span id='emailErrMsg'></span><br>
                 <label for='phoneNumber'>전화번호</label>
-                <input type='tel' class='form-control' id='empPh' placeholder='-제외'>
+                <input type='number' class='form-control' id='empPh' placeholder='-제외'>
                 <span id='empPhErrMsg'></span><br>
                 <div class='form-group'>
                     <label for='input-postcode'>주소</label>

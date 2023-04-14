@@ -17,22 +17,32 @@
  let companyId = "${sessionScope.comId}"
 
 function errMsgClear() {
-    $('#idErrMsg, #pwErrMsg, #pwCheckErrMsg, #nameCheckErrMsg, #addrErrMsg, #empPositionErrMsg, #emailErrMsg, #empPhErrMsg,#hireDateErrMsg,#empPinoCheckErrMsg,#profileNameErrMsg').empty()
+    $('#idErrMsg, #pwErrMsg, #pwCheckErrMsg, #nameCheckErrMsg, #addrErrMsg, #emailErrMsg, #empPhErrMsg,#hireDateErrMsg,#empPinoCheckErrMsg').empty()
 }
+ const regex = {
+		  empId: /^[a-zA-Z0-9]{6,15}$/,
+		  empPw: /^[a-zA-Z0-9!@#$%^&*()?_~]{6,15}$/,
+		  empPino: /^[0-9]{6}\-[0-9]{7}$/,
+		  empEmail: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+		  empPh: /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/
+		}
+ 
+ function isVal(field, errorElement, errMsg, pattern) {
+	  let isVal = false;
 
-function isVal(field, errMsgElement, errMsg) {
-    let isGood = false;
+	  if (!field.val()) {
+	    errorElement.empty().text(errMsg).css('color', 'red');
+	  } else if (pattern && !pattern.test(field.val())) {
+	    errorElement.empty().text('올바른 형식으로 입력해주세요.').css('color', 'red');
+	  } else {
+	    isVal = true;
+	  }
 
-    if (!field.val()) {
-        errMsgElement.empty().text(errMsg).css('color', 'red')
-    } else {
-        isGood = true
-    }
+	  return isVal;
+	}
 
-    return isGood
-}
 
-	let checkId = 0;
+	let checkId 
 	let checkIdVal
 	
 	$(() => {
@@ -56,20 +66,22 @@ function isVal(field, errMsgElement, errMsg) {
 			const hireDate = $('#hireDate')
 			const profileName = $('#profileName')						
 			
-	        const isEmpId = isVal(empId, $('#idErrMsg'), 'ID를 입력하세요.')
-	        const isEmpPw = isVal(empPw, $('#pwErrMsg'), '비밀번호를 입력하세요.')
+	        const isEmpId = isVal(empId, $('#idErrMsg'), 'ID를 입력하세요.',regex.empId)
+	        const isEmpPw = isVal(empPw, $('#pwErrMsg'), '비밀번호를 입력하세요.',regex.empPw)
 	        const isEmpPwCheck = isVal(empPwCheck, $('#pwCheckErrMsg'), '비밀번호 확인을 입력하세요.')
 	        const isEmpName = isVal(empName, $('#nameCheckErrMsg'), '이름을 입력하세요.')
-	        const isEmpPino = isVal(empPino, $('#empPinoCheckErrMsg'), '주민번호를 입력하세요.')
+	        const isEmpPino = isVal(empPino, $('#empPinoCheckErrMsg'), '주민번호를 입력하세요.',regex.empPino)
 	        const isEmpAddr = isVal(empAddr, $('#addrErrMsg'), '주소를 입력하세요.')
-	        const isEmpPosition = isVal(empPosition, $('#empPositionErrMsg'), '직급을 입력하세요.')
-	        const isInputEmail = isVal(inputEmail, $('#emailErrMsg'), '이메일을 입력하세요.')
+	        const isInputEmail = isVal(inputEmail, $('#emailErrMsg'), '이메일을 입력하세요.',regex.empEmail)
 	        const isSubEmail = isVal(subEmail, $('#emailErrMsg'), '이메일을 입력하세요.')
-	        const isEmpPh = isVal(empPh, $('#empPhErrMsg'), '전화번호를 입력하세요.')
+	        const isEmpPh = isVal(empPh, $('#empPhErrMsg'), '전화번호를 입력하세요.', regex.empPh)
 	        const isHireDate = isVal(hireDate,$('#hireDateErrMsg'),'입사일을 입력하세요')
-	        const isProfileName = isVal(profileName,$('#profileNameErrMsg'),'프로필을 추가하세요')
 	        
-	        if (isEmpId && isEmpPw && isHireDate && isEmpPwCheck && isEmpName && isEmpPino && isEmpAddr && isEmpPosition && isInputEmail && isSubEmail && isEmpPh) {
+	        
+	        if (isEmpId && isEmpPw && isHireDate && isEmpPwCheck && isEmpName && isEmpPino && isEmpAddr  && isInputEmail && isSubEmail && isEmpPh) {
+	        	const strProfileName = profileName.val().split('fakepath\\');
+                const profile = strProfileName[1];
+                
 	            let employee = {
 	                empId: empId.val(),
 	                empPw: empPw.val(),
@@ -88,6 +100,8 @@ function isVal(field, errMsgElement, errMsg) {
 	            
 	            if(checkId != 0 && checkIdVal == $('#empId').val()) {
 		            if(empPw.val() == empPwCheck.val()) {
+		            	if (6 <=  empPw.val().length && empPw.val().length <= 15) {
+		                    if(empPino.val().length == 13) {
 			        	$.ajax({
 			                url: '/admin/user/addemp/add',
 			                type: 'post',
@@ -102,6 +116,13 @@ function isVal(field, errMsgElement, errMsg) {
 			                    }, 2000)
 			                }
 			            });
+		                   }else{
+		                	   $('#empPinoCheckErrMsg').text('주민등록번호는 13자리로 입력하세요.').css('color', 'red')
+		                    }
+		                    
+		                    }else{
+		                    	$('#pwErrMsg').text('비밀번호는 6자 이상, 15자 이하로 입력해주세요.').css('color', 'red')
+		                    }
 		            } else {
 		        		$('#pwCheckErrMsg').text('비밀번호가 일치하지 않습니다.').css('color', 'red')
 		            }
@@ -117,28 +138,31 @@ function isVal(field, errMsgElement, errMsg) {
         
         $('.form_box').on('click', '#empIdCheck', function() {
             const empId = $('#empId').val();
+            const isEmpId = isVal($('#empId'), $('#idErrMsg'), 'ID를 입력하세요.',regex.empId)
 			
-            if(empId) {
-            	
-	            $.ajax({
-	                url: '/admin/user/addemp/check',
-	                type: 'get',
-	                data: {empId: empId},
-	                success: function(result) {
-	                    console.log(result)
-	                    if (result == '1') {
-	                    	checkId = 0;
-	                    	
-	                    	$('#idErrMsg').text('이미 사용중인 ID입니다.').css('color', 'red');
-	                    } else {
-	                    	checkId = 1;
-	                    	checkIdVal = $('#empId').val()
-	                    	$('#idErrMsg').text('사용 가능한 ID입니다.').css('color', 'green');
-	                    }
-	                }
-	            })
-            } else {
-            	$('#idErrMsg').text('ID를 입력하세요.').css('color', 'red')
+            if(isEmpId) {
+            	if(empId) {
+                	
+    	            $.ajax({
+    	                url: '/admin/user/addemp/check',
+    	                type: 'get',
+    	                data: {empId: empId},
+    	                success: function(result) {
+    	                    console.log(result)
+    	                    if (result == '1') {
+    	                    	checkId = 0;
+    	                    	
+    	                    	$('#idErrMsg').text('이미 사용중인 ID입니다.').css('color', 'red');
+    	                    } else {
+    	                    	checkId = 1;
+    	                    	checkIdVal = $('#empId').val()
+    	                    	$('#idErrMsg').text('사용 가능한 ID입니다.').css('color', 'green');
+    	                    }
+    	                }
+    	            })
+                } else {
+                	$('#idErrMsg').text('ID를 입력하세요.').css('color', 'red')
+                }
             }
         })          
     })
@@ -243,7 +267,7 @@ function isVal(field, errMsgElement, errMsg) {
                     <input type='text' class='form-control' id='empName'>
                 <span id='nameCheckErrMsg'></span><br>
                 <label for='empPino'>주민번호</label>
-                <input type='password' class='form-control' maxlength='13' id='empPino' placeholder='-제외'>
+                <input type='number' class='form-control' maxlength='13' id='empPino' placeholder='-제외'>
                 <span id ='empPinoCheckErrMsg'></span><br>
                 <label for='input-id'>아이디</label>
                 <div class='input-group'>
@@ -300,11 +324,9 @@ function isVal(field, errMsgElement, errMsg) {
                 <div class='input-group'>
                 <input type='file' class='form-control' id='profileName' name='profil'>                                                          
                 </div>
-                </div>
-                <span id='profileNameErrMsg'></span><br>                
+                </div>                             
                 <label for='empPosition'>직급</label>
-                  <input type='text' class='form-control' id='empPosition'>
-                 <span id='empPositionErrMsg'></span> <br>
+                  <input type='text' class='form-control' id='empPosition'>                
                 <br>
                 <button type='button' id='addEmpBtn' class='btn btn-blue text-center'>직 원 등 록</button><br>
             </form>
