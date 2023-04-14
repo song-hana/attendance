@@ -67,6 +67,19 @@
 	        }
 	    });
 	}
+	
+	function fixMove() {
+        const employeeNo = $('#employeeNo:checked').val();
+        
+        if(employeeNo > 1) {
+           location.href = 'fixemp?employeeNo=' + employeeNo;  
+        } else {
+           $('#modalMsg').empty()
+              $('#modalMsg').text('수정하실 직원을 선택하세요.')
+              $('#modalBtn').hide()
+              $('#modal').modal('show')
+        }
+   }
 
     $(() => {
         input_company_header()
