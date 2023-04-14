@@ -111,7 +111,7 @@
                         const employee = employees[0];
                         $('#modalMsg').empty();
                         
-                        $('#modalMsg').append(`<img src='/attach/${employee.profileName ? employee.profileName : "emp_img.jpg"}' class='employeeImage'>`)
+                        $('#modalMsg').append(`<img src='/attach/${employee.profileName ? employee.profileName : "emp_img.png"}' class='employeeImage'>`)
                         				.append(`<p> 이름: \${employee.empName} </p>`)
                         				.append(`<p> 전화번호: \${employee.empPh} </p>`)
                         				.append(`<p> 주민등록번호: \${employee.empPino} </p>`)
@@ -131,7 +131,7 @@
 </script>
 <style>
 	.employeeImage {
-		width: 15rem; 
+		width: 12rem; 
 		height: auto; 
 		margin: 0 auto;
 		display: block;
