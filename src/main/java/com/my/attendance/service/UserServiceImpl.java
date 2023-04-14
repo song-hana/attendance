@@ -78,7 +78,11 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public List<Employee> getEmployeeInfo(int employeeNo) {
-		return employeeDao.selectEmployeeInfo(employeeNo);
+	    List<Employee> employees = employeeDao.selectEmployeeInfo(employeeNo);
+	    for (Employee employee : employees) {
+	        employee.setProfileName(employee.getProfileName() != null ? employee.getProfileName() : "emp_img.jpg");
+	    }
+	    return employees;
 	}
 	
 	@Override
