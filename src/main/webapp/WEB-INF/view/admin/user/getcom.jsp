@@ -73,7 +73,6 @@
         input_admin_sidebar()
         input_footer()
         btn_click()
-        show_logout()
         listCompanys()
         
  		$('#companyDelBtn').on('click', function() {
@@ -102,7 +101,7 @@
 </head>
 <body>
 <div class='container'>
-    <div class='row head'></div>
+    <div class='row header'></div>
     <div class='row mt-5'>
         <div class='col-2 snb'></div>
         <div class='col'>

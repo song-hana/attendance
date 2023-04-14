@@ -36,8 +36,7 @@ public class WorkDaoImpl implements WorkDao {
 	}
 	
 	@Override
-	public List<Work> selectWorkHolidays(@Param("yearMonth")YearMonth yearMonth,
-										@Param("employeeNo") int employeeNo) {
+	public List<Work> selectWorkHolidays(YearMonth yearMonth, int employeeNo) {
 		return workMap.selectWorkHolidays(yearMonth, employeeNo);
 	}
 }

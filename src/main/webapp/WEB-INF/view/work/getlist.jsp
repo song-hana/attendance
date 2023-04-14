@@ -92,7 +92,7 @@
 	                    if(startMinute > 0) {
 	                    	workHour = endHour - startHour - 1
 	                    }
-	                    
+	                 
 	                    if (workHour >= 9) {
 	                    	plusWorkHour = (workHour - 9)
 	                    	workHour = 8
@@ -189,14 +189,7 @@
                 <tr><th>일자</th><th>출근</th><th>퇴근</th><th>근무시간</th><th>추가근무시간</th><th>비고</th></tr>
             </thead>
             <tbody id='workHolidays'>
-                <tr>
-                	<td>2023-01-03</td>
-                	<td>09:30</td>
-                	<td>20:00</td>
-                	<td>9h</td>
-                	<td>2h</td>
-                	<td></td>
-               	</tr>
+          
             </tbody>
         </table>
     </div>

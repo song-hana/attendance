@@ -11,6 +11,5 @@ public interface WorkDao {
 	WorkDto selectInsertStart(int employeeNo);
 	void updateEndTime(int workNo);
 	Work selectInsertEnd(int workNo);
-	List<Work> selectWorkHolidays(@Param("yearMonth")YearMonth yearMonth,
-			@Param("employeeNo") int employeeNo);
+	List<Work> selectWorkHolidays(YearMonth yearMonth, int employeeNo);
 }	
