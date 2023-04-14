@@ -37,18 +37,22 @@
     	<div class='col-2 snb'></div>
     	<div class='col'>
 	    	<form action="logo" method="post" enctype="multipart/form-data">
+	    		<label>회사 로고 등록</label>
 			  	<input type="file" class="form-control" name="file">
 				<input type="submit" class="form-control" value='로고등록'>
 			</form>
 			<form action="logo_m" method="post" enctype="multipart/form-data">
+				<label>이용자 로고 등록</label>
 			  	<input type="file" class="form-control" name="file">
 				<input type="submit" class="form-control" value='모바일 로고등록'>
 			</form>
 			<form action="intro" method="post" enctype="multipart/form-data">
+				<label>회사 소개 등록</label>
 			  	<input type="file" class="form-control" name="file">
 				<input type="submit" class="form-control" value='소개 등록'>
 			</form>
 			<form action="intro_m" method="post" enctype="multipart/form-data">
+				<label>이용자용 회사 소개 등록</label>
 			  	<input type="file" class="form-control" name="file">
 				<input type="submit" class="form-control" value='모바일 소개 등록'>
 			</form>
