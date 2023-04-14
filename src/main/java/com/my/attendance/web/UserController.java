@@ -1,6 +1,7 @@
 package com.my.attendance.web;
 
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.my.attendance.domain.Admin;
@@ -232,4 +234,63 @@ public class UserController {
 		userService.fixEmployeePw(employeeNo, employeePw);
 		 return new ResponseEntity<>(HttpStatus.OK);
 	}
+	
+
+	// img ----------------------------------
+	@RequestMapping("admin/user/logo")
+	   public String logoAdmin() {
+	      return "admin/user/logo";
+	   }
+	   
+   @PostMapping("admin/user/logo")
+   public String handleFileUpload(@RequestParam("file") MultipartFile file) {
+       String uploadFolder = "C:/dev/attach/";
+
+     try {
+       file.transferTo(new File(uploadFolder + "logo.png"));
+     } catch (IOException e) {
+       e.printStackTrace();
+     }
+
+     return "admin/user/logo";
+   }
+   
+   @PostMapping("admin/user/logo_m")
+   public String handleFileUpload2(@RequestParam("file") MultipartFile file) {
+       String uploadFolder = "C:/dev/attach/";
+
+     try {
+       file.transferTo(new File(uploadFolder + "logo_m.png"));
+     } catch (IOException e) {
+       e.printStackTrace();
+     }
+
+     return "admin/user/logo";
+   }
+   
+   @PostMapping("admin/user/intro")
+   public String handleFileUpload3(@RequestParam("file") MultipartFile file) {
+       String uploadFolder = "C:/dev/attach/";
+
+     try {
+       file.transferTo(new File(uploadFolder + "intro_img.png"));
+     } catch (IOException e) {
+       e.printStackTrace();
+     }
+
+     return "admin/user/logo";
+   }
+   
+   @PostMapping("admin/user/intro_m")
+   public String handleFileUpload4(@RequestParam("file") MultipartFile file) {
+       String uploadFolder = "C:/dev/attach/";
+
+     try {
+       file.transferTo(new File(uploadFolder + "intro_img_m.png"));
+     } catch (IOException e) {
+       e.printStackTrace();
+     }
+
+     return "admin/user/logo";
+   }
 }

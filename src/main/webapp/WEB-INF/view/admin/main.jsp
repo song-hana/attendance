@@ -24,9 +24,14 @@
             show_logout()
         }
     })
+    
+    function no_introduce() {
+		$('.introduce').addClass('show')
+		$('.intro_img').removeClass('show')
+	}
 </script>
 <style>
-    .temporary {
+    .introduce {
         padding: 9rem;
         border: .1rem solid;
     }
@@ -38,7 +43,10 @@
         
     </div>
     <div class='row'>
-        <div class='temporary text-center mt-5'>회사소개이미지</div>
+        <div class='text-center mt-5 introduce collapse'>
+                회사소개이미지
+        </div>
+        <img src="/attach/intro_img.png" class="intro_img collapse show" onerror="no_introduce()" />
     </div>
     <div class='footer'>
        

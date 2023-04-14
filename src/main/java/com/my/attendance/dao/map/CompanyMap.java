@@ -1,7 +1,5 @@
 package com.my.attendance.dao.map;
 
-import java.util.List;
-
 import com.my.attendance.domain.Company;
 
 public interface CompanyMap {

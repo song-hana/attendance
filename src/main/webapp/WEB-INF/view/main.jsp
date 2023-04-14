@@ -29,12 +29,22 @@
 			show_login()
 		}
 	}
+	
+	function no_introduce() {
+		$('.introduce').addClass('show')
+		$('.intro_img').removeClass('show')
+	}
 </script>
 <style>
 	.introduce {
         height: 12rem;
         border: .1rem solid;
         line-height: 12rem;
+    }
+    .intro_img {
+    	width: 100%;
+    	height: auto;
+    	margin-bottom: 3rem;
     }
 </style>
 </head>
@@ -43,9 +53,10 @@
     <div class='row header'></div>
     <div class='row mt-4'>
         <div class='col'>
-            <div class='text-center mt-5 introduce'>
+            <div class='text-center mt-5 introduce collapse'>
                 회사소개이미지
             </div>
+            <img src="/attach/intro_img_m.png" class="intro_img collapse show" onerror="no_introduce()" />
         </div>
     </div>
     <div class='navigation'></div>

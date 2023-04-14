@@ -15,8 +15,21 @@
 <title>연차</title>
 <script>
 let employeeNo = ${sessionScope.empNo}
+$(() => {
+	input_user_header()
+    btn_click()
+    show_logout()
+    
+    if(1 < employeeNo && employeeNo < 99999) {
+    	listHolidays()
+    } else {
+    	location.href='/'
+    }
+})
+
 let employeeName = "${sessionScope.empName}"
 let employeeHireDate = "${sessionScope.hireDate}"
+
 	function isVal(field) {
 	    let isGood = false
 	    let errMsg
@@ -34,6 +47,7 @@ let employeeHireDate = "${sessionScope.hireDate}"
 	
 	    return isGood
 	}
+	
 	function listHolidays() {
 	    $('#holidays').empty();
 	    
@@ -49,15 +63,15 @@ let employeeHireDate = "${sessionScope.hireDate}"
 	                
 	                $.each(holidays, (i, holiday) => {
 	                	// 수정,삭제 버튼을 위한 날짜 계산
-	                    const today = new Date();
-	                    const holidayDate = new Date(holiday.holDate);
-	                    const timeDiff = holidayDate.getTime() - today.getTime();
-	                    const daysDiff = timeDiff / (1000 * 3600 * 24);
+	                    const today = new Date()
+	                    const holidayDate = new Date(holiday.holDate)
+	                    const timeDiff = holidayDate.getTime() - today.getTime()
+	                    const daysDiff = timeDiff / (1000 * 3600 * 24)
 	                    
-	                    let fixdelBtn = '';
+	                    let fixdelBtn = ''
 	                    if (daysDiff >= 3) {
 	                    	fixdelBtn = `<button type='button' class='btn btn-white btn-sm fixHolidayBtn'>수정</button>
-	                                   <button type='button' class='btn btn-red btn-sm delHolidayBtn'>삭제</button>`;
+	                                   <button type='button' class='btn btn-red btn-sm delHolidayBtn'>삭제</button>`
 	                    }
 	                    
 	                    // 부여연차, 잔여연차, 소진연차 입력.
@@ -69,15 +83,15 @@ let employeeHireDate = "${sessionScope.hireDate}"
 	                    const usedHoliday = holidays.length
 	                    const remainHoliday = grantHoliday - usedHoliday
 	                    if(remainHoliday == 0) {
-	                    	$('#addHolidayBtn').hide();
+	                    	$('#addHolidayBtn').hide()
 	                    } else {
-	                    	$('#addHolidayBtn').show();
+	                    	$('#addHolidayBtn').show()
 	                    }
 	                    
-	                    $('#grantHoliday').text(`\${grantHoliday}`); // 부여연차
-	                    $('#usedHoliday').text(`\${usedHoliday}`); // 소진연차
-	                    $('#remainHoliday').text(remainHoliday); // 잔여연차
-	                    $('#employeeName').text(employeeName); // 사용자이름
+	                    $('#grantHoliday').text(`\${grantHoliday}`)
+	                    $('#usedHoliday').text(`\${usedHoliday}`)
+	                    $('#remainHoliday').text(remainHoliday)
+	                    $('#employeeName').text(employeeName)
 	
 	                    holidayArr.unshift(`
 	                        <tr holidayNo='\${holiday.holidayNo}'>
@@ -98,28 +112,25 @@ let employeeHireDate = "${sessionScope.hireDate}"
                     const usedHoliday = holidays.length
                     const remainHoliday = grantHoliday - usedHoliday
                     if(remainHoliday == 0) {
-                    	$('#addHolidayBtn').hide();
+                    	$('#addHolidayBtn').hide()
                     } else {
-                    	$('#addHolidayBtn').show();
+                    	$('#addHolidayBtn').show()
                     }
                     
-                    $('#grantHoliday').text(`\${grantHoliday}`); // 부여연차
-                    $('#usedHoliday').text(`\${usedHoliday}`); // 소진연차
-                    $('#remainHoliday').text(remainHoliday); // 잔여연차
-                    $('#employeeName').text(employeeName); // 사용자이름
-                    $('#holidays').append('<tr><td colspan=3 class=text-center>연차내역이 없습니다.</td></tr>');
+                    $('#grantHoliday').text(`\${grantHoliday}`)
+                    $('#usedHoliday').text(`\${usedHoliday}`)
+                    $('#remainHoliday').text(remainHoliday)
+                    $('#employeeName').text(employeeName)
+                    $('#holidays').append('<tr><td colspan=3 class=text-center>연차내역이 없습니다.</td></tr>')
 	            }
 	        }
 	    });
 	}
+	
     $(() => {
-        input_user_header()
-        btn_click()
-        show_logout()
-        listHolidays()
         // 연차 수정
         $('#holidays').on('click', '.fixHolidayBtn', function() {
-            const holidayNo = $(this).closest('tr').attr('holidayNo');
+            const holidayNo = $(this).closest('tr').attr('holidayNo')
             
             $('#modalMsg').empty()
             $('#modalMsg').append(`<p>날짜: <input type='date' id='fixHolidayDate' placeholder='날짜'/> </p>`)
@@ -146,7 +157,7 @@ let employeeHireDate = "${sessionScope.hireDate}"
         });
         // 연차 삭제
         $('#holidays').on('click', '.delHolidayBtn', function() {
-            const holidayNo = $(this).closest('tr').attr('holidayNo');
+            const holidayNo = $(this).closest('tr').attr('holidayNo')
             
             $('#modalMsg').empty()
             $('#modalMsg').append(`<p>해당 연차를 삭제 하시겠습니까?<p>`)
@@ -179,7 +190,7 @@ let employeeHireDate = "${sessionScope.hireDate}"
 	                        employeeNo: employeeNo
 	                    },
 	                    success: listHolidays
-	                });
+	                })
             	}
             })
         })

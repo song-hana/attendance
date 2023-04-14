@@ -23,6 +23,10 @@
 	    btn_click()
 	    input_footer()
 	    show_logout()
+	    
+	    if(companyId.length < 1) {
+        	location.href='/company'
+        }
 	})
 	function isVal(field) {        
 	    let isGood = false

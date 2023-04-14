@@ -16,23 +16,17 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title>사내 일정 조회</title>
 <script>
-	let session = ${sessionScope.empNo}
     let companyId = "${sessionScope.comId}"
 
     $(() => {
         input_user_header()
         btn_click()
         
-        mp_check()
+        if(!companyId) {
+        	location.href='/'
+        }
     })
     
-    function mp_check() {
-		if(session > 0) {
-			show_logout()
-		} else {
-			window.location.href = '../main'
-		}
-	}
     
     function listPlans(successCallback) {
 	    $.ajax({
