@@ -17,17 +17,30 @@
 	function errMsgClear() {
 	    $('#idErrMsg, #pwErrMsg, #pwCheckErrMsg, #nameCheckErrMsg, #regnoErrMsg, #addrErrMsg, #presidentErrMsg, #emailErrMsg, #phErrMsg').empty()
 	}
-	function isVal(field, errMsgElement, errMsg) {
-	    let isGood = false;
-	
-	    if (!field.val()) {
-	        errMsgElement.empty().text(errMsg).css('color', 'red')
-	    } else {
-	        isGood = true
-	    }
-	
-	    return isGood
+	const regex = {
+			 comName: /^[가-힣a-zA-Z0-9]+$/,
+			 companyId: /^[a-zA-Z0-9]{6,15}$/,
+			 comPw: /^[가-힣a-zA-Z0-9!@#$%^&*()?_~]{6,15}$/,
+			 comRegno: /^[0-9]{10}$/,
+			 inputEmail: /^[a-zA-Z0-9._%+-]+$/,
+			 subEmail: /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+			 comPh: /^[0-9]{7,12}$/,			 
+			 president:/^[가-힣a-zA-Z]+$/
 	}
+	 
+	 function isVal(field, errorElement, errMsg, pattern) {
+		  let isVal = false;
+
+		  if (!field.val()) {
+		    errorElement.empty().text(errMsg).css('color', 'red');
+		  } else if (pattern && !pattern.test(field.val())) {
+		    errorElement.empty().text('올바른 형식으로 입력해주세요.').css('color', 'red');
+		  } else {
+		    isVal = true;
+		  }
+
+		  return isVal;
+		}
 	
 	let checkId = 0;
 	let checkIdVal
@@ -51,16 +64,16 @@
 	        const comEmail = inputEmail.val() + '@' + subEmail.val()
 	        const comPh = $('#comPh')
 	
-	        const isCompanyId = isVal(companyId, $('#idErrMsg'), '회사 ID를 입력하세요.')
-	        const isComPw = isVal(comPw, $('#pwErrMsg'), '비밀번호를 입력하세요.')
+	        const isCompanyId = isVal(companyId, $('#idErrMsg'), '회사 ID를 입력하세요.',regex.companyId)
+	        const isComPw = isVal(comPw, $('#pwErrMsg'), '비밀번호를 입력하세요.',regex.comPw)
 	        const isComPwCheck = isVal(comPwCheck, $('#pwCheckErrMsg'), '비밀번호 확인을 입력하세요.')
-	        const isComName = isVal(comName, $('#nameCheckErrMsg'), '회사명을 입력하세요.')
-	        const isComRegno = isVal(comRegno, $('#regnoErrMsg'), '사업자등록번호를 입력하세요.')
+	        const isComName = isVal(comName, $('#nameCheckErrMsg'), '회사명을 입력하세요.',regex.comName)
+	        const isComRegno = isVal(comRegno, $('#regnoErrMsg'), '사업자등록번호를 입력하세요.',regex.comRegno)
 	        const isComAddr = isVal(comAddr, $('#addrErrMsg'), '회사 주소를 입력하세요.')
-	        const isPresident = isVal(president, $('#presidentErrMsg'), '대표자명을 입력하세요.')
-	        const isInputEmail = isVal(inputEmail, $('#emailErrMsg'), '이메일을 입력하세요.')
-	        const isSubEmail = isVal(subEmail, $('#emailErrMsg'), '이메일을 입력하세요.')
-	        const isComPh = isVal(comPh, $('#phErrMsg'), '전화번호를 입력하세요.')
+	        const isPresident = isVal(president, $('#presidentErrMsg'), '대표자명을 입력하세요.',regex.president)
+	        const isInputEmail = isVal(inputEmail, $('#emailErrMsg'), '이메일을 입력하세요.', regex.inputEmail)
+	        const isSubEmail = isVal(subEmail, $('#emailErrMsg'), '이메일을 입력하세요.', regex.subEmail)
+	        const isComPh = isVal(comPh, $('#phErrMsg'), '전화번호를 입력하세요.',regex.comPh)
 			
 	        if (isCompanyId && isComPw && isComPwCheck && isComName && isComRegno && isComAddr && isPresident && isInputEmail && isSubEmail && isComPh) {
 	            let company = {
@@ -76,8 +89,10 @@
 	                comPh: comPh.val()
 	            }
 	            
-	            if(checkId != 0 && checkIdVal == $('#companyId').val()) {
+	            if(checkId != 0 && checkIdVal == $('#companyId').val()) {	            	
 		            if(comPw.val() == comPwCheck.val()) {
+		            if (6 <=  comPw.val().length && comPw.val().length <= 15){
+		            	if(comRegno.val().length == 11){		           
 			        	$.ajax({
 			                url: 'addcom/add',
 			                type: 'post',
@@ -92,6 +107,12 @@
 			                    }, 2000)
 			                }
 			            });
+		            	}else{
+		            		$('#regnoErrMsg').text('사업자번호는 11자리로 입력하세요.').css('color', 'red')
+		            	}
+		            }else{
+		            	$('#pwErrMsg').text('비밀번호는 6자 이상, 15자 이하로 입력해주세요.').css('color', 'red')
+		            }
 		            } else {
 		        		$('#pwCheckErrMsg').text('비밀번호가 일치하지 않습니다.').css('color', 'red')
 		            }
@@ -107,7 +128,9 @@
         
         $('.form_box').on('click', '#companyIdCheck', function() {
             const companyId = $('#companyId').val();
-			
+            const isCompanyId = isVal($('#companyId'), $('#idErrMsg'), 'ID를 입력하세요.',regex.companyId)
+           
+ 			if(isCompanyId){           
             if(companyId) {
             	
 	            $.ajax({
@@ -130,6 +153,7 @@
             } else {
             	$('#idErrMsg').text('회사 ID를 입력하세요.').css('color', 'red')
             }
+ 		}
         })
     })
     
@@ -246,7 +270,7 @@
                 <input type='text' class='form-control' id='comName' placeholder='-제외'>
                 <span id='nameCheckErrMsg'></span><br>
                 <label for='company_number'>사업자번호</label>
-                <input type='text' class='form-control' id='comRegno' placeholder='-제외'>
+                <input type='number' class='form-control' id='comRegno' placeholder='-제외'>
                 <span id='regnoErrMsg'></span><br>
                 <div class='form-group'>
                     <label for='input-postcode'>주소</label>

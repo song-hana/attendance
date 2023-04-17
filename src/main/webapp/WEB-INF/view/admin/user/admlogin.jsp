@@ -41,7 +41,7 @@
     }
     
     function move() {
-    	window.location.href = '/admin/ask/admasklist'
+    	window.location.href = '/admin/notice/admntclist'
     }
     
     function error() {

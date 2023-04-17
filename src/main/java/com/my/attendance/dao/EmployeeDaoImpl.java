@@ -36,7 +36,26 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public void updateEmployeePw(int employeeNo, String employeePw) {
 		employeeMap.updateEmployeePw(employeeNo, employeePw);
 	}
-
+	
+	@Override
+	public int insertEmployee(Employee employee) {
+		return employeeMap.insertEmployee(employee);
+	}
+	
+	@Override
+	public int checkEmployee(String empId) {
+		return employeeMap.checkEmployee(empId);
+	}
+	
+	@Override
+	public void updateEmployee(Employee employee) {
+		 employeeMap.updateEmployee(employee);
+	}
+	
+	@Override
+	public List<Employee> choiceEmployee(int employeeNo){
+		return employeeMap.choiceEmployee(employeeNo);
+	}
 
 	@Override
 	public List<Employee> selectEmployees(String companyId) {

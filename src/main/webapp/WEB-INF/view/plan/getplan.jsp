@@ -22,7 +22,7 @@
     $(() => {
         input_user_header()
         btn_click()
-        
+
         mp_check()
     })
     
@@ -30,7 +30,7 @@
 		if(session > 0) {
 			show_logout()
 		} else {
-			window.location.href = '../main'
+			window.location.href = '/'
 		}
 	}
     

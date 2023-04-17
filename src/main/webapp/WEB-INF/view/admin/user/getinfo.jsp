@@ -11,11 +11,10 @@
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <script src='<c:url value="/res/common.js"/>'></script>
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
-<title>기업회원조회</title>
+<title>회사정보</title>
 <script>
-	const urlParams = new URLSearchParams(window.location.search);
-	const companyId = urlParams.get('companyId');
-		
+	let companyId = "${sessionScope.comId}"
+	
 	function listCompanys() {
 		$.ajax({
 			url: 'getinfo/get',
@@ -66,19 +65,19 @@
 			  }
 			}
 	    });
-	}
+    }
 	   
     $(() => {
-    	input_admin_header()
-        input_admin_sidebar()
+        input_company_header()
+        input_company_sidebar()
         input_footer()
         btn_click()
         show_logout()
         listCompanys()
         
- 		$('#companyDelBtn').on('click', function() {
+ 		$('#companyDelBtn').click(() => {
  			$('#modalMsg').empty()
-            $('#modalMsg').text('삭제하시겠습니까?')
+            $('#modalMsg').text('탈퇴하시겠습니까?')
             $('#modalBtn').show()
             $('#modal').modal('show')
             
@@ -87,13 +86,14 @@
 	                 url: '/admin/user/getinfo/del/' + companyId,
 	                 method: 'delete',
 	                 success: function() {
-	                	 window.location.href = 'comlist'
+	                	 window.location.href = '/company/logoutCom'
 	                 }
        		    })
- 		   	})
+ 		   	})   
    	    })
     }) 
-</script>    
+    
+</script>
 <style>
     tr th:last-child {
         padding-left: 25%;
@@ -102,55 +102,55 @@
 </head>
 <body>
 <div class='container'>
-    <div class='row head'></div>
+    <div class='row header'></div>
     <div class='row mt-5'>
         <div class='col-2 snb'></div>
         <div class='col'>
             <div class='row'>
-                <div class='col'>
-                    <h3><b>회원조회</b></h3>
-                    <button type='button' class='btn btn-lightgray float-end' onclick='location.href="comlist"'>목록</button>
+                <div class='col mt-4'>
+                    <h3><b>회사정보</b></h3>
                 </div>
             </div>
             <div class='row'>
                 <div class='col'>
                     <table class='table'>
-                        <thead>
+                        <thead class='h4'>
                             <tr>
                                 <th></th>
                                 <th><b>회사정보</b></th>
                             </tr>
                         </thead>
                         <tbody id='companys'>
-             
+                      
                         </tbody>
                     </table>
                 </div>
             </div>
+            <div class='row mt-5'>
+                <div class='col d-flex justify-content-center gap-3'>
+                    <button type='button' class='btn btn-white' id= 'fix-btn' onclick="location.href='fixinfo'">수정하기</button>
+                    <button type='button' class='btn btn-red' id='companyDelBtn'>탈퇴하기</button>
+                </div>
+            </div>
         </div>
     </div>
-    <div class='row mt-5'>
-        <div class='col d-flex justify-content-center'>
-            <button type='button' class='btn btn-red' id='companyDelBtn'>삭제하기</button>
+    <div class='footer'></div>
+</div>
+<div class='modal fade' id='modal'>
+    <div class='modal-dialog'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <button type='button' class='btn-close' data-bs-dismiss='modal'></button>
+            </div>
+            <div class='modal-body'>
+                <p id='modalMsg'></p>
+            </div>
+            <div class='modal-footer' id='modalBtn'>
+                <button type='button' class='btn btn-lightgray' id='modalCancelBtn' data-bs-dismiss='modal'>취소</button>
+                <button type='button' class='btn btn-blue' id='modalOKBtn'>확인</button>
+            </div>
         </div>
-        <div class='footer'></div>
     </div>
-</div>
-<div class='modal fadel' id='modal'>
-<div class='modal-dialog'>
-	<div class='modal-content'>
-	    <div class='modal-header'>
-	        <button type='button' class='btn-close' data-bs-dismiss='modal'></button>
-	    </div>
-	    <div class='modal-body'>
-	        <p id='modalMsg'></p>
-	    </div>
-	    <div class='modal-footer'>
-	    <button type='button' class='btn btn-lightgray' data-bs-dismiss='modal'>취소</button>
-	    <button type='button' class='btn btn-blue' id='modalOKBtn'>확인</button>
-	    </div>
-	</div>
-</div>
-</div>
+</div>   
 </body>
 </html>

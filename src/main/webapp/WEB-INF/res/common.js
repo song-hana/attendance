@@ -68,7 +68,7 @@ function input_company_header() {
     header_txt += '             <a href="/admin/user/login" class="collapse show">로그인</a>'
     header_txt += '             <a href="/admin/user/addcom" class="collapse show">회원가입</a>'
     header_txt += '             <a href="/admin/user/logoutCom" class="collapse" id="logout">로그아웃</a>'
-    header_txt += '             <a href="/admin/plan/planlist" class="collapse">마이페이지</a>'
+    header_txt += '             <a href="/admin/notice/comntclist" class="collapse">마이페이지</a>'
     header_txt += '          </div>'
     header_txt += '     </div>'
     header_txt += ' </div>'
@@ -129,10 +129,10 @@ function input_admin_sidebar() {
 
     sideBar += '     <ul>'
     sideBar += '         <br>'
-    sideBar += '         <li><a href="/admin/notice/ntclist">공지사항</a></li><br>'
-    sideBar += '         <li><a href="/admin/ask/asklist">문의사항</a></li><br>'
+    sideBar += '         <li><a href="/admin/notice/admntclist">공지사항</a></li><br>'
+    sideBar += '         <li><a href="/admin/ask/admasklist">문의사항</a></li><br>'
     sideBar += '         <li><a href="/admin/user/comlist">회원 조회</a></li><br>'
-    sideBar += '         <li><a href="/admin/user/logo">이미지 등록</a></li>'
+    sideBar += '         <li><a href="/admin/management/logo">이미지 등록</a></li>'
     sideBar += '     </ul>'
 
     $('.snb').append(sideBar)

@@ -67,19 +67,19 @@
 	        }
 	    });
 	}
-	
+
 	function fixMove() {
-        const employeeNo = $('#employeeNo:checked').val();
-        
-        if(employeeNo > 1) {
-           location.href = 'fixemp?employeeNo=' + employeeNo;  
-        } else {
-           $('#modalMsg').empty()
+		  const employeeNo = $('#employeeNo:checked').val();
+		  
+		  if(employeeNo > 1) {
+			  location.href = 'fixemp?employeeNo=' + employeeNo;  
+		  } else {
+			  $('#modalMsg').empty()
               $('#modalMsg').text('수정하실 직원을 선택하세요.')
               $('#modalBtn').hide()
               $('#modal').modal('show')
-        }
-   }
+		  }
+	}
 
     $(() => {
         input_company_header()
@@ -124,7 +124,7 @@
                         const employee = employees[0];
                         $('#modalMsg').empty();
                         
-                        $('#modalMsg').append(`<img src='/res/\${employee.profileName ? `\${employee.profileName}` : "기본이미지.jpg"}' class='employeeImage'>`)
+                        $('#modalMsg').append(`<img src='/attach/${employee.profileName ? employee.profileName : "emp_img.png"}' class='employeeImage'>`)
                         				.append(`<p> 이름: \${employee.empName} </p>`)
                         				.append(`<p> 전화번호: \${employee.empPh} </p>`)
                         				.append(`<p> 주민등록번호: \${employee.empPino} </p>`)
@@ -144,7 +144,7 @@
 </script>
 <style>
 	.employeeImage {
-		width: 15rem; 
+		width: 12rem; 
 		height: auto; 
 		margin: 0 auto;
 		display: block;
@@ -163,8 +163,8 @@
                 </div>
                 <div class='col pt-3'>
                     <div class='gap-2 d-flex justify-content-end'>
-                        <button type='button' class='btn btn-blue' onclick="location.href='./08.html'">추가</button>
-                        <button type='button' class='btn btn-white' onclick="location.href='./09.html'">수정</button>
+                        <button type='button' class='btn btn-blue' onclick="location.href='addemp'">추가</button>
+                        <button type='button' class='btn btn-white' onclick="fixMove()">수정</button>
                         <button type='button' class='btn btn-red' id='employeeDelBtn'>삭제</button>
                     </div>
                 </div> 

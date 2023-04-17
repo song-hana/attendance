@@ -140,6 +140,10 @@
         btn_click()
         show_logout()
         listWorkHolidays()
+        
+        if(employeeNo.length < 1) {
+        	location.href='/'
+        }
     })
 </script>
 <style>

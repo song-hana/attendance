@@ -27,6 +27,10 @@ public interface UserService {
 	String findPw(String employeeId, String employeePino);
 	int checkEmployeePw(int employeeNo, String employeePw);
 	void fixEmployeePw(int employeeNo, String employeePw);
+	void addEmployee(Employee employee);
+	int checkEmployee(String empId);
+	void fixEmployee(Employee employee);
+	List<Employee> getEmployee(int employeeNo);
 	List<Employee> getEmployees(String companyId);
 	List<Employee> getEmployeeInfo(int employeeNo);
 	void delEmployee(int employeeNo);

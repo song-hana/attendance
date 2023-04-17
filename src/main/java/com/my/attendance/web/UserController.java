@@ -1,7 +1,5 @@
 package com.my.attendance.web;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.my.attendance.domain.Admin;
@@ -29,6 +25,27 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UserController {
+	@GetMapping
+	@RequestMapping("admin/user/comlist")
+	public ModelAndView listCompany(ModelAndView mv) {
+		mv.setViewName("admin/user/comlist");
+		return mv;
+	}
+	
+	@GetMapping
+	@RequestMapping("admin/user/getinfo")
+	public ModelAndView getCompany(ModelAndView mv) {
+		mv.setViewName("admin/user/getinfo");
+		return mv;
+	}
+	
+	@GetMapping
+	@RequestMapping("admin/user/getcom")
+	public ModelAndView Companyget(ModelAndView mv) {
+		mv.setViewName("admin/user/getcom");
+		return mv;
+	}
+	
 	//company--------------------------------
 	@RequestMapping("admin/user/login")
 	public String loginCompany() {
@@ -83,6 +100,16 @@ public class UserController {
 	public ModelAndView fixPw(ModelAndView mv) {
 		mv.setViewName("user/fixpw");
 		return mv;				
+	}
+	
+	@RequestMapping("admin/user/addemp")
+	public String addemp() {
+		return "admin/user/addemp";
+	}
+	
+	@RequestMapping("admin/user/fixemp")
+	public String fixEmployee() {
+		return "admin/user/fixemp";
 	}
 	
 	@Autowired private UserService userService;
@@ -146,6 +173,12 @@ public class UserController {
 		return pw;
 	}
 	
+	@ResponseBody
+	@GetMapping("admin/user/comlist/get")
+	public List<Company> getCompanys() {
+		return userService.getCompanys();
+	}
+	
 	@PostMapping("admin/user/addcom/add")
 	public ResponseEntity<String> addCompany(@RequestBody Company company) {
 	    userService.addCompany(company);
@@ -165,28 +198,16 @@ public class UserController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@GetMapping("admin/user/fixinfo/get")
+	@GetMapping(value = {"admin/user/fixinfo/get", "admin/user/getinfo/get"})
 	@ResponseBody
 	public List<Company> choiceCompany(String companyId) {
 	    return userService.getCompany(companyId);
 	}
 	
-	@ResponseBody
-	@GetMapping("admin/user/emplist/get")
-	public List<Employee> getEmployees(String companyId) {
-		return userService.getEmployees(companyId);
-	}
-	
-	@DeleteMapping("admin/user/emplist/del/{employeeNo}")
-	public ResponseEntity<String> delEmployee(@PathVariable int employeeNo) {
-	    userService.delEmployee(employeeNo);
+	@DeleteMapping("admin/user/getinfo/del/{companyId}")
+	public ResponseEntity<String> delCompany(@PathVariable String companyId) {
+	    userService.delCompany(companyId);
 	    return new ResponseEntity<>(HttpStatus.OK);
-	}
-	
-	@ResponseBody
-	@GetMapping("admin/user/emplist/getInfo/{employeeNo}")
-	public List<Employee> getEmployeeInfo(@PathVariable int employeeNo) {
-		return userService.getEmployeeInfo(employeeNo);
 	}
 	
 	//employee--------------------------------
@@ -238,61 +259,50 @@ public class UserController {
 		 return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	// img ----------------------------------
-	@RequestMapping("admin/user/logo")
-	   public String logoAdmin() {
-	      return "admin/user/logo";
-	   }
-	   
-   @PostMapping("admin/user/logo")
-   public String handleFileUpload(@RequestParam("file") MultipartFile file) {
-       String uploadFolder = "C:/dev/attach/";
 
-     try {
-       file.transferTo(new File(uploadFolder + "logo.png"));
-     } catch (IOException e) {
-       e.printStackTrace();
-     }
+	@PostMapping("admin/user/addemp/add")
+	public ResponseEntity<String> addEmployee(@RequestBody Employee employee){
+		userService.addEmployee(employee);
+		System.out.println(employee);
+		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+	
+	@GetMapping("admin/user/addemp/check")
+	@ResponseBody
+	public int checkEmployee(String empId) {
+		return userService.checkEmployee(empId);
+	}	
+		    	    		
+	
+	@PutMapping("admin/user/fixemp/fix")
+	public ResponseEntity<String> fixEmployee(@RequestBody Employee employee){
+		userService.fixEmployee(employee);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@GetMapping("admin/user/fixemp/get")
+	@ResponseBody
+	public List<Employee> choiceEmployee(int employeeNo){
+		return userService.getEmployee(employeeNo);
+	}
+	
 
-     return "admin/user/logo";
-   }
-   
-   @PostMapping("admin/user/logo_m")
-   public String handleFileUpload2(@RequestParam("file") MultipartFile file) {
-       String uploadFolder = "C:/dev/attach/";
-
-     try {
-       file.transferTo(new File(uploadFolder + "logo_m.png"));
-     } catch (IOException e) {
-       e.printStackTrace();
-     }
-
-     return "admin/user/logo";
-   }
-   
-   @PostMapping("admin/user/intro")
-   public String handleFileUpload3(@RequestParam("file") MultipartFile file) {
-       String uploadFolder = "C:/dev/attach/";
-
-     try {
-       file.transferTo(new File(uploadFolder + "intro_img.png"));
-     } catch (IOException e) {
-       e.printStackTrace();
-     }
-
-     return "admin/user/logo";
-   }
-   
-   @PostMapping("admin/user/intro_m")
-   public String handleFileUpload4(@RequestParam("file") MultipartFile file) {
-       String uploadFolder = "C:/dev/attach/";
-
-     try {
-       file.transferTo(new File(uploadFolder + "intro_img_m.png"));
-     } catch (IOException e) {
-       e.printStackTrace();
-     }
-
-     return "admin/user/logo";
-   }
+	@ResponseBody
+	@GetMapping("admin/user/emplist/get")
+	public List<Employee> getEmployees(String companyId) {
+		return userService.getEmployees(companyId);
+	}
+	
+	@DeleteMapping("admin/user/emplist/del/{employeeNo}")
+	public ResponseEntity<String> delEmployee(@PathVariable int employeeNo) {
+	    userService.delEmployee(employeeNo);
+	    return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@ResponseBody
+	@GetMapping("admin/user/emplist/getInfo/{employeeNo}")
+	public List<Employee> getEmployeeInfo(@PathVariable int employeeNo) {
+		return userService.getEmployeeInfo(employeeNo);
+	}
+	
 }

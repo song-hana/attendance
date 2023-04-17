@@ -56,6 +56,11 @@
 			  	<input type="file" class="form-control" name="file">
 				<input type="submit" class="form-control" value='모바일 소개 등록'>
 			</form>
+			<form action="emp_img" method="post" enctype="multipart/form-data">
+				<label>사원 기본 이미지</label>
+			  	<input type="file" class="form-control" name="file">
+				<input type="submit" class="form-control" value='사원 기본 이미지 등록'>
+			</form>
     	</div>
     </div>
     <div class='footer'>
