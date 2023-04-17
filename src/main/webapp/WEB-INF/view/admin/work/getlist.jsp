@@ -129,6 +129,8 @@
 	                    	workHour = endHour - startHour - 1
 	                    }
 	                    
+	                    if(workHour < 0) workHour = 0
+	                    
 	                    // 추가근무시간
 	                    if (workHour >= 9) {
 	                    	plusWorkHour = (workHour - 9)
@@ -137,13 +139,19 @@
 	                    	plusWorkHour = 0
 	                    }
 	                    
+						let endTimes = endHour + ':' + endMinute
+		                
+		                if(work.endTime == null) {
+		                	endTimes = ''
+		                }
+	                    
                     	workArr.push(`
                    			<tr>
    	                            <td>\${today}</td>
    	                            <td>\${work.empName}</td>
    	                            <td>\${work.empPosition}</td>
    	                            <td>\${startHour}:\${startMinute}</td>
-   	                            <td>\${endHour}:\${endMinute}</td>
+   	                            <td>\${endTimes}</td>
    	                            <td>\${workHour}h</td>
    	                            <td>\${plusWorkHour}h</td>
    	                            <td></td>

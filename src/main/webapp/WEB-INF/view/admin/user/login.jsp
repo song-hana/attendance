@@ -19,7 +19,11 @@
         $('#login').click(e => {
         	e.preventDefault()
         	if(isVal($('#comId')) && isVal($('#comPw'))) {
-        		checkCom($('#comId').val(), $('#comPw').val())
+        		if(checkCom($('#comId').val(), $('#comPw').val())) {
+        			
+        		} else {
+        			error()
+        		}
         	}
         })
     })
@@ -36,8 +40,7 @@
     				move()
     			}
     		}
-    	}).done(() => $('.msgBox').removeClass('show'))
-		.fail(() => error())
+    	})
     }
     
     function move() {

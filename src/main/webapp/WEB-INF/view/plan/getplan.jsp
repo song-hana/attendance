@@ -21,12 +21,12 @@
     $(() => {
         input_user_header()
         btn_click()
+        show_logout()
         
         if(!companyId) {
         	location.href='/'
         }
     })
-    
     
     function listPlans(successCallback) {
 	    $.ajax({

@@ -20,7 +20,7 @@ $(() => {
     btn_click()
     show_logout()
     
-    if(1 < employeeNo && employeeNo < 99999) {
+    if(0 < employeeNo && employeeNo < 99999) {
     	listHolidays()
     } else {
     	location.href='/'
@@ -137,21 +137,31 @@ let employeeHireDate = "${sessionScope.hireDate}"
             $('#modalBtn').show()
             $('#modal').modal('show')
             
-            
            	$('#modalOKBtn').off('click').on('click', function() {
            		if(isVal($('#fixHolidayDate'))) {
-	                let holiday = {
+           			let today = new Date()
+                    let selectedDate = new Date($('#fixHolidayDate').val())
+           			let holiday = {
 	                    holidayNo: holidayNo,
 	                    holDate: $('#fixHolidayDate').val() 
 	                }
-	                
-	                $.ajax({
-	                    url: '/admin/holiday/holidaylist/fix',
-	                    type: 'put',
-	                    contentType: 'application/json',
-	                    data: JSON.stringify(holiday),
-	                    success: listHolidays
-	                });
+           			
+           			if (selectedDate > today) {
+		                $.ajax({
+		                    url: '/admin/holiday/holidaylist/fix',
+		                    type: 'put',
+		                    contentType: 'application/json',
+		                    data: JSON.stringify(holiday),
+		                    success: listHolidays
+		                })
+           			} else {
+                        setTimeout(function() {
+                        	$('#modalMsg').empty()
+                        	$('#modalMsg').text('날짜를 확인해주세요.')
+                            $('#modalBtn').hide()
+                            $('#modal').modal('show')
+                          }, 300)    
+                    }
            		}
        		})
         });
@@ -178,19 +188,31 @@ let employeeHireDate = "${sessionScope.hireDate}"
                             .append(`<p>사유: <input type='text' class='pb-3' id='addHolidayContent' placeholder='사유' /></p>`)
             $('#modalBtn').show()
             $('#modal').modal('show')
+            
             $('#modalOKBtn').off('click').on('click', function() {
             	if( isVal($('#addHolidayDate')) && isVal($('#addHolidayContent'))) {
-            		
-	                $.ajax({
-	                    url: '/holiday/getholiday/add',
-	                    type: 'post',
-	                    data: {
-	                        holDate: $('#addHolidayDate').val(),
-	                        holContent: $('#addHolidayContent').val(),
-	                        employeeNo: employeeNo
-	                    },
-	                    success: listHolidays
-	                })
+            		let today = new Date()
+                    let selectedDate = new Date($('#addHolidayDate').val())
+                    
+                    if (selectedDate > today) {
+		                $.ajax({
+		                    url: '/holiday/getholiday/add',
+		                    type: 'post',
+		                    data: {
+		                        holDate: $('#addHolidayDate').val(),
+		                        holContent: $('#addHolidayContent').val(),
+		                        employeeNo: employeeNo
+		                    },
+		                    success: listHolidays
+		                })
+                    } else {
+                        setTimeout(function() {
+                        	$('#modalMsg').empty()
+                        	$('#modalMsg').text('날짜를 확인해주세요.')
+                            $('#modalBtn').hide()
+                            $('#modal').modal('show')
+                          }, 300)    
+                    }
             	}
             })
         })
