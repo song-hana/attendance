@@ -21,7 +21,7 @@ function errMsgClear() {
 }
  const regex = {
 		 empName: /^[가-힣]+$/,
-		 empId: /^[a-zA-Z0-9]{1,15}$/,
+		 empId: /^[a-zA-Z0-9]{6,15}$/,
 		 empPw: /^[a-zA-Z0-9!@#$%^&*()?_~]{6,15}$/,
 		 empPino: /^[0-9]{13}$/,
 		 inputEmail: /^[a-zA-Z0-9._%+-]+$/,
@@ -48,7 +48,7 @@ function errMsgClear() {
 	let checkIdVal
 	
 	$(() => {
-	    input_form_comheader()
+	    input_form_header()
 	     $('.form_box').off('click').on('click', '#addEmpBtn', function() {
       		errMsgClear()
       		
@@ -149,6 +149,7 @@ function errMsgClear() {
     	                type: 'get',
     	                data: {empId: empId},
     	                success: function(result) {
+    	                    console.log(result)
     	                    if (result == '1') {
     	                    	checkId = 0;
     	                    	
