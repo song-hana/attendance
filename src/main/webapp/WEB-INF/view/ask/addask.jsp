@@ -44,7 +44,7 @@
         $('#askAddBtn').click(() => {
         	if(isVal($('#askTitle')) && isVal($('#askName')) && isVal($('#askContent'))) {
         		$.ajax({
-                    url: '/company/ask/addask/add',
+                    url: '/admin/ask/addask/add',
                     type: 'post',
                     data: {
                         askTitle: $('#askTitle').val(),
@@ -79,6 +79,7 @@
 			show_login()
 		}
 	}
+    
 </script>
 <style>
     table {

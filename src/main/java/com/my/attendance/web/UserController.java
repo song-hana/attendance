@@ -218,7 +218,8 @@ public class UserController {
 	
 	@GetMapping
 	@RequestMapping("user/fixpw")
-	public ModelAndView fixPw(ModelAndView mv) {
+	@EmployeeCheck
+	public ModelAndView fixPw(ModelAndView mv, HttpSession session) {
 		mv.setViewName("user/fixpw");
 		return mv;				
 	}

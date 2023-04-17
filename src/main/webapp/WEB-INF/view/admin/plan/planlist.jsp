@@ -17,17 +17,16 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title>일정 조회</title>
 <script>
+	let companyId = "${sessionScope.comId}"
+
 	$(() => {
 	    input_company_header()
 	    input_company_sidebar()
 	    btn_click()
 	    input_footer()
 	    show_logout()
-	    
-	    if(companyId.length < 1) {
-        	location.href='/company'
-        }
 	})
+	
 	function isVal(field) {        
 	    let isGood = false
 	    let errMsg
@@ -46,8 +45,8 @@
 	
 	    return isGood
 	}
-	let companyId = "${sessionScope.comId}"
-   // company_id 를 이용하여 검색
+	
+	
   	function listPlans(successCallback) {
 	    $.ajax({
 	        url: 'planlist/getPlan',

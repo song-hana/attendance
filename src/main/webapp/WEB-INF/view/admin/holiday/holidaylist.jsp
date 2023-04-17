@@ -34,6 +34,7 @@
 	
 	    return isGood
 	}
+	
 	$(function() {
 	    let today = new Date();
 	    let dateString = today.getFullYear() + "." + (today.getMonth() + 1)
@@ -118,10 +119,6 @@
         input_footer()
         show_logout()
         listHolidays()
-        
-        if(companyId.length < 1) {
-        	location.href='/company'
-        }
 		
         // 연차 수정
         $('#holidays').on('click', '.fixHolidayBtn', function() {

@@ -15,20 +15,15 @@
 <title>연차</title>
 <script>
 let employeeNo = ${sessionScope.empNo}
+let employeeName = "${sessionScope.empName}"
+let employeeHireDate = "${sessionScope.hireDate}"
+
 $(() => {
 	input_user_header()
     btn_click()
     show_logout()
-    
-    if(0 < employeeNo && employeeNo < 99999) {
-    	listHolidays()
-    } else {
-    	location.href='/'
-    }
+    listHolidays()
 })
-
-let employeeName = "${sessionScope.empName}"
-let employeeHireDate = "${sessionScope.hireDate}"
 
 	function isVal(field) {
 	    let isGood = false
