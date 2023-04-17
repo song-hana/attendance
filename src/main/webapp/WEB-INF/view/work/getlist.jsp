@@ -14,7 +14,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
 <script src='<c:url value="/res/common.js"/>'></script>
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
-<title>근태목록조회</title>
+<title></title>
 <script>
 	let employeeNo = "${sessionScope.empNo}"
 
@@ -135,7 +135,7 @@
 	                });
 	                $('#workHolidays').append(workArr.join(''));
 	            } else {
-	                $('#workHolidays').append('<tr><td colspan=6 class=text-center>근태내역이 없습니다.</td></tr>');
+	                $('#workHolidays').append('<tr><td colspan=6 class=text-center>근로내역이 없습니다.</td></tr>');
 	            }
 	        }
 	    });
@@ -176,7 +176,7 @@
 <div class='row header'></div>
 <div class='row'>
     <div class='col mt-4 mb-4'>  
-        <h3 class='text-center'><b>근태목록 조회</b></h3>
+        <h3 class='text-center'><b>근로내역 조회</b></h3>
     </div>
 </div>
 <div class='row'>

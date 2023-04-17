@@ -13,12 +13,20 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'/>
 <title></title>
 <script>
+	let companyId = "${sessionScope.comId}"
+	
 	$(() => {
 	    input_company_header()
 	    btn_click()
 	    show_logout()
 	    input_footer()   
 	    listPublicNotices()
+	    
+	    if(companyId != '') {
+            show_logout()
+        } else {
+        	show_login()
+        }
 	})
 
 	function listPublicNotices() {

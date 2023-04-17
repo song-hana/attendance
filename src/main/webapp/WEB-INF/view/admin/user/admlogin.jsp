@@ -16,6 +16,9 @@
     $(() => {
         input_form_header()
         
+        $('.center_logo_txt').removeAttr('onclick')
+        $('.center_logo').removeAttr('onclick')
+        
         $('#login').click(e => {
         	e.preventDefault()
         	if(isVal($('#adminId')) && isVal($('#adminPw'))) {

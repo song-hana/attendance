@@ -166,6 +166,17 @@ function input_form_header() {
     $('.title').append(header_txt)
 }
 
+function input_form_comheader() {
+    let header_txt = ''
+
+    header_txt += ' <div class="col">'
+    header_txt += `     <div class="center_logo_txt text-center collapse" onclick='location.href="/company"'>로고이미지</div>`
+    header_txt += `     <img src="/attach/logo.png" class="center_logo collapse show" onclick='location.href="/company"' onerror="no_img()" />`
+    header_txt += ' </div>'
+
+    $('.title').append(header_txt)
+}
+
 //footer 공통 사항
 function input_footer() {
     let footer_txt = ''

@@ -46,7 +46,7 @@
 	let checkIdVal
 	
     $(() => {
-        input_form_header()
+        input_form_comheader()
         $('.form_box').off('click').on('click', '#addCompanyBtn', function() {
       		errMsgClear()
         
@@ -92,7 +92,7 @@
 	            if(checkId != 0 && checkIdVal == $('#companyId').val()) {	            	
 		            if(comPw.val() == comPwCheck.val()) {
 		            if (6 <=  comPw.val().length && comPw.val().length <= 15){
-		            	if(comRegno.val().length == 11){		           
+		            	if(comRegno.val().length == 10){		           
 			        	$.ajax({
 			                url: 'addcom/add',
 			                type: 'post',
@@ -108,7 +108,7 @@
 			                }
 			            });
 		            	}else{
-		            		$('#regnoErrMsg').text('사업자번호는 11자리로 입력하세요.').css('color', 'red')
+		            		$('#regnoErrMsg').text('사업자번호는 10자리로 입력하세요.').css('color', 'red')
 		            	}
 		            }else{
 		            	$('#pwErrMsg').text('비밀번호는 6자 이상, 15자 이하로 입력해주세요.').css('color', 'red')

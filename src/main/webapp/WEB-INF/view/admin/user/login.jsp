@@ -14,7 +14,7 @@
 <title></title>
 <script>
     $(() => {
-        input_form_header()
+        input_form_comheader()
         
         $('#login').click(e => {
         	e.preventDefault()

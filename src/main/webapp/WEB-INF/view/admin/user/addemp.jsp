@@ -48,7 +48,7 @@ function errMsgClear() {
 	let checkIdVal
 	
 	$(() => {
-	    input_form_header()
+	    input_form_comheader()
 	     $('.form_box').off('click').on('click', '#addEmpBtn', function() {
       		errMsgClear()
       		

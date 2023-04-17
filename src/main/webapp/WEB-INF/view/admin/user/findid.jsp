@@ -15,7 +15,7 @@
 <title></title>
 <script>
     $(() => {
-        input_form_header()
+        input_form_comheader()
 
         $('#showID').click(e => {
         	e.preventDefault()

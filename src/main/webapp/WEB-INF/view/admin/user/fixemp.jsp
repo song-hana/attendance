@@ -51,7 +51,7 @@
 	let checkIdVal
 	
 	$(() => {
-	    input_form_header()
+	    input_form_comheader()
 	    listEmployee()
 	    
 	     $('.form_box').off('click').on('click', '#fixEmpBtn', function() {
