@@ -92,6 +92,11 @@
     tbody tr td:first-child, tbody tr td:last-child {
         text-align: center;
     }
+    
+    .table tbody tr:hover {
+		background-color: #EBF3FA;
+		cursor: pointer;
+	}
 </style>
 </head>
 <body>

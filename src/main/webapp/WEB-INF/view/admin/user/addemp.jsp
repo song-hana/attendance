@@ -149,7 +149,6 @@ function errMsgClear() {
     	                type: 'get',
     	                data: {empId: empId},
     	                success: function(result) {
-    	                    console.log(result)
     	                    if (result == '1') {
     	                    	checkId = 0;
     	                    	

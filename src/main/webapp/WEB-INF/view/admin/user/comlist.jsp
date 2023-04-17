@@ -13,7 +13,6 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'>
 <title>기업회원목록</title>
 <script>
-	
 	function listCompanys() {
 		$('input').not(':button').val('')
 		$('#companys').empty();

@@ -52,7 +52,7 @@
 	                        	<td><input type='radio' value='\${employee.employeeNo}' id='employeeNo' name='employee'></td>
 	                            <td>\${employee.empName}</td>
 	                            <td>\${employee.empPh}</td>
-	                            <td>\${employee.empPosition}</td>
+	                            <td>\${employee.empPosition ? employee.empPosition : ''}</td>
     							<td>\${employee.empAddr}</td>
     							<td>\${employee.empEmail}</td>
     							<td>\${employee.hireDate}</td>
@@ -148,6 +148,11 @@
 		height: auto; 
 		margin: 0 auto;
 		display: block;
+	}
+	
+	.table tbody tr:hover {
+		background-color: #EBF3FA;
+		cursor: pointer;
 	}
 </style>
 </head>
