@@ -195,7 +195,6 @@ public class UserController {
 	@PostMapping("admin/user/addcom/add")
 	public ResponseEntity<String> addCompany(@RequestBody Company company) {
 	    userService.addCompany(company);
-	    System.out.println(company);
 	    return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
@@ -280,7 +279,6 @@ public class UserController {
 	@PostMapping("admin/user/addemp/add")
 	public ResponseEntity<String> addEmployee(@RequestBody Employee employee){
 		userService.addEmployee(employee);
-		System.out.println(employee);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
