@@ -24,10 +24,10 @@
 	
 	 const regex = {
 			 empName: /^[가-힣]+$/,
-			 empId: /^[a-zA-Z0-9]{1,15}$/,
+			 empId: /^[a-zA-Z0-9]{6,15}$/,
 			 empPw: /^[a-zA-Z0-9!@#$%^&*()?_~]{6,15}$/,
 			 empPino: /^[0-9]{13}$/,
-			 inputEmail: /^[a-zA-Z0-9._%+-]+$/,
+			 inputEmail: /^[a-zA-Z0-9]+$/,
 			 subEmail: /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
 			 empPh: /^[0-9]{7,12}$/,
 	}
@@ -51,7 +51,7 @@
 	let checkIdVal
 	
 	$(() => {
-	    input_form_comheader()
+	    input_form_header()
 	    listEmployee()
 	    
 	     $('.form_box').off('click').on('click', '#fixEmpBtn', function() {
@@ -73,20 +73,24 @@
 			const hireDate = $('#hireDate')
 			const profileName = $('#profileName')						
 			
-	        const isEmpId = isVal(empId, $('#idErrMsg'), 'ID를 입력하세요.',regex.empId)
+	        const isEmpId = isVal(empId, $('#idErrMsg'), 'ID를 입력하세요.')
 	        const isEmpPw = isVal(empPw, $('#pwErrMsg'), '비밀번호를 입력하세요.',regex.empPw)
 	        const isEmpPwCheck = isVal(empPwCheck, $('#pwCheckErrMsg'), '비밀번호 확인을 입력하세요.')
 	        const isEmpName = isVal(empName, $('#nameCheckErrMsg'), '이름을 입력하세요.', regex.empName)
 	        const isEmpPino = isVal(empPino, $('#empPinoCheckErrMsg'), '주민번호를 입력하세요.',regex.empPino)
 	        const isEmpAddr = isVal(empAddr, $('#addrErrMsg'), '주소를 입력하세요.')
-	        const isEmpEmail = isVal(inputEmail, $('#emailErrMsg'), '이메일을 입력하세요.', regex.inputEmail);
+	        const isInputEmail = isVal(inputEmail, $('#emailErrMsg'), '이메일을 입력하세요.', regex.inputEmail);
 			const isSubEmail = isVal(subEmail, $('#emailErrMsg'), '이메일을 입력하세요.', regex.subEmail);
 	        const isEmpPh = isVal(empPh, $('#empPhErrMsg'), '전화번호를 입력하세요.', regex.empPh)
 	        const isHireDate = isVal(hireDate,$('#hireDateErrMsg'),'입사일을 입력하세요')
 	        
 	        if (isEmpId && isEmpPw && isHireDate && isEmpPwCheck && isEmpName && isEmpPino && isEmpAddr && isInputEmail && isSubEmail && isEmpPh) {
-	        	const strProfileName = profileName.val().split('fakepath\\');
-                const profile = strProfileName[1];
+	        	let profile = ""
+	        		        		        	
+	        	if(profileName.val().length > 1) {
+					const strProfileName = profileName.val().split('fakepath\\')
+	                profile = strProfileName[1]
+				}
 	        	
 	        	let employee = {
 	            	employeeNo: employeeNo,
