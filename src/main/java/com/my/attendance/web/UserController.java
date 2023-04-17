@@ -122,7 +122,6 @@ public class UserController {
 		Admin adm = userService.admLoginCheck(adminId, adminPw);
 		if(adm != null) {
 			session.setAttribute("adminId", adm.getAdminId());
-			session.setAttribute("adminPw", adm.getAdminPw());
 			result = "admin";
 		} else {
 			result = "";
@@ -133,7 +132,7 @@ public class UserController {
 	
 	@GetMapping(value = {"logoutAdmin", "*/logoutAdmin"})
 	public String admLogout(HttpSession session) {
-		session.invalidate();
+		session.setAttribute("adminId", null);
 		return "redirect:/admin";
 	}
 	
@@ -155,7 +154,7 @@ public class UserController {
 	
 	@GetMapping(value = {"logoutCom", "*/logoutCom", "*/*/logoutCom"})
 	public String comLogout(HttpSession session) {
-		session.invalidate();
+		session.setAttribute("comId", null);
 		return "redirect:/company";
 	}
 	
@@ -211,6 +210,7 @@ public class UserController {
 	}
 	
 	//employee--------------------------------
+	@ResponseBody
 	@GetMapping("user/loginEmp")
 	public String getLoginEmployee(String employeeId, String employeePw, HttpSession session) {
 		String result = "";
@@ -229,7 +229,10 @@ public class UserController {
 	
 	@GetMapping(value = {"logout", "*/logout"})
 	public String logout(HttpSession session) {
-		session.invalidate();
+		session.setAttribute("empNo", null);
+		session.setAttribute("empName", null);
+		session.setAttribute("hireDate", null);
+		session.setAttribute("comId", null);
 		return "redirect:/";
 	}
 	

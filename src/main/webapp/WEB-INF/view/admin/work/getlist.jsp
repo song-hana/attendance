@@ -109,7 +109,7 @@
 	                $.each(works, (i, work) => {
 	                	const startTime = new Date(work.startTime);
 	                    const endTime = new Date(work.endTime);
-
+	                    
 	                    let startHour = startTime.getHours().toString().padStart(2, '0');
 	                    const startMinute = startTime.getMinutes().toString().padStart(2, '0');
 	                    const endHour = endTime.getHours().toString().padStart(2, '0');
@@ -139,13 +139,19 @@
 	                    	plusWorkHour = 0
 	                    }
 	                    
+	                    let endTimes = endHour + ':' + endMinute
+	                      
+	                      if(work.endTime == null) {
+	                         endTimes = ''
+	                      }
+	                    
                     	workArr.push(`
                    			<tr>
    	                            <td>\${today}</td>
    	                            <td>\${work.empName}</td>
    	                            <td>\${work.empPosition}</td>
    	                            <td>\${startHour}:\${startMinute}</td>
-   	                            <td>\${endHour}:\${endMinute}</td>
+   	                            <td>\${endTimes}</td>
    	                            <td>\${workHour}h</td>
    	                            <td>\${plusWorkHour}h</td>
    	                            <td></td>

@@ -44,8 +44,6 @@
         	e.preventDefault()
         	checkEnd(workNo)
         })
-        
-        console.log(workNo)
     })
     
     function checkStart(empNo) {

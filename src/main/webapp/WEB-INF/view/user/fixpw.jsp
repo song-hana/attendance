@@ -47,6 +47,7 @@
 	                                type: 'put',
 	                                contentType: 'application/json',
 	                                success: function() {
+	                                	$('#pwErrMsg').empty()
 	                                    $('#modalMsg').text('변경 되었습니다.')
 	                                    $('#modalBtn').show()
 	                                    $('#modal').modal('show')
@@ -63,9 +64,9 @@
 	                    $('#pwErrMsg').text('비밀번호가 일치하지 않습니다.').css('color', 'red')
 	                }
 	            }
-	        });
+	        })
 		})
-
+		
 		$('#modalMsg').text('변경되었습니다.')        
         $('#myModal').modal('show')
     })

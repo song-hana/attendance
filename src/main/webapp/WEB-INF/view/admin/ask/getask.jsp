@@ -24,7 +24,6 @@
         input_footer()
         listAsk()
         mp_check()
-        console.log(session)
     })
 	
 	function listAsk() {

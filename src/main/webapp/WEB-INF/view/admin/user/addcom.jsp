@@ -138,7 +138,6 @@
 	                type: 'get',
 	                data: {companyId: companyId},
 	                success: function(result) {
-	                    console.log(result)
 	                    if (result == '1') {
 	                    	checkId = 0;
 	                    	

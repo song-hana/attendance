@@ -34,10 +34,11 @@
     		success: company => {
     			if(company.length > 0) {
     				move()
+    			} else {
+    				error()
     			}
     		}
-    	}).done(() => $('.msgBox').removeClass('show'))
-		.fail(() => error())
+    	})
     }
     
     function move() {

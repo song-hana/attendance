@@ -102,12 +102,18 @@
 	                    	plusWorkHour = 0
 	                    }
 	                    
+	                    let endTimes = endHour + ':' + endMinute
+	                      
+	                      if(work.endTime == null) {
+	                         endTimes = ''
+	                      }
+	                    
 	                    if(workNo != 0) {
 	                    	workArr.unshift(`
 	                        		<tr>
 	       	                            <td>\${workToDay}</td>
 	       	                            <td>\${startHour}:\${startMinute}</td>
-	       	                            <td>\${endHour}:\${endMinute}</td>
+	       	                            <td>\${endTimes}</td>
 	       	                            <td>\${workHour}h</td>
 	       	                            <td>\${plusWorkHour}h</td>
 	       	                            <td></td>

@@ -54,7 +54,7 @@ public class WorkController {
 		
 		if(work != null) {
 			session.setAttribute("workNo", work.getWorkNo());
-			result = work.getStartTime().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+			result = work.getStartTime().format(DateTimeFormatter.ofPattern("HH:mm"));
 		}
 		
 		return result;
@@ -71,7 +71,7 @@ public class WorkController {
 		LocalDateTime time = work.getEndTime();
 		
 		if(time != null) {
-			result = time.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+			result = time.format(DateTimeFormatter.ofPattern("HH:mm"));
 		}
 		
 		session.setAttribute("workNo", null);
