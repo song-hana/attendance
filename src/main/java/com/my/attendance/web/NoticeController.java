@@ -18,6 +18,8 @@ import com.my.attendance.domain.CompanyNotice;
 import com.my.attendance.domain.PublicNotice;
 import com.my.attendance.service.NoticeService;
 
+import jakarta.servlet.http.HttpSession;
+
 @RestController("NoticeController")
 public class NoticeController {
 @Autowired private NoticeService noticeService;
@@ -26,7 +28,7 @@ public class NoticeController {
 	@GetMapping
 	@RequestMapping("admin/notice/admntclist")
 	@AdminCheck
-	public ModelAndView getadmntclist(ModelAndView mv) {
+	public ModelAndView getadmntclist(ModelAndView mv, HttpSession session) {
 		mv.setViewName("admin/notice/admntclist");
 		return mv;
 	}
@@ -41,7 +43,7 @@ public class NoticeController {
 	@GetMapping
 	@RequestMapping("admin/notice/addntc")
 	@AdminCheck
-	public ModelAndView addPublicNotice(ModelAndView mv) {
+	public ModelAndView addPublicNotice(ModelAndView mv, HttpSession session) {
 		mv.setViewName("admin/notice/addntc");
 		return mv;
 	}
@@ -55,7 +57,7 @@ public class NoticeController {
 	@GetMapping
 	@RequestMapping("admin/notice/admgetntc")
 	@AdminCheck
-	public ModelAndView getadmgetntc(ModelAndView mv) {
+	public ModelAndView getadmgetntc(ModelAndView mv, HttpSession session) {
 		mv.setViewName("admin/notice/admgetntc");
 		return mv;
 	}
@@ -70,7 +72,7 @@ public class NoticeController {
 	@GetMapping
 	@RequestMapping("admin/notice/fixntc")
 	@AdminCheck
-	public ModelAndView fixPublicNotice(ModelAndView mv) {
+	public ModelAndView fixPublicNotice(ModelAndView mv, HttpSession session) {
 		mv.setViewName("admin/notice/fixntc");
 		return mv;
 	}
@@ -90,7 +92,7 @@ public class NoticeController {
 	//company 전체 공지사항 목록
 	@GetMapping
 	@RequestMapping("admin/notice/ntclist")
-	public ModelAndView getntclist(ModelAndView mv) {
+	public ModelAndView getntclist(ModelAndView mv, HttpSession session) {
 		mv.setViewName("admin/notice/ntclist");
 		return mv;
 	}
@@ -125,7 +127,7 @@ public class NoticeController {
 	@GetMapping
 	@RequestMapping("admin/notice/comntclist")
 	@CompanyCheck
-	public ModelAndView getcomntclist(ModelAndView mv) {
+	public ModelAndView getcomntclist(ModelAndView mv, HttpSession session) {
 		mv.setViewName("admin/notice/comntclist");
 		return mv;
 	}
@@ -140,7 +142,7 @@ public class NoticeController {
 	@GetMapping
 	@RequestMapping("admin/notice/addcomntc")
 	@CompanyCheck
-	public ModelAndView addCompanyNotice(ModelAndView mv) {
+	public ModelAndView addCompanyNotice(ModelAndView mv, HttpSession session) {
 		mv.setViewName("admin/notice/addcomntc");
 		return mv;
 	}
@@ -154,7 +156,7 @@ public class NoticeController {
 	@GetMapping
 	@RequestMapping("admin/notice/getcomntc")
 	@CompanyCheck
-	public ModelAndView getCompanyNotice(ModelAndView mv) {
+	public ModelAndView getCompanyNotice(ModelAndView mv, HttpSession session) {
 		mv.setViewName("admin/notice/getcomntc");
 		return mv;
 	}
@@ -169,7 +171,7 @@ public class NoticeController {
 	@GetMapping
 	@RequestMapping("admin/notice/fixcomntc")
 	@CompanyCheck
-	public ModelAndView fixCompanyNotice(ModelAndView mv) {
+	public ModelAndView fixCompanyNotice(ModelAndView mv, HttpSession session) {
 		mv.setViewName("admin/notice/fixcomntc");
 		return mv;
 	}
@@ -190,7 +192,7 @@ public class NoticeController {
 	@GetMapping
 	@RequestMapping("notice/comntclist")
 	@EmployeeCheck
-	public ModelAndView usergetcomntclist(ModelAndView mv) {
+	public ModelAndView usergetcomntclist(ModelAndView mv, HttpSession session) {
 		mv.setViewName("notice/comntclist");
 		return mv;
 	}
@@ -199,7 +201,7 @@ public class NoticeController {
 	@GetMapping
 	@RequestMapping("notice/getcomntc")
 	@EmployeeCheck
-	public ModelAndView usergetcomntc(ModelAndView mv) {
+	public ModelAndView usergetcomntc(ModelAndView mv, HttpSession session) {
 		mv.setViewName("notice/getcomntc");
 		return mv;
 	}

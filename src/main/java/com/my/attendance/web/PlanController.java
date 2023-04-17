@@ -22,6 +22,8 @@ import com.my.attendance.domain.Holiday;
 import com.my.attendance.domain.Plan;
 import com.my.attendance.service.PlanService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller("planController")
 public class PlanController {
 	@Autowired private PlanService planService;
@@ -29,7 +31,7 @@ public class PlanController {
 	@GetMapping
 	@RequestMapping("admin/plan/planlist")
 	@CompanyCheck
-	public ModelAndView planlist(ModelAndView mv) {
+	public ModelAndView planlist(ModelAndView mv, HttpSession session) {
 		mv.setViewName("admin/plan/planlist");
 		return mv;
 	}
@@ -37,7 +39,7 @@ public class PlanController {
 	@GetMapping
 	@RequestMapping("plan/getplan")
 	@EmployeeCheck
-	public ModelAndView getplan(ModelAndView mv) {
+	public ModelAndView getplan(ModelAndView mv, HttpSession session) {
 		mv.setViewName("plan/getplan");
 		return mv;
 	}

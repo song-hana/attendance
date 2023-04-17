@@ -19,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.my.attendance.domain.Ask;
 import com.my.attendance.service.AskService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller("askController")
 public class AskController {
 	@Autowired private AskService askService;
@@ -47,7 +49,7 @@ public class AskController {
 	@GetMapping
 	@RequestMapping("admin/ask/admasklist")
 	@AdminCheck
-	public ModelAndView admasklist(ModelAndView mv) {
+	public ModelAndView admasklist(ModelAndView mv, HttpSession session) {
 		mv.setViewName("admin/ask/admasklist");
 		return mv;
 	}
@@ -55,7 +57,7 @@ public class AskController {
 	@GetMapping
 	@RequestMapping("admin/ask/admgetask")
 	@AdminCheck
-	public ModelAndView admgetask(ModelAndView mv) {
+	public ModelAndView admgetask(ModelAndView mv, HttpSession session) {
 		mv.setViewName("admin/ask/admgetask");
 		return mv;
 	}

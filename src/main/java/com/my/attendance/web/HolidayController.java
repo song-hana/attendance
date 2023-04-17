@@ -23,6 +23,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.my.attendance.domain.Holiday;
 import com.my.attendance.service.HolidayService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller("holidayController")
 public class HolidayController {
 	@Autowired private HolidayService holidayService;
@@ -30,7 +32,7 @@ public class HolidayController {
 	@GetMapping
 	@RequestMapping("admin/holiday/holidaylist")
 	@CompanyCheck
-	public ModelAndView holidaylist(ModelAndView mv) {
+	public ModelAndView holidaylist(ModelAndView mv, HttpSession session) {
 		mv.setViewName("admin/holiday/holidaylist");
 		return mv;
 	}
@@ -38,7 +40,7 @@ public class HolidayController {
 	@GetMapping
 	@RequestMapping("holiday/getholiday")
 	@EmployeeCheck
-	public ModelAndView getholiday(ModelAndView mv) {
+	public ModelAndView getholiday(ModelAndView mv, HttpSession session) {
 		mv.setViewName("holiday/getholiday");
 		return mv;
 	}

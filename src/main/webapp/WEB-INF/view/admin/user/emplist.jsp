@@ -71,7 +71,7 @@
 	function fixMove() {
 		  const employeeNo = $('#employeeNo:checked').val();
 		  
-		  if(employeeNo > 1) {
+		  if(employeeNo > 0) {
 			  location.href = 'fixemp?employeeNo=' + employeeNo;  
 		  } else {
 			  $('#modalMsg').empty()

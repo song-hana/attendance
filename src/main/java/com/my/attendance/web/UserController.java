@@ -28,7 +28,7 @@ public class UserController {
 	@GetMapping
 	@RequestMapping("admin/user/comlist")
 	@AdminCheck
-	public ModelAndView listCompany(ModelAndView mv) {
+	public ModelAndView listCompany(ModelAndView mv, HttpSession session) {
 		mv.setViewName("admin/user/comlist");
 		return mv;
 	}
@@ -36,7 +36,7 @@ public class UserController {
 	@GetMapping
 	@RequestMapping("admin/user/getcom")
 	@AdminCheck
-	public ModelAndView Companyget(ModelAndView mv) {
+	public ModelAndView Companyget(ModelAndView mv, HttpSession session) {
 		mv.setViewName("admin/user/getcom");
 		return mv;
 	}
@@ -65,35 +65,41 @@ public class UserController {
 	@GetMapping
 	@RequestMapping("admin/user/getinfo")
 	@CompanyCheck
-	public ModelAndView getCompany(ModelAndView mv) {
+	public ModelAndView getCompany(ModelAndView mv, HttpSession session) {
 		mv.setViewName("admin/user/getinfo");
 		return mv;
 	}
 	
+	@GetMapping
 	@RequestMapping("admin/user/fixinfo")
 	@CompanyCheck
-	public String fixCompany() {
-		return "admin/user/fixinfo";
+	public ModelAndView fixCompany(ModelAndView mv, HttpSession session) {
+		mv.setViewName("admin/user/fixinfo");
+		return mv;
 	}
 	
 	@GetMapping
 	@RequestMapping("admin/user/emplist")
 	@CompanyCheck
-	public ModelAndView listEmployee(ModelAndView mv) {
+	public ModelAndView listEmployee(ModelAndView mv, HttpSession session) {
 		mv.setViewName("admin/user/emplist");
 		return mv;
 	}
 	
+	@GetMapping
 	@RequestMapping("admin/user/addemp")
 	@CompanyCheck
-	public String addemp() {
-		return "admin/user/addemp";
+	public ModelAndView addemp(ModelAndView mv, HttpSession session) {
+		mv.setViewName("admin/user/addemp");
+		return mv;
 	}
 	
+	@GetMapping
 	@RequestMapping("admin/user/fixemp")
 	@CompanyCheck
-	public String fixEmployee() {
-		return "admin/user/fixemp";
+	public ModelAndView fixEmployee(ModelAndView mv, HttpSession session) {
+		mv.setViewName("admin/user/fixemp");
+		return mv;
 	}
 	
 	//employee ------------------------------
@@ -115,7 +121,7 @@ public class UserController {
 	@GetMapping
 	@RequestMapping("user/fixpw")
 	@EmployeeCheck
-	public ModelAndView fixPw(ModelAndView mv) {
+	public ModelAndView fixPw(ModelAndView mv, HttpSession session) {
 		mv.setViewName("user/fixpw");
 		return mv;				
 	}

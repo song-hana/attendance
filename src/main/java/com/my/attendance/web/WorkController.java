@@ -24,23 +24,26 @@ import jakarta.servlet.http.HttpSession;
 public class WorkController {
 	@Autowired WorkService workService;
 	
+	@GetMapping
 	@RequestMapping("work/record")
 	@EmployeeCheck
-	public String recordTime() {
-		return "work/record";
+	public ModelAndView recordTime(ModelAndView mv, HttpSession session) {
+		mv.setViewName("work/record");
+		return mv;
 	}
 
 	@GetMapping
 	@RequestMapping("admin/work/getlist")
-	@EmployeeCheck
-	public ModelAndView getlist(ModelAndView mv) {
+	@CompanyCheck
+	public ModelAndView getlist(ModelAndView mv, HttpSession session) {
 		mv.setViewName("admin/work/getlist");
 		return mv;
 	}
 	
 	@GetMapping
 	@RequestMapping("work/getlist")
-	public ModelAndView getholiday(ModelAndView mv) {
+	@EmployeeCheck
+	public ModelAndView getholiday(ModelAndView mv, HttpSession session) {
 		mv.setViewName("work/getlist");
 		return mv;
 	}
