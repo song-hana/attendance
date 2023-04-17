@@ -14,6 +14,7 @@
 <title>user 사내 공지사항 조회</title>
 <script>
 	let companyId = "${sessionScope.comId}"
+	let session = ${sessionScope.empNo}
 
 	const urlParams = new URLSearchParams(window.location.search);
 	const companyNoticeNo = urlParams.get('companyNoticeNo');
@@ -23,11 +24,17 @@
         btn_click()
         show_logout()     
         getCompanyNotice()
-                
-		if(companyId != "${sessionScope.comId}") {
-			location.href='/user/login'
+        
+        mp_check()
+	})
+	
+	function mp_check() {
+		if(session > 0) {
+			show_logout()
+		} else {
+			show_login()
 		}
-    })
+	}
     
     function getCompanyNotice() {
     	$.ajax({

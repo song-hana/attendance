@@ -25,6 +25,7 @@ public class NoticeController {
 	//admin 전체 공지사항 목록
 	@GetMapping
 	@RequestMapping("admin/notice/admntclist")
+	@AdminCheck
 	public ModelAndView getadmntclist(ModelAndView mv) {
 		mv.setViewName("admin/notice/admntclist");
 		return mv;
@@ -39,6 +40,7 @@ public class NoticeController {
 	//admin 전체 공지사항 추가
 	@GetMapping
 	@RequestMapping("admin/notice/addntc")
+	@AdminCheck
 	public ModelAndView addPublicNotice(ModelAndView mv) {
 		mv.setViewName("admin/notice/addntc");
 		return mv;
@@ -52,6 +54,7 @@ public class NoticeController {
 	//admin 전체 공지사항 상세 조회
 	@GetMapping
 	@RequestMapping("admin/notice/admgetntc")
+	@AdminCheck
 	public ModelAndView getadmgetntc(ModelAndView mv) {
 		mv.setViewName("admin/notice/admgetntc");
 		return mv;
@@ -66,6 +69,7 @@ public class NoticeController {
 	//admin 전체 공지사항 수정
 	@GetMapping
 	@RequestMapping("admin/notice/fixntc")
+	@AdminCheck
 	public ModelAndView fixPublicNotice(ModelAndView mv) {
 		mv.setViewName("admin/notice/fixntc");
 		return mv;
@@ -120,6 +124,7 @@ public class NoticeController {
 	//Company 사내 공지사항 목록
 	@GetMapping
 	@RequestMapping("admin/notice/comntclist")
+	@CompanyCheck
 	public ModelAndView getcomntclist(ModelAndView mv) {
 		mv.setViewName("admin/notice/comntclist");
 		return mv;
@@ -134,6 +139,7 @@ public class NoticeController {
 	//Company 사내 공지사항 추가
 	@GetMapping
 	@RequestMapping("admin/notice/addcomntc")
+	@CompanyCheck
 	public ModelAndView addCompanyNotice(ModelAndView mv) {
 		mv.setViewName("admin/notice/addcomntc");
 		return mv;
@@ -147,6 +153,7 @@ public class NoticeController {
 	//Company 사내 공지사항 상세 조회
 	@GetMapping
 	@RequestMapping("admin/notice/getcomntc")
+	@CompanyCheck
 	public ModelAndView getCompanyNotice(ModelAndView mv) {
 		mv.setViewName("admin/notice/getcomntc");
 		return mv;
@@ -161,6 +168,7 @@ public class NoticeController {
 	//company 사내 공지사항 수정
 	@GetMapping
 	@RequestMapping("admin/notice/fixcomntc")
+	@CompanyCheck
 	public ModelAndView fixCompanyNotice(ModelAndView mv) {
 		mv.setViewName("admin/notice/fixcomntc");
 		return mv;
@@ -181,6 +189,7 @@ public class NoticeController {
 	//user 사내 공지사항 목록
 	@GetMapping
 	@RequestMapping("notice/comntclist")
+	@EmployeeCheck
 	public ModelAndView usergetcomntclist(ModelAndView mv) {
 		mv.setViewName("notice/comntclist");
 		return mv;
@@ -189,6 +198,7 @@ public class NoticeController {
 	//user 사내 공지사항 상세 조회
 	@GetMapping
 	@RequestMapping("notice/getcomntc")
+	@EmployeeCheck
 	public ModelAndView usergetcomntc(ModelAndView mv) {
 		mv.setViewName("notice/getcomntc");
 		return mv;

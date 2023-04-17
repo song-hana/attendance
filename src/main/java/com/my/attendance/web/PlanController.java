@@ -28,6 +28,7 @@ public class PlanController {
 	
 	@GetMapping
 	@RequestMapping("admin/plan/planlist")
+	@CompanyCheck
 	public ModelAndView planlist(ModelAndView mv) {
 		mv.setViewName("admin/plan/planlist");
 		return mv;
@@ -35,6 +36,7 @@ public class PlanController {
 	
 	@GetMapping
 	@RequestMapping("plan/getplan")
+	@EmployeeCheck
 	public ModelAndView getplan(ModelAndView mv) {
 		mv.setViewName("plan/getplan");
 		return mv;

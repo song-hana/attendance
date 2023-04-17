@@ -24,7 +24,7 @@
 	
 	 const regex = {
 			 empName: /^[가-힣]+$/,
-			 empId: /^[a-zA-Z0-9]{6,15}$/,
+			 empId: /^[a-zA-Z0-9]{1,15}$/,
 			 empPw: /^[a-zA-Z0-9!@#$%^&*()?_~]{6,15}$/,
 			 empPino: /^[0-9]{13}$/,
 			 inputEmail: /^[a-zA-Z0-9._%+-]+$/,

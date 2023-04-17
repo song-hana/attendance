@@ -19,7 +19,7 @@
 	}
 	const regex = {
 			 comName: /^[가-힣a-zA-Z0-9]+$/,
-			 companyId: /^[a-zA-Z0-9]{6,15}$/,
+			 companyId: /^[a-zA-Z0-9]{1,15}$/,
 			 comPw: /^[가-힣a-zA-Z0-9!@#$%^&*()?_~]{6,15}$/,
 			 comRegno: /^[0-9]{10}$/,
 			 inputEmail: /^[a-zA-Z0-9._%+-]+$/,

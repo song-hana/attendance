@@ -15,12 +15,19 @@
 <script>	
 	const urlParams = new URLSearchParams(window.location.search);
 	const publicNoticeNo = urlParams.get('publicNoticeNo');
+	let companyId = "${sessionScope.comId}"
 	
     $(() => {
         input_company_header()
         input_footer()
         btn_click()        
         PublicNoticeDetail()
+        
+        if(companyId != '') {
+            show_logout()
+        } else {
+        	show_login()
+        }
     })
     
 	function PublicNoticeDetail() {

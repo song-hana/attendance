@@ -13,12 +13,24 @@
 <link rel='stylesheet' href='<c:url value="/res/common.css"/>'/>
 <title>user 전체 공지사항 목록</title>
 <script>
+	let session = ${sessionScope.empNo}
+	
 	$(() => {
 	    input_user_header()
 	    btn_click()
 	    show_logout()       
 	    listPublicNotices()
+	    
+		mp_check()
 	})
+	
+	function mp_check() {
+		if(session > 0) {
+			show_logout()
+		} else {
+			show_login()
+		}
+	}
 
 	function listPublicNotices() {
 		$('#publicNoticeList').empty();
@@ -29,11 +41,12 @@
 			success :publicNoticeList => {
 				if(publicNoticeList.length) {
 					const publicNoticeArr = [];
+					let noticeNumber = 1
 					
 					$.each(publicNoticeList, (i, publicNotice) => {
 						publicNoticeArr.unshift(
 							`<tr onclick="window.location.href='getntc?publicNoticeNo=\${publicNotice.publicNoticeNo}'">
-								<td>\${publicNotice.publicNoticeNo}</td>
+								<td>\${noticeNumber++}</td>
 								<td>\${publicNotice.pubntcTitle}</td>
 								<td>\${publicNotice.pubntcDate}</td>
 	    					</tr>`

@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 public class ManagementController {
 	@RequestMapping("admin/management/logo")
+	@AdminCheck
 	public String logoAdmin() {
 		return "admin/management/logo";
 	}

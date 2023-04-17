@@ -25,12 +25,14 @@ public class WorkController {
 	@Autowired WorkService workService;
 	
 	@RequestMapping("work/record")
+	@EmployeeCheck
 	public String recordTime() {
 		return "work/record";
 	}
 
 	@GetMapping
 	@RequestMapping("admin/work/getlist")
+	@EmployeeCheck
 	public ModelAndView getlist(ModelAndView mv) {
 		mv.setViewName("admin/work/getlist");
 		return mv;

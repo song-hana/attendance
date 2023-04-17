@@ -38,11 +38,12 @@
 			success :publicNoticeList => {
 				if(publicNoticeList.length) {
 					const publicNoticeArr = [];
+					let noticeNumber = 1
 					
 					$.each(publicNoticeList, (i, publicNotice) => {
 						publicNoticeArr.unshift(
 							`<tr onclick="window.location.href='getntc?publicNoticeNo=\${publicNotice.publicNoticeNo}'">
-								<td>\${publicNotice.publicNoticeNo}</td>
+								<td>\${noticeNumber++}</td>
 								<td>\${publicNotice.pubntcTitle}</td>
 								<td>\${publicNotice.pubntcDate}</td>
 	    					</tr>`

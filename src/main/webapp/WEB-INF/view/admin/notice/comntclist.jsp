@@ -40,11 +40,12 @@
 			success: companyNoticeList => {
 				if(companyNoticeList.length) {
 					const companyNoticeArr = [];
+					let noticeNumber = 1
 					
 					$.each(companyNoticeList, (i,companyNotice) => {
 						companyNoticeArr.unshift(
 							`<tr onclick="window.location.href='../notice/getcomntc?companyNoticeNo=\${companyNotice.companyNoticeNo}'">
-								<td>\${companyNotice.companyNoticeNo}</td>
+								<td>\${noticeNumber++}</td>
 								<td>\${companyNotice.comntcTitle}</td>
 								<td>\${companyNotice.comntcDate}</td>
 							</tr>`

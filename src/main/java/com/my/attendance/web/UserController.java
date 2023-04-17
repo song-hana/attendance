@@ -27,20 +27,15 @@ import jakarta.servlet.http.HttpSession;
 public class UserController {
 	@GetMapping
 	@RequestMapping("admin/user/comlist")
+	@AdminCheck
 	public ModelAndView listCompany(ModelAndView mv) {
 		mv.setViewName("admin/user/comlist");
 		return mv;
 	}
 	
 	@GetMapping
-	@RequestMapping("admin/user/getinfo")
-	public ModelAndView getCompany(ModelAndView mv) {
-		mv.setViewName("admin/user/getinfo");
-		return mv;
-	}
-	
-	@GetMapping
 	@RequestMapping("admin/user/getcom")
+	@AdminCheck
 	public ModelAndView Companyget(ModelAndView mv) {
 		mv.setViewName("admin/user/getcom");
 		return mv;
@@ -67,16 +62,38 @@ public class UserController {
 		return "admin/user/addcom";
 	}
 	
+	@GetMapping
+	@RequestMapping("admin/user/getinfo")
+	@CompanyCheck
+	public ModelAndView getCompany(ModelAndView mv) {
+		mv.setViewName("admin/user/getinfo");
+		return mv;
+	}
+	
 	@RequestMapping("admin/user/fixinfo")
+	@CompanyCheck
 	public String fixCompany() {
 		return "admin/user/fixinfo";
 	}
 	
 	@GetMapping
 	@RequestMapping("admin/user/emplist")
+	@CompanyCheck
 	public ModelAndView listEmployee(ModelAndView mv) {
 		mv.setViewName("admin/user/emplist");
 		return mv;
+	}
+	
+	@RequestMapping("admin/user/addemp")
+	@CompanyCheck
+	public String addemp() {
+		return "admin/user/addemp";
+	}
+	
+	@RequestMapping("admin/user/fixemp")
+	@CompanyCheck
+	public String fixEmployee() {
+		return "admin/user/fixemp";
 	}
 	
 	//employee ------------------------------
@@ -97,19 +114,10 @@ public class UserController {
 	
 	@GetMapping
 	@RequestMapping("user/fixpw")
+	@EmployeeCheck
 	public ModelAndView fixPw(ModelAndView mv) {
 		mv.setViewName("user/fixpw");
 		return mv;				
-	}
-	
-	@RequestMapping("admin/user/addemp")
-	public String addemp() {
-		return "admin/user/addemp";
-	}
-	
-	@RequestMapping("admin/user/fixemp")
-	public String fixEmployee() {
-		return "admin/user/fixemp";
 	}
 	
 	@Autowired private UserService userService;

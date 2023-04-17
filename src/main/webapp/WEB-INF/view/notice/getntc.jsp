@@ -15,13 +15,24 @@
 <script>
 	const urlParams = new URLSearchParams(window.location.search);
 	const publicNoticeNo = urlParams.get('publicNoticeNo');
+	let session = ${sessionScope.empNo}
 	
     $(() => {
         input_user_header()
         btn_click()
         show_logout()        
         publicNoticeDetail()
-    })
+
+		mp_check()
+	})
+	
+	function mp_check() {
+		if(session > 0) {
+			show_logout()
+		} else {
+			show_login()
+		}
+	}
 	
 	function publicNoticeDetail() {
 		$.ajax({

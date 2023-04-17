@@ -46,6 +46,7 @@ public class AskController {
 	
 	@GetMapping
 	@RequestMapping("admin/ask/admasklist")
+	@AdminCheck
 	public ModelAndView admasklist(ModelAndView mv) {
 		mv.setViewName("admin/ask/admasklist");
 		return mv;
@@ -53,6 +54,7 @@ public class AskController {
 	
 	@GetMapping
 	@RequestMapping("admin/ask/admgetask")
+	@AdminCheck
 	public ModelAndView admgetask(ModelAndView mv) {
 		mv.setViewName("admin/ask/admgetask");
 		return mv;

@@ -29,6 +29,7 @@ public class HolidayController {
 	
 	@GetMapping
 	@RequestMapping("admin/holiday/holidaylist")
+	@CompanyCheck
 	public ModelAndView holidaylist(ModelAndView mv) {
 		mv.setViewName("admin/holiday/holidaylist");
 		return mv;
@@ -36,6 +37,7 @@ public class HolidayController {
 	
 	@GetMapping
 	@RequestMapping("holiday/getholiday")
+	@EmployeeCheck
 	public ModelAndView getholiday(ModelAndView mv) {
 		mv.setViewName("holiday/getholiday");
 		return mv;

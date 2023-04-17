@@ -14,6 +14,7 @@
 <title>user 사내 공지사항 목록</title>
 <script>
 	let companyId = "${sessionScope.comId}"
+	let session = ${sessionScope.empNo}
 
     $(() => {
         input_user_header()
@@ -21,11 +22,17 @@
         show_logout()      
         listCompanyNotice() 
         
-        if(companyId != "${sessionScope.comId}") {
-			location.href='/user/login'
+        mp_check()
+	})
+	
+	function mp_check() {
+		if(session > 0) {
+			show_logout()
+		} else {
+			show_login()
 		}
-    })
-	    
+	}
+    
 	function listCompanyNotice() {
 		$('#companyNoticeList').empty();
 		
@@ -38,11 +45,12 @@
 			success: companyNoticeList => {
 				if(companyNoticeList.length){
 					const companyNoticeArr = [];
+					let noticeNumber = 1
 					
 					$.each(companyNoticeList,(i,companyNotice)=> {
 						companyNoticeArr.unshift(
 							`<tr onclick="window.location.href='getcomntc?companyNoticeNo=\${companyNotice.companyNoticeNo}'">
-								<td>\${companyNotice.companyNoticeNo}</td>
+								<td>\${noticeNumber++}</td>
 								<td>\${companyNotice.comntcTitle}</td>
 								<td>\${companyNotice.comntcDate}</td>
 							</tr>`
