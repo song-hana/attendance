@@ -191,7 +191,7 @@
             </div>
             <div class='modal-footer' id='modalBtn'>
                 <button type='button' class='btn btn-lightgray' id='modalCancelBtn' data-bs-dismiss='modal'>취소</button>
-                <button type='button' class='btn btn-blue' id='modalOKBtn'>확인</button>
+                <button type='button' class='btn btn-blue' id='modalOKBtn' data-bs-dismiss='modal'>확인</button>
             </div>
         </div>
     </div>
