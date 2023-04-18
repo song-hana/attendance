@@ -81,8 +81,12 @@ function errMsgClear() {
 	        const isHireDate = isVal(hireDate,$('#hireDateErrMsg'),'입사일을 입력하세요')
 	        
 	        if (isEmpId && isEmpPw && isHireDate && isEmpPwCheck && isEmpName && isEmpPino && isEmpAddr  && isInputEmail && isSubEmail && isEmpPh) {
-	        	const strProfileName = profileName.val().split('fakepath\\');
-                const profile = strProfileName[1];
+	        	let profile = ""
+		        	
+	        	if(profileName.val().length > 1) {
+					const strProfileName = profileName.val().split('fakepath\\')
+	                profile = strProfileName[1]
+				}
                 
 	            let employee = {
 	                empId: empId.val(),
@@ -109,14 +113,7 @@ function errMsgClear() {
 			                type: 'post',
 			                contentType: 'application/json',
 			                data: JSON.stringify(employee),
-			                success: function() {
-			                    $('#modalMsg').text('등록이 완료되었습니다.')
-			                    $('#modalBtn').hide()
-			                    $('#modal').modal('show')
-			                    setTimeout(function() {
-                            		$('form').submit()
-					            }, 300)
-			                }
+			                success: $('form').submit()
 			            });
 		                   }else{
 		                	   $('#empPinoCheckErrMsg').text('주민등록번호는 13자리로 입력하세요.').css('color', 'red')

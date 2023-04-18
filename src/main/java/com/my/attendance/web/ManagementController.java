@@ -29,7 +29,7 @@ public class ManagementController {
 	@PostMapping("admin/management/logo")
 	public String handleFileUpload(@RequestParam("file") MultipartFile file) {
 		try {
-			file.transferTo(new File(attachPath + '/'  + "logo.png"));
+			file.transferTo(new File(attachPath + "logo.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -40,7 +40,7 @@ public class ManagementController {
 	@PostMapping("admin/management/logo_m")
 	public String handleFileUpload2(@RequestParam("file") MultipartFile file) {
 		try {
-			file.transferTo(new File(attachPath + '/' + "logo_m.png"));
+			file.transferTo(new File(attachPath + "logo_m.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -51,7 +51,7 @@ public class ManagementController {
 	@PostMapping("admin/management/intro")
 	public String handleFileUpload3(@RequestParam("file") MultipartFile file) {
 		try {
-			file.transferTo(new File(attachPath + '/' + "intro_img.png"));
+			file.transferTo(new File(attachPath + "intro_img.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -62,7 +62,7 @@ public class ManagementController {
 	@PostMapping("admin/management/intro_m")
 	public String handleFileUpload4(@RequestParam("file") MultipartFile file) {
 		try {
-			file.transferTo(new File(attachPath + '/' + "intro_img_m.png"));
+			file.transferTo(new File(attachPath + "intro_img_m.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -73,7 +73,7 @@ public class ManagementController {
 	@PostMapping("admin/management/emp_img")
 	public String handleFileUpload5(@RequestParam("file") MultipartFile file) {
 		try {
-			file.transferTo(new File(attachPath + '/' + "emp_img.png"));
+			file.transferTo(new File(attachPath + "emp_img.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

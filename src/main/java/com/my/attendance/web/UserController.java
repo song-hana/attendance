@@ -324,15 +324,13 @@ public class UserController {
 	}
 	
 	@Value("${attachPath}") private String attachPath;
-
+	
 	@PostMapping("admin/user/profil")
-	public String selectProfil(@RequestParam("profil") MultipartFile file) {
+	public String selectProfil(@RequestParam("profil") MultipartFile file) throws IOException {
 		String fileName = file.getOriginalFilename();
 
-		try {
-			file.transferTo(new File(attachPath + '/' + fileName));
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (!file.isEmpty()) {
+        	file.transferTo(new File(attachPath + fileName));
 		}
 
 		return "admin/user/emplist";

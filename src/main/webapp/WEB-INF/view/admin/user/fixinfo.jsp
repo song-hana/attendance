@@ -100,11 +100,7 @@
 		                type: 'put',
 		                contentType: 'application/json',
 		                data: JSON.stringify(company),
-		                success: function() {
-		                    $('#modalMsg').text('수정완료 되었습니다.')
-		                    $('#modalBtn').show()
-		                    $('#modal').modal('show')
-		                }
+		                success: window.location.href='getinfo'
 		            });
 		            	}else{
 		            		$('#regnoErrMsg').text('사업자번호는 10자리로 입력하세요.').css('color', 'red')

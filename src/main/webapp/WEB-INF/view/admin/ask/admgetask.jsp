@@ -70,22 +70,16 @@
 		        let answer = {
 		            askNo: askNo,
 		            answerContent: answerContent
-		        };
-       	 		
-	       	 	$('#modalMsg').empty()
-	            $('#modalMsg').text('답변내용을 저장하시겠습니까?')
-	            $('#modalBtn').show()
-	            $('#modal').modal('show')
-       	 		
-	       	 	$('#modalOKBtn').off('click').on('click', function() {
-			        $.ajax({
-			            url: 'admgetask/add',
-			            type: 'put',
-			            contentType: 'application/json',
-			            data: JSON.stringify(answer),
-			            success: move()
-			        });
-	       	 	})
+		        }
+				
+	       	 	$.ajax({
+		            url: 'admgetask/add',
+		            type: 'put',
+		            contentType: 'application/json',
+		            data: JSON.stringify(answer),
+		            success: move()
+		        })
+	       	 	
        	 	} else {
 	       	 	$('#modalMsg').empty()
 	            $('#modalMsg').text('답변내용이 없습니다.')

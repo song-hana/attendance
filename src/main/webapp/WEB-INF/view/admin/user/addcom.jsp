@@ -98,14 +98,7 @@
 			                type: 'post',
 			                contentType: 'application/json',
 			                data: JSON.stringify(company),
-			                success: function() {
-			                    $('#modalMsg').text('회원가입이 완료되었습니다.')
-			                    $('#modalBtn').hide()
-			                    $('#modal').modal('show')
-			                    setTimeout(function() {
-			                        window.location.href = '/admin/user/login'
-			                    }, 2000)
-			                }
+			                success: window.location.href = '/admin/user/login'
 			            });
 		            	}else{
 		            		$('#regnoErrMsg').text('사업자번호는 10자리로 입력하세요.').css('color', 'red')

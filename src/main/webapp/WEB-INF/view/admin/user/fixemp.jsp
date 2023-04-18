@@ -118,14 +118,7 @@
 		                        type: 'put',
 		                        contentType: 'application/json',
 		                        data: JSON.stringify(employee),
-		                        success: function () {
-		                            $('#modalMsg').text('수정이 완료되었습니다.')
-		                            $('#modalBtn').hide()
-		                            $('#modal').modal('show')
-		                            setTimeout(function() {
-	                            		$('form').submit()
-						            }, 300)
-		                        }
+		                        success: $('form').submit()
 		                    });
 	                    } else {
 	                    	$('#empPinoCheckErrMsg').text('주민등록번호는 13자리로 입력하세요.').css('color', 'red')
