@@ -103,11 +103,6 @@
 	                    method: 'delete',
 	                    success: listEmployees
 	                })
-	                
-	                $('#modalMsg').empty()
-	                $('#modalMsg').text('삭제 되었습니다.')
-	                $('#modalBtn').hide()
-	                $('#modal').modal('show')
 	            })
         	}
         });
