@@ -34,6 +34,7 @@
 	
 	    return isGood
 	}
+	
 	$(function() {
 	    let today = new Date();
 	    let dateString = today.getFullYear() + "." + (today.getMonth() + 1)
@@ -130,18 +131,33 @@
             
             $('#modalOKBtn').off('click').on('click', function() {
             	if(isVal($('#fixHolidayDate'))) {
+            		let today = new Date()
+                    let selectedDate = new Date($('#fixHolidayDate').val())
             		let holiday = {
 	                    holidayNo: holidayNo,
 	                    holDate: $('#fixHolidayDate').val() 
 	                }
+            		
+            		if (selectedDate > today) {
+            			$.ajax({
+    	                    url: 'holidaylist/fix',
+    	                    type: 'put',
+    	                    contentType: 'application/json',
+    	                    data: JSON.stringify(holiday),
+    	                    success: listHolidays
+    	                })
+            		} else {
+                        setTimeout(function() {
+                        	$('#modalMsg').empty()
+                        	$('#modalMsg').text('날짜를 확인해주세요.')
+                            $('#modalBtn').hide()
+                            $('#modal').modal('show')
+                          }, 300)    
+                    }
 	                
-	                $.ajax({
-	                    url: 'holidaylist/fix',
-	                    type: 'put',
-	                    contentType: 'application/json',
-	                    data: JSON.stringify(holiday),
-	                    success: listHolidays
-	                });
+	                
+	                
+	                
             	}
             })
         });

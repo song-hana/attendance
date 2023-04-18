@@ -109,7 +109,7 @@
 	                $.each(works, (i, work) => {
 	                	const startTime = new Date(work.startTime);
 	                    const endTime = new Date(work.endTime);
-	                    
+
 	                    let startHour = startTime.getHours().toString().padStart(2, '0');
 	                    const startMinute = startTime.getMinutes().toString().padStart(2, '0');
 	                    const endHour = endTime.getHours().toString().padStart(2, '0');
@@ -139,11 +139,11 @@
 	                    	plusWorkHour = 0
 	                    }
 	                    
-	                    let endTimes = endHour + ':' + endMinute
-	                      
-	                      if(work.endTime == null) {
-	                         endTimes = ''
-	                      }
+						let endTimes = endHour + ':' + endMinute
+		                
+		                if(work.endTime == null) {
+		                	endTimes = ''
+		                }
 	                    
                     	workArr.push(`
                    			<tr>
