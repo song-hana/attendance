@@ -54,7 +54,8 @@
 	    input_form_header()
 	    listEmployee()
 	    
-	     $('.form_box').off('click').on('click', '#fixEmpBtn', function() {
+	     $('.form_box').on('click', '#fixEmpBtn', function() {
+    	 	event.preventDefault()
       		errMsgClear()
       		
       		const empId = $('#empId')
@@ -113,7 +114,7 @@
 	                if (6 <=  empPw.val().length && empPw.val().length <= 15) {
 	                    if(empPino.val().length == 13) {
 		                	$.ajax({
-		                        url: 'fixemp/fix',
+		                        url: '/admin/user/fixemp/fix',
 		                        type: 'put',
 		                        contentType: 'application/json',
 		                        data: JSON.stringify(employee),
@@ -121,9 +122,9 @@
 		                            $('#modalMsg').text('수정이 완료되었습니다.')
 		                            $('#modalBtn').hide()
 		                            $('#modal').modal('show')
-		                          	setTimeout(function () {
-		                            	window.location.href = 'emplist'
-		                          	}, 2000)
+		                            setTimeout(function() {
+	                            		$('form').submit()
+						            }, 300)
 		                        }
 		                    });
 	                    } else {
@@ -270,7 +271,7 @@
     <div class='row title'></div>
     <div class='row p-5'>
         <div class='col'>
-              <form class='form_box'>
+              <form class='form_box' action='profil' method='post' enctype="multipart/form-data">
                 <label for='userName'>이름</label>
                     <input type='text' class='form-control' id='empName'>
                 <span id='nameCheckErrMsg'></span><br>
@@ -335,7 +336,7 @@
                 <label for='empPosition'>직급</label>
                   <input type='text' class='form-control' id='empPosition'>                 
                 <br>
-                <button type='button' id='fixEmpBtn' class='btn btn-blue text-center'>직 원 수 정</button><br>
+                <button type='submit' id='fixEmpBtn' class='btn btn-blue text-center'>직 원 수 정</button><br>
             </form>
         </div>
         <div class='navigation'></div>

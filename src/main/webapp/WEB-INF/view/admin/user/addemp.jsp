@@ -50,6 +50,7 @@ function errMsgClear() {
 	$(() => {
 	    input_form_header()
 	     $('.form_box').off('click').on('click', '#addEmpBtn', function() {
+	    	event.preventDefault()
       		errMsgClear()
       		
       		const empId = $('#empId')
@@ -95,7 +96,7 @@ function errMsgClear() {
 	                hireDate:hireDate.val(),
 	                empPosition: empPosition.val(),
 	                empPino: empPino.val(),
-	                profileName:profileName.val(),
+	                profileName: profile,
 	                companyId: companyId
 	            }
 	            
@@ -113,8 +114,8 @@ function errMsgClear() {
 			                    $('#modalBtn').hide()
 			                    $('#modal').modal('show')
 			                    setTimeout(function() {
-			                        window.location.href = '/admin/user/emplist'
-			                    }, 2000)
+                            		$('form').submit()
+					            }, 300)
 			                }
 			            });
 		                   }else{
@@ -262,7 +263,7 @@ function errMsgClear() {
     <div class='row title'></div>
     <div class='row p-5'>
         <div class='col'>
-              <form class='form_box'>
+              <form class='form_box' action='profil' method='post' enctype="multipart/form-data">
                 <label for='userName'>이름</label>
                     <input type='text' class='form-control' id='empName'>
                 <span id='nameCheckErrMsg'></span><br>
@@ -328,7 +329,7 @@ function errMsgClear() {
                 <label for='empPosition'>직급</label>
                   <input type='text' class='form-control' id='empPosition'>                
                 <br>
-                <button type='button' id='addEmpBtn' class='btn btn-blue text-center'>직 원 등 록</button><br>
+                <button type='submit' id='addEmpBtn' class='btn btn-blue text-center'>직 원 등 록</button><br>
             </form>
         </div>
         <div class='navigation'></div>

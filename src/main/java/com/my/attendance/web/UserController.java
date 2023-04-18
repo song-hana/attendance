@@ -1,8 +1,11 @@
 package com.my.attendance.web;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,7 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.my.attendance.domain.Admin;
@@ -274,7 +279,6 @@ public class UserController {
 		userService.fixEmployeePw(employeeNo, employeePw);
 		 return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
 
 	@PostMapping("admin/user/addemp/add")
 	public ResponseEntity<String> addEmployee(@RequestBody Employee employee){
@@ -288,7 +292,6 @@ public class UserController {
 		return userService.checkEmployee(empId);
 	}	
 		    	    		
-	
 	@PutMapping("admin/user/fixemp/fix")
 	public ResponseEntity<String> fixEmployee(@RequestBody Employee employee){
 		userService.fixEmployee(employee);
@@ -320,4 +323,18 @@ public class UserController {
 		return userService.getEmployeeInfo(employeeNo);
 	}
 	
+	@Value("${attachPath}") private String attachPath;
+
+	@PostMapping("admin/user/profil")
+	public String selectProfil(@RequestParam("profil") MultipartFile file) {
+		String fileName = file.getOriginalFilename();
+
+		try {
+			file.transferTo(new File(attachPath + '/' + fileName));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return "admin/user/emplist";
+	}
 }

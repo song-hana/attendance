@@ -3,6 +3,7 @@ package com.my.attendance.web;
 import java.io.File;
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,8 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class ManagementController {
+	@Value("${attachPath}") private String attachPath;
+	
 	@GetMapping
 	@RequestMapping("admin/management/logo")
 	@AdminCheck
@@ -25,10 +28,8 @@ public class ManagementController {
 	   
 	@PostMapping("admin/management/logo")
 	public String handleFileUpload(@RequestParam("file") MultipartFile file) {
-		String uploadFolder = "C:/dev/attach/";
-
 		try {
-			file.transferTo(new File(uploadFolder + "logo.png"));
+			file.transferTo(new File(attachPath + '/'  + "logo.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -38,10 +39,8 @@ public class ManagementController {
 
 	@PostMapping("admin/management/logo_m")
 	public String handleFileUpload2(@RequestParam("file") MultipartFile file) {
-		String uploadFolder = "C:/dev/attach/";
-
 		try {
-			file.transferTo(new File(uploadFolder + "logo_m.png"));
+			file.transferTo(new File(attachPath + '/' + "logo_m.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -51,10 +50,8 @@ public class ManagementController {
 
 	@PostMapping("admin/management/intro")
 	public String handleFileUpload3(@RequestParam("file") MultipartFile file) {
-		String uploadFolder = "C:/dev/attach/";
-
 		try {
-			file.transferTo(new File(uploadFolder + "intro_img.png"));
+			file.transferTo(new File(attachPath + '/' + "intro_img.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -64,10 +61,8 @@ public class ManagementController {
 
 	@PostMapping("admin/management/intro_m")
 	public String handleFileUpload4(@RequestParam("file") MultipartFile file) {
-		String uploadFolder = "C:/dev/attach/";
-
 		try {
-			file.transferTo(new File(uploadFolder + "intro_img_m.png"));
+			file.transferTo(new File(attachPath + '/' + "intro_img_m.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -77,10 +72,8 @@ public class ManagementController {
 
 	@PostMapping("admin/management/emp_img")
 	public String handleFileUpload5(@RequestParam("file") MultipartFile file) {
-		String uploadFolder = "C:/dev/attach/";
-
 		try {
-			file.transferTo(new File(uploadFolder + "emp_img.png"));
+			file.transferTo(new File(attachPath + '/' + "emp_img.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

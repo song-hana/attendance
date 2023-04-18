@@ -224,7 +224,7 @@ form .btn.btn-blue {
         color: white;
         font-size: 1.3rem;
         margin-top: .85rem;
-        border: .1rem solid white;
+        /* border: .1rem solid white; */
         padding: .4rem .5rem;
     }
     
@@ -237,6 +237,11 @@ form .btn.btn-blue {
     .logo_txt {
         border: .01rem solid white;
     }
+    .logo_img {
+		height: 1.6rem;
+		margin-top: 1.25rem;
+		cursor: pointer;
+	}
 
     /* header 우측 사람아이콘 디자인 */
     .fa-user {
@@ -314,6 +319,9 @@ form .btn.btn-blue {
         border: .01rem solid gray;
         line-height: 2.5rem;
     }
+    .center_logo {
+		height: 2.5rem;
+	}
 
     /* 테이블 제목 넘치는거 자르기 */
     .table.table-ellipsis tbody td {

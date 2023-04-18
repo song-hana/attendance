@@ -124,11 +124,11 @@
                         const employee = employees[0];
                         $('#modalMsg').empty();
                         
-                        $('#modalMsg').append(`<img src='/attach/${employee.profileName ? employee.profileName : "emp_img.png"}' class='employeeImage'>`)
+                        $('#modalMsg').append(`<img src='/attach/\${employee.profileName ? employee.profileName : "emp_img.png"}' class='employeeImage'>`)
                         				.append(`<p> 이름: \${employee.empName} </p>`)
                         				.append(`<p> 전화번호: \${employee.empPh} </p>`)
                         				.append(`<p> 주민등록번호: \${employee.empPino} </p>`)
-                        				.append(`<p> 직급: \${employee.empPosition} </p>`)
+                        				.append(`<p> 직급: \${employee.empPosition ? employee.empPosition : ''} </p>`)
                         				.append(`<p> 주소: \${employee.empAddr} </p>`)
                         				.append(`<p> 상세주소: \${employee.empDetailAddr} </p>`)
                         				.append(`<p> 우편번호: \${employee.empPostcode} </p>`)
@@ -148,11 +148,6 @@
 		height: auto; 
 		margin: 0 auto;
 		display: block;
-	}
-	
-	.table tbody tr:hover {
-		background-color: #EBF3FA;
-		cursor: pointer;
 	}
 </style>
 </head>
