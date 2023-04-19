@@ -50,7 +50,7 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td style="white-space:pre;">\${publicNotice.pubntcContent}</td>
+									<td>\${publicNotice.pubntcContent.replace(/\n/g, '<br>')}</td>
 								</tr>
 							</tbody>`
 								

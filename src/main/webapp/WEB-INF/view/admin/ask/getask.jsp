@@ -47,7 +47,7 @@
 	                        </thead>
 	                        <tbody>
 	                        	<tr>
-	                        		<td>\${ask.askContent}</td>
+	                        		<td>\${ask.askContent.replace(/\n/g, '<br>')}</td>
 	                        	</tr>
 	                        </tbody>
 	                    `)

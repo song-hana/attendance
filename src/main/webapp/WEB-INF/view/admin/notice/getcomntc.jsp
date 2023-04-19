@@ -1,5 +1,6 @@
 <%@ page language='java' contentType='text/html; charset=utf-8' pageEncoding='utf-8'%>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
+<%@ taglib prefix='fn' uri='http://java.sun.com/jsp/jstl/functions' %>
 <html>
 <head>
 <meta charset='utf-8'>
@@ -66,7 +67,7 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td style="white-space:pre;">\${companyNotice.comntcContent}</td>
+									<td>\${companyNotice.comntcContent.replace(/\n/g, '<br>')}</td>
 								</tr>
 							</tbody>`
 						)

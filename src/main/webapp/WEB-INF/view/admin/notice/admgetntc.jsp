@@ -64,7 +64,7 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td>\${publicNotice.pubntcContent}</td>
+									<td>\${publicNotice.pubntcContent.replace(/\n/g, '<br>')}</td>
 								</tr>
 							</tbody>`
 						)

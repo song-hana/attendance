@@ -56,7 +56,7 @@
     						</thead>
     						<tbody>
     							<tr>
-    								<td style="white-space:pre;">\${companyNotice.comntcContent}</td>
+    								<td>\${companyNotice.comntcContent.replace(/\n/g, '<br>')}</td>
     							</tr>
     						</tbody>`
     					)
